@@ -744,5 +744,55 @@ document.getElementById('search').addEventListener('input', e => { state.search 
 load();
 setInterval(load, 10 * 60 * 1000);
 </script>
+ <!-- BOUTON D'INSTALLATION PWA -->
+<div id="install-banner" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 hidden fade-up">
+  <span class="text-sm font-semibold">📲 Installer l'application</span>
+  <button id="install-btn" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full transition">Installer</button>
+  <button id="dismiss-install" class="text-slate-400 hover:text-white ml-2">✕</button>
+</div>
+
+<script>
+  // ===== ENREGISTREMENT DU SERVICE WORKER =====
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker enregistré', reg))
+        .catch(err => console.log('Erreur Service Worker', err));
+    });
+  }
+
+  // ===== LOGIQUE D'INSTALLATION PWA =====
+  let deferredPrompt;
+  const installBanner = document.getElementById('install-banner');
+  const installBtn = document.getElementById('install-btn');
+  const dismissBtn = document.getElementById('dismiss-install');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBanner.classList.remove('hidden');
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('Utilisateur a installé la PWA');
+      }
+      deferredPrompt = null;
+      installBanner.classList.add('hidden');
+    }
+  });
+
+  dismissBtn.addEventListener('click', () => {
+    installBanner.classList.add('hidden');
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installBanner.classList.add('hidden');
+    deferredPrompt = null;
+  });
+</script>
 </body>
 </html>
