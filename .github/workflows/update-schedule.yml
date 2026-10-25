@@ -1,9 +1,9 @@
-name: Mettre à jour le programme TV (TheSportsDB)
+name: Mettre à jour le programme TV
 
 on:
   schedule:
-    - cron: '0 8,18 * * *'  # 2 fois par jour (08h00 et 18h00)
-  workflow_dispatch:        # Pour lancer manuellement
+    - cron: '0 8,18 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -14,26 +14,22 @@ jobs:
     steps:
       - name: Checkout du dépôt
         uses: actions/checkout@v4
-        
+
       - name: Configurer Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          
+
       - name: Installer les dépendances
-        run: pip install requests
-        
-      - name: Lancer le script TheSportsDB
-        env:
-          # Optionnel : tu peux ajouter cette clé dans tes secrets GitHub, 
-          # sinon le script utilisera la clé publique "3" par défaut.
-          THESPORTSDB_API_KEY: ${{ secrets.THESPORTSDB_API_KEY }}
+        run: pip install requests beautifulsoup4
+
+      - name: Lancer le script
         run: python fetch_api.py
-        
-      - name: Commit et push des modifications
+
+      - name: Commit et push
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/schedule.json
-          git commit -m "chore: mise à jour programme TV via TheSportsDB" || exit 0
+          git commit -m "chore: mise à jour programme TV" || exit 0
           git push
