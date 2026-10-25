@@ -345,20 +345,19 @@
 </main>
 
 <footer class="border-t border-slate-200 py-6 text-center text-xs text-slate-400 bg-white">
-  Données : tv-sports.fr · Mise à jour automatique via GitHub Actions · Fait avec ❤️
+  Fait avec ❤️
 </footer>
 
 <script>
 const SPORT_EMOJI = {
-  'Football':'⚽','Rugby':'🏉','Tennis':'','Cyclisme':'🚴','Basket-ball':'🏀',
-  'Formule 1':'🏎️','Handball':'','Moto':'🏍️','Multisports':'🏅'
+  'Football':'','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
 };
-const emoji = s => SPORT_EMOJI[s] || '';
+const emoji = s => SPORT_EMOJI[s] || '🏅';
 
 let DATA = null;
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
-//  Fonction pour calculer l'heure actuelle en format "YYYY-MM-DD HH:mm"
 function getCurrentDateTime() {
   const now = new Date();
   const year = now.getFullYear();
@@ -369,7 +368,6 @@ function getCurrentDateTime() {
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
-// 🕐 Convertir "2026-10-25" + "14h20" en Date JavaScript
 function parseMatchTime(dateStr, timeStr) {
   const match = timeStr.match(/(\d{1,2})h(\d{2})/);
   if (!match) return null;
@@ -379,21 +377,18 @@ function parseMatchTime(dateStr, timeStr) {
   return new Date(year, month - 1, day, hours, minutes);
 }
 
-// 🕐 Vérifier si un match est dans le passé
 function isMatchPast(match) {
   const matchDate = parseMatchTime(match.date, match.time);
   if (!matchDate) return false;
   return matchDate < new Date();
 }
 
-// 🕐 Vérifier si un match est vraiment en direct maintenant (débuté il y a moins de 4h)
 function isCurrentlyLive(match) {
   if (!match.is_live) return false;
   const matchDate = parseMatchTime(match.date, match.time);
   if (!matchDate) return false;
   const now = new Date();
   const diff = now - matchDate;
-  // Match commencé il y a moins de 4 heures (240 minutes)
   return diff >= 0 && diff <= 4 * 60 * 60 * 1000;
 }
 
@@ -436,7 +431,6 @@ function renderSelectors() {
 }
 
 function renderLive() {
-  // 🕐 Filtrer : ne montrer que les matchs vraiment en direct maintenant
   const seen = new Set();
   const live = allMatches().filter(m => 
     isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match)
@@ -474,15 +468,11 @@ function renderChannels() {
   const entries = Object.entries(DATA?.channels || {})
     .filter(([ch]) => state.channel === 'all' || ch === state.channel)
     .map(([ch, data]) => [ch, data.matches.filter(m => {
-      // 🕐 Masquer les matchs passés de la journée en cours
       if (m.date && isMatchPast(m)) return false;
-      
-      // Filtres utilisateur
       if (state.liveOnly && !isCurrentlyLive(m)) return false;
       if (state.sport !== 'all' && m.sport !== state.sport) return false;
       if (state.date !== 'all' && m.date !== state.date) return false;
       if (q && !(m.match+' '+m.competition+' '+ch+' '+m.sport).toLowerCase().includes(q)) return false;
-      
       return true;
     })])
     .filter(([ch, ms]) => ms.length)
@@ -491,7 +481,8 @@ function renderChannels() {
   for (const [channel, matches] of entries) {
     shown++;
     const logo = DATA?.channels?.[channel]?.logo || '';
-    const initials = channel.replace(/[^A-Za-zÀ-+]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+    // ✅ CORRECTION : regex avec tiret échappé à la fin
+    const initials = channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
     const logoHtml = logo
       ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${initials}</div>'">`
       : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm">${initials}</div>`;
