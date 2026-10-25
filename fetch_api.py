@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-NB_JOURS_TVSPORTS = 2
+NB_JOURS_TVSPORTS = 7  # ✅ Scraper tv-sports.fr sur 7 jours (au lieu de 2)
 NB_JOURS_TOTAL = 7
 
 URLS_TVSPORTS = [
@@ -115,7 +115,6 @@ def channels_from_rights(text):
 
 
 def scraperapi_fetch(url):
-    """Méthode directe ScraperAPI (celle qui marche dans ton test local)."""
     api_key = os.environ.get("SCRAPERAPI_KEY")
     if not api_key:
         print("  ❌ SCRAPERAPI_KEY non définie")
@@ -124,7 +123,7 @@ def scraperapi_fetch(url):
         params = {
             "api_key": api_key,
             "url": url,
-            "premium": "true",   # contourne Cloudflare
+            "premium": "true",
             "country_code": "fr",
         }
         r = requests.get("https://api.scraperapi.com/", params=params, timeout=45)
@@ -190,22 +189,25 @@ def parse_tvsports_html(html, date_iso):
 
 
 def scrape_tvsports():
+    """Scrape tv-sports.fr sur NB_JOURS_TVSPORTS jours."""
     programs = []
     today = datetime.now().strftime("%Y-%m-%d")
-    tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
-    dates = [today, tomorrow][:NB_JOURS_TVSPORTS]
     
-    for date_iso in dates:
-        print(f"  📅 Scraping tv-sports.fr pour le {date_iso}...")
-        for url in URLS_TVSPORTS:
-            html = scraperapi_fetch(url)
-            if not html:
-                continue
-            found = parse_tvsports_html(html, date_iso)
+    # On scrape les URLs une seule fois (elles contiennent plusieurs jours)
+    print(f"  📅 Scraping tv-sports.fr sur {NB_JOURS_TVSPORTS} jours...")
+    for url in URLS_TVSPORTS:
+        html = scraperapi_fetch(url)
+        if not html:
+            continue
+        # Parse pour chaque jour
+        for offset in range(NB_JOURS_TVSPORTS):
+            d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
+            found = parse_tvsports_html(html, d)
             programs += found
-            print(f"     + {len(found)} programmes depuis {url}")
-        total_jour = len([p for p in programs if p["date"] == date_iso])
-        print(f"     ✅ Total {date_iso} : {total_jour} programmes")
+        print(f"     + {len([p for p in programs if p['date'] >= today])} programmes depuis {url}")
+    
+    total = len([p for p in programs if p["date"] >= today])
+    print(f"     ✅ Total tv-sports.fr : {total} programmes")
     return programs
 
 
@@ -266,16 +268,21 @@ def main():
     print(f"🚀 Construction du programme sportif sur {NB_JOURS_TOTAL} jours...")
     print("=" * 60)
 
+    # 1. tv-sports.fr sur 7 jours via ScraperAPI
     print("\n📡 Phase 1 : tv-sports.fr (via ScraperAPI)")
     programs = scrape_tvsports()
 
-    print("\n📡 Phase 2 : TheSportsDB + droits TV français")
-    for offset in range(2, NB_JOURS_TOTAL):
+    # 2. Complément TheSportsDB pour les jours sans données
+    print("\n📡 Phase 2 : TheSportsDB (complément)")
+    for offset in range(NB_JOURS_TOTAL):
         d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
-        programs += fetch_thesportsdb(d)
+        existing = len([p for p in programs if p["date"] == d])
+        if existing < 5:  # Si moins de 5 programmes, on complète
+            print(f"  ⚠️  {d} : seulement {existing} programmes → complément TheSportsDB")
+            programs += fetch_thesportsdb(d)
 
     if not programs:
-        print("\n⚠️ Aucune donnée → programme de secours")
+        print("\n️ Aucune donnée → programme de secours")
         for offset in range(NB_JOURS_TOTAL):
             d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
             programs += [
@@ -298,10 +305,8 @@ def main():
     dates = sorted({m["date"] for ms in channels.values() for m in ms})
 
     source_parts = []
-    if any(m.get("date") in [today_iso, (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")] for ms in channels.values() for m in ms):
+    if any(m.get("date") >= today_iso for ms in channels.values() for m in ms):
         source_parts.append("tv-sports.fr")
-    if len(dates) > NB_JOURS_TVSPORTS:
-        source_parts.append("TheSportsDB")
     source = " + ".join(source_parts) if source_parts else "secours"
 
     output = {
