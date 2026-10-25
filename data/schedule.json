@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-10-25T17:57:43.716093",
+  "updated_at": "2026-10-25T18:00:26.217918",
   "source": "tv-sports.fr",
-  "total_matches": 250,
+  "total_matches": 818,
   "total_channels": 21,
   "channels": {
     "Equidia": [
@@ -86,337 +86,1145 @@
         "date": "2026-10-26"
       }
     ],
-    "beIN SPORTS MAX": [
+    "Ligue 1+": [
+      {
+        "time": "00h20",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "00h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h20",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Marseille – Le Havre",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h11",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "05h00",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "06h50",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "06h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Thionville – Caen",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h46",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Bastia – Cannes",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h45",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h46",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Angers – Lorient",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
       {
         "time": "16h55",
         "sport": "Football",
-        "competition": "",
-        "match": "Göztepe – Çorum FK",
+        "competition": "Ligue 1",
+        "match": "Rennes – Strasbourg⭐",
         "is_live": true,
         "date": "2026-10-25"
       },
       {
-        "time": "17h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "17h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "18h00",
+        "time": "16h55",
         "sport": "Football",
-        "competition": "NFL",
-        "match": "RedZone",
+        "competition": "Ligue 1",
+        "match": "Marseille – Le Havre⭐",
         "is_live": true,
         "date": "2026-10-25"
       },
       {
-        "time": "19h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "time": "16h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Auxerre – Le Mans✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Angers – Lorient✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h06",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Multiplex",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h36",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h45",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "PSG – Lyon",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h10",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Le Club",
         "is_live": false,
         "date": "2026-10-25"
       },
       {
         "time": "19h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "20h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "PSG – Lyon🔥",
+        "is_live": true,
         "date": "2026-10-25"
       },
       {
         "time": "20h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
         "is_live": false,
         "date": "2026-10-25"
       },
       {
-        "time": "21h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "time": "20h37",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "PSG – Lyon🔥",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h20",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
         "is_live": false,
         "date": "2026-10-25"
       },
       {
-        "time": "22h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "time": "22h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Marseille – Le Havre",
         "is_live": false,
         "date": "2026-10-25"
+      },
+      {
+        "time": "22h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Le Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "00h20",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "00h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h20",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Marseille – Le Havre",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "04h11",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "05h00",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "06h50",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "06h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Thionville – Caen",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h46",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Bastia – Cannes",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h45",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h46",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Angers – Lorient",
+        "is_live": false,
+        "date": "2026-10-26"
       },
       {
         "time": "16h55",
         "sport": "Football",
-        "competition": "",
-        "match": "Göztepe – Çorum FK",
+        "competition": "Ligue 1",
+        "match": "Rennes – Strasbourg⭐",
         "is_live": true,
         "date": "2026-10-26"
       },
       {
-        "time": "17h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "17h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "18h00",
+        "time": "16h55",
         "sport": "Football",
-        "competition": "NFL",
-        "match": "RedZone",
+        "competition": "Ligue 1",
+        "match": "Marseille – Le Havre⭐",
         "is_live": true,
         "date": "2026-10-26"
       },
       {
-        "time": "19h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "time": "16h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Auxerre – Le Mans✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h55",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Angers – Lorient✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h06",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Multiplex",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h36",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h45",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "PSG – Lyon",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h10",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Le Club",
         "is_live": false,
         "date": "2026-10-26"
       },
       {
         "time": "19h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "20h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
-        "is_live": false,
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "PSG – Lyon🔥",
+        "is_live": true,
         "date": "2026-10-26"
       },
       {
         "time": "20h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
         "is_live": false,
         "date": "2026-10-26"
       },
       {
-        "time": "21h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "time": "20h37",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "PSG – Lyon🔥",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h20",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Best of Ligue 1",
         "is_live": false,
         "date": "2026-10-26"
       },
       {
-        "time": "22h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "beIN SPORTS, le plus grand des spectacles",
+        "time": "22h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Marseille – Le Havre",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Le Club",
         "is_live": false,
         "date": "2026-10-26"
       }
     ],
-    "Ligue 1+": [
+    "beIN SPORTS MAX": [
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Rennes – Strasbourg⭐",
+        "time": "01h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Atlanta Dream – Golden State Valkyries",
         "is_live": true,
         "date": "2026-10-25"
       },
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Marseille – Le Havre⭐",
+        "time": "02h30",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
         "is_live": true,
         "date": "2026-10-25"
       },
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Auxerre – Le Mans✨",
+        "time": "06h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
         "is_live": true,
         "date": "2026-10-25"
       },
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Angers – Lorient✨",
+        "time": "09h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
         "is_live": true,
         "date": "2026-10-25"
       },
       {
-        "time": "17h06",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Multiplex",
+        "time": "09h30",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
         "is_live": true,
         "date": "2026-10-25"
       },
       {
-        "time": "19h10",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Le Club",
+        "time": "10h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h00",
+        "sport": "Football",
+        "competition": "NFL",
+        "match": "RedZone",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h15",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Anadolu Efes Istanbul – Panathinaïkos✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h40",
+        "sport": "Football",
+        "competition": "",
+        "match": "Santa Clara – Benfica Lisbonne✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Utah Jazz – Portland Trail Blazers✨",
+        "is_live": true,
         "date": "2026-10-25"
       },
       {
         "time": "20h30",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Monaco – Lille",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
         "date": "2026-10-25"
       },
       {
-        "time": "20h37",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "PSG – Lyon🔥",
-        "is_live": true,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "22h20",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Best of Ligue 1",
+        "time": "21h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
         "date": "2026-10-25"
       },
       {
-        "time": "22h30",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Marseille – Le Havre",
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
         "date": "2026-10-25"
       },
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Rennes – Strasbourg⭐",
+        "time": "01h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Atlanta Dream – Golden State Valkyries",
         "is_live": true,
         "date": "2026-10-26"
       },
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Marseille – Le Havre⭐",
+        "time": "02h30",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
         "is_live": true,
         "date": "2026-10-26"
       },
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Auxerre – Le Mans✨",
+        "time": "06h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
         "is_live": true,
         "date": "2026-10-26"
       },
       {
-        "time": "16h55",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Angers – Lorient✨",
+        "time": "09h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
         "is_live": true,
         "date": "2026-10-26"
       },
       {
-        "time": "17h06",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Multiplex",
+        "time": "09h30",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
         "is_live": true,
         "date": "2026-10-26"
       },
       {
-        "time": "19h10",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Le Club",
+        "time": "10h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open de Guangzhou 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h00",
+        "sport": "Football",
+        "competition": "NFL",
+        "match": "RedZone",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h15",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Anadolu Efes Istanbul – Panathinaïkos✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h40",
+        "sport": "Football",
+        "competition": "",
+        "match": "Santa Clara – Benfica Lisbonne✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Utah Jazz – Portland Trail Blazers✨",
+        "is_live": true,
         "date": "2026-10-26"
       },
       {
         "time": "20h30",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Monaco – Lille",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
         "date": "2026-10-26"
       },
       {
-        "time": "20h37",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "PSG – Lyon🔥",
-        "is_live": true,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "22h20",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Best of Ligue 1",
+        "time": "21h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
         "date": "2026-10-26"
       },
       {
-        "time": "22h30",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Marseille – Le Havre",
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "beIN SPORTS, le plus grand des spectacles",
         "is_live": false,
         "date": "2026-10-26"
       }
     ],
     "beIN SPORTS": [
       {
+        "time": "00h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "00h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Indiana Pacers – Philadelphia 76ers✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "00h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "00h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Utah Jazz – Portland Trail Blazers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "00h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Philadelphia 76ers – Detroit Pistons✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "01h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Golden State Valkyries – Atlanta Dream",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "01h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "New York Knicks – Detroit Pistons✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "01h30",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Dijon – Rodez",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h15",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Introduction de Federer au Hall of Fame",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Dallas Mavericks – Oklahoma City Thunder✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "03h00",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "03h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Denver Nuggets – Golden State Warriors✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "03h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "03h30",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Saint-Etienne – Nantes",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h00",
+        "sport": "Football",
+        "competition": "Bundesliga",
+        "match": "Stuttgart – Mönchengladbach",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h00",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Los Angeles Lakers – Portland Trail Blazers✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "06h00",
+        "sport": "Football",
+        "competition": "Bundesliga",
+        "match": "Fribourg – Bayern Munich",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "06h00",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Saint-Etienne – Nantes",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "06h00",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "08h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Sporting Club Portugal – Académico de Viseu",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "08h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Trabzonspor – Besiktas",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Golden State Valkyries – Atlanta Dream",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "New York Knicks – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Indiana Pacers – Philadelphia 76ers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h00",
+        "sport": "Football",
+        "competition": "Bundesliga",
+        "match": "Borussia Dortmund – Eintracht Francfort",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Philadelphia 76ers – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Utah Jazz – Portland Trail Blazers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Denver Nuggets – Golden State Warriors",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Los Angeles Lakers – Portland Trail Blazers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Dallas Mavericks – Oklahoma City Thunder",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h00",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Dijon – Rodez",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Gil Vicente – FC Porto",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Partizan Belgrade",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Lyon 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "New York Knicks – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "This is Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Denver Nuggets – Golden State Warriors",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Indiana Pacers – Philadelphia 76ers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Besiktas – Istanbul Basaksehir",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Rizespor – Trabzonspor",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "17h15",
         "sport": "Football",
         "competition": "Bundesliga",
         "match": "Fribourg – Bayern Munich⭐",
         "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
         "date": "2026-10-25"
       },
       {
@@ -428,10 +1236,58 @@
         "date": "2026-10-25"
       },
       {
+        "time": "18h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Maccabi Tel-Aviv – Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h15",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Partizan Belgrade",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "18h45",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Ça se passe sur beIN SPORTS",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -444,11 +1300,99 @@
         "date": "2026-10-25"
       },
       {
+        "time": "19h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "This is Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "Made in England",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "Galatasaray – Fenerbahçe",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h45",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Basket-ball : avant-match",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Ligue 2 Extra",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Partizan Belgrade✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Maccabi Tel-Aviv – Paris✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Baskonia✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "20h45",
         "sport": "Football",
         "competition": "",
         "match": "Michael Olise, When the Game Speaks",
         "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h45",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Montpellier – Red Star✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h45",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Boulogne-sur-Mer – Reims✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Baskonia – Real Madrid✨",
+        "is_live": true,
         "date": "2026-10-25"
       },
       {
@@ -484,10 +1428,58 @@
         "date": "2026-10-25"
       },
       {
+        "time": "21h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Philadelphia 76ers – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Maccabi Tel-Aviv – Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "23h00",
         "sport": "Multisports",
         "competition": "",
         "match": "Milwaukee Brewers – Tampa Bay Rays",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Lyon 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -500,11 +1492,419 @@
         "date": "2026-10-25"
       },
       {
+        "time": "00h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "00h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Indiana Pacers – Philadelphia 76ers✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "00h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "00h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Utah Jazz – Portland Trail Blazers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "00h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Philadelphia 76ers – Detroit Pistons✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "01h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Golden State Valkyries – Atlanta Dream",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "01h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "New York Knicks – Detroit Pistons✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "01h30",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Dijon – Rodez",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h15",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Introduction de Federer au Hall of Fame",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Dallas Mavericks – Oklahoma City Thunder✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "03h00",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "03h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Denver Nuggets – Golden State Warriors✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "03h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "03h30",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Saint-Etienne – Nantes",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "04h00",
+        "sport": "Football",
+        "competition": "Bundesliga",
+        "match": "Stuttgart – Mönchengladbach",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "04h00",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "04h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Los Angeles Lakers – Portland Trail Blazers✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "06h00",
+        "sport": "Football",
+        "competition": "Bundesliga",
+        "match": "Fribourg – Bayern Munich",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "06h00",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Saint-Etienne – Nantes",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "06h00",
+        "sport": "Tennis",
+        "competition": "WTA",
+        "match": "Tennis Tournoi WTA de Tokyo 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "08h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Sporting Club Portugal – Académico de Viseu",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "08h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Trabzonspor – Besiktas",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Golden State Valkyries – Atlanta Dream",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "New York Knicks – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Indiana Pacers – Philadelphia 76ers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h00",
+        "sport": "Football",
+        "competition": "Bundesliga",
+        "match": "Borussia Dortmund – Eintracht Francfort",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Philadelphia 76ers – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Utah Jazz – Portland Trail Blazers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Denver Nuggets – Golden State Warriors",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Los Angeles Lakers – Portland Trail Blazers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Dallas Mavericks – Oklahoma City Thunder",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h00",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Dijon – Rodez",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Gil Vicente – FC Porto",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Partizan Belgrade",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Lyon 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "New York Knicks – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "This is Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Denver Nuggets – Golden State Warriors",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Indiana Pacers – Philadelphia 76ers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Besiktas – Istanbul Basaksehir",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Rizespor – Trabzonspor",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
         "time": "17h15",
         "sport": "Football",
         "competition": "Bundesliga",
         "match": "Fribourg – Bayern Munich⭐",
         "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h45",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
         "date": "2026-10-26"
       },
       {
@@ -516,10 +1916,58 @@
         "date": "2026-10-26"
       },
       {
+        "time": "18h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Maccabi Tel-Aviv – Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h00",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h15",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Partizan Belgrade",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "18h45",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Ça se passe sur beIN SPORTS",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -532,11 +1980,99 @@
         "date": "2026-10-26"
       },
       {
+        "time": "19h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "This is Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "Made in England",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "Galatasaray – Fenerbahçe",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h45",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Basket-ball : avant-match",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Ligue 2 Extra",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Partizan Belgrade✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Maccabi Tel-Aviv – Paris✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Asvel – Baskonia✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
         "time": "20h45",
         "sport": "Football",
         "competition": "",
         "match": "Michael Olise, When the Game Speaks",
         "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h45",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Montpellier – Red Star✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h45",
+        "sport": "Football",
+        "competition": "Ligue 2",
+        "match": "Boulogne-sur-Mer – Reims✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Baskonia – Real Madrid✨",
+        "is_live": true,
         "date": "2026-10-26"
       },
       {
@@ -572,10 +2108,58 @@
         "date": "2026-10-26"
       },
       {
+        "time": "21h30",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Philadelphia 76ers – Detroit Pistons",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h45",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Maccabi Tel-Aviv – Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "Portland Trail Blazers – Memphis Grizzlies",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "23h00",
         "sport": "Multisports",
         "competition": "",
         "match": "Milwaukee Brewers – Tampa Bay Rays",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Lyon 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h00",
+        "sport": "Basket-ball",
+        "competition": "Euroligue",
+        "match": "Dubaï – Paris",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h15",
+        "sport": "Basket-ball",
+        "competition": "NBA",
+        "match": "NBA Extra",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -590,6 +2174,54 @@
     ],
     "Canal+ Première League": [
       {
+        "time": "00h41",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Crystal Palace – Newcastle",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "02h23",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "06h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "17h30",
         "sport": "Football",
         "competition": "Premier League",
@@ -602,6 +2234,14 @@
         "sport": "Football",
         "competition": "Premier League",
         "match": "Liverpool – Brighton & Hove Albion",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -622,6 +2262,54 @@
         "date": "2026-10-25"
       },
       {
+        "time": "00h41",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Crystal Palace – Newcastle",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "02h23",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "06h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "17h30",
         "sport": "Football",
         "competition": "Premier League",
@@ -634,6 +2322,14 @@
         "sport": "Football",
         "competition": "Premier League",
         "match": "Liverpool – Brighton & Hove Albion",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "La Premier League sur Canal+",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -656,11 +2352,99 @@
     ],
     "Canal+ Foot": [
       {
+        "time": "00h15",
+        "sport": "Football",
+        "competition": "",
+        "match": "Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "01h02",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Football Premier League 2026-2027",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h26",
+        "sport": "Football",
+        "competition": "",
+        "match": "Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "08h17",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Hull City – Brentford",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h01",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Crystal Palace – Newcastle",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h45",
+        "sport": "Football",
+        "competition": "",
+        "match": "Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h35",
+        "sport": "Football",
+        "competition": "",
+        "match": "Lyon féminine – Marseille féminine",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h20",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Sunderland – Leeds",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h04",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Liverpool – Brighton & Hove Albion",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "17h30",
         "sport": "Football",
         "competition": "Premier League",
         "match": "Sunderland – Leeds✨",
         "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h48",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Histoires de Premier League",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h16",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Manchester United – Bournemouth",
+        "is_live": false,
         "date": "2026-10-25"
       },
       {
@@ -680,10 +2464,34 @@
         "date": "2026-10-25"
       },
       {
+        "time": "20h01",
+        "sport": "Football",
+        "competition": "",
+        "match": "Jour de Première Ligue",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h17",
+        "sport": "Football",
+        "competition": "",
+        "match": "Jour de foot",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "20h26",
         "sport": "Football",
         "competition": "",
         "match": "05/06/2027 En route pour Madrid",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h52",
+        "sport": "Football",
+        "competition": "",
+        "match": "Histoire de Champions",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -704,11 +2512,99 @@
         "date": "2026-10-25"
       },
       {
+        "time": "00h15",
+        "sport": "Football",
+        "competition": "",
+        "match": "Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "01h02",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Football Premier League 2026-2027",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h26",
+        "sport": "Football",
+        "competition": "",
+        "match": "Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "08h17",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Hull City – Brentford",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h01",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Crystal Palace – Newcastle",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h45",
+        "sport": "Football",
+        "competition": "",
+        "match": "Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h35",
+        "sport": "Football",
+        "competition": "",
+        "match": "Lyon féminine – Marseille féminine",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h20",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Sunderland – Leeds",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h04",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Liverpool – Brighton & Hove Albion",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "17h30",
         "sport": "Football",
         "competition": "Premier League",
         "match": "Sunderland – Leeds✨",
         "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h48",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Histoires de Premier League",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h16",
+        "sport": "Football",
+        "competition": "Premier League",
+        "match": "Manchester United – Bournemouth",
+        "is_live": false,
         "date": "2026-10-26"
       },
       {
@@ -728,10 +2624,34 @@
         "date": "2026-10-26"
       },
       {
+        "time": "20h01",
+        "sport": "Football",
+        "competition": "",
+        "match": "Jour de Première Ligue",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h17",
+        "sport": "Football",
+        "competition": "",
+        "match": "Jour de foot",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "20h26",
         "sport": "Football",
         "competition": "",
         "match": "05/06/2027 En route pour Madrid",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h52",
+        "sport": "Football",
+        "competition": "",
+        "match": "Histoire de Champions",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -754,6 +2674,46 @@
     ],
     "Canal+ Live": [
       {
+        "time": "14h20",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Lyon – Vannes✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Stade Français – La Rochelle✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Montpellier – Castres✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "17h30",
         "sport": "Football",
         "competition": "Premier League",
@@ -762,10 +2722,10 @@
         "date": "2026-10-25"
       },
       {
-        "time": "17h55",
-        "sport": "Multisports",
+        "time": "18h50",
+        "sport": "Rugby",
         "competition": "",
-        "match": "Vivez en direct les évènements de CANAL+",
+        "match": "Soir de rugby avant-match",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -786,6 +2746,14 @@
         "date": "2026-10-25"
       },
       {
+        "time": "19h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Colomiers – Agen",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "19h06",
         "sport": "Multisports",
         "competition": "",
@@ -802,6 +2770,38 @@
         "date": "2026-10-25"
       },
       {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Béziers – Grenoble",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Montauban – Narbonne",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Nissa rugby – Aurillac",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Oyonnax – Soyaux-Angoulême",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "19h29",
         "sport": "Football",
         "competition": "",
@@ -814,6 +2814,14 @@
         "sport": "Football",
         "competition": "",
         "match": "A `venir : Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h39",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club - 1re édition",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -850,6 +2858,14 @@
         "date": "2026-10-25"
       },
       {
+        "time": "20h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby avant-match",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "20h53",
         "sport": "Rugby",
         "competition": "Top 14",
@@ -862,6 +2878,22 @@
         "sport": "Multisports",
         "competition": "",
         "match": "Plateau sports mécaniques",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h55",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Nevers – Brive",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h55",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Avant-match Top 14",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -882,6 +2914,22 @@
         "date": "2026-10-25"
       },
       {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Biarritz – Valence-Romans",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "21h02",
         "sport": "Rugby",
         "competition": "Top 14",
@@ -898,6 +2946,22 @@
         "date": "2026-10-25"
       },
       {
+        "time": "21h05",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Pau – Toulouse✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h11",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Avant-match Top 14",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "22h44",
         "sport": "Multisports",
         "competition": "",
@@ -910,6 +2974,14 @@
         "sport": "Formule 1",
         "competition": "Formule 1",
         "match": "Le podium",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -938,12 +3010,68 @@
         "date": "2026-10-25"
       },
       {
+        "time": "23h19",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "23h27",
         "sport": "Multisports",
         "competition": "",
         "match": "Terminé : Formula One, le mag",
         "is_live": false,
         "date": "2026-10-25"
+      },
+      {
+        "time": "23h33",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h20",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Lyon – Vannes✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Stade Français – La Rochelle✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h30",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Montpellier – Castres✨",
+        "is_live": true,
+        "date": "2026-10-26"
       },
       {
         "time": "17h30",
@@ -954,10 +3082,10 @@
         "date": "2026-10-26"
       },
       {
-        "time": "17h55",
-        "sport": "Multisports",
+        "time": "18h50",
+        "sport": "Rugby",
         "competition": "",
-        "match": "Vivez en direct les évènements de CANAL+",
+        "match": "Soir de rugby avant-match",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -978,6 +3106,14 @@
         "date": "2026-10-26"
       },
       {
+        "time": "19h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Colomiers – Agen",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
         "time": "19h06",
         "sport": "Multisports",
         "competition": "",
@@ -994,6 +3130,38 @@
         "date": "2026-10-26"
       },
       {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Béziers – Grenoble",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Montauban – Narbonne",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Nissa rugby – Aurillac",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h26",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Oyonnax – Soyaux-Angoulême",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
         "time": "19h29",
         "sport": "Football",
         "competition": "",
@@ -1006,6 +3174,14 @@
         "sport": "Football",
         "competition": "",
         "match": "A `venir : Canal Football Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h39",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club - 1re édition",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -1042,6 +3218,14 @@
         "date": "2026-10-26"
       },
       {
+        "time": "20h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby avant-match",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "20h53",
         "sport": "Rugby",
         "competition": "Top 14",
@@ -1054,6 +3238,22 @@
         "sport": "Multisports",
         "competition": "",
         "match": "Plateau sports mécaniques",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h55",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Nevers – Brive",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h55",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Avant-match Top 14",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -1074,6 +3274,22 @@
         "date": "2026-10-26"
       },
       {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Biarritz – Valence-Romans",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
         "time": "21h02",
         "sport": "Rugby",
         "competition": "Top 14",
@@ -1090,6 +3306,22 @@
         "date": "2026-10-26"
       },
       {
+        "time": "21h05",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Pau – Toulouse✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h11",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Avant-match Top 14",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "22h44",
         "sport": "Multisports",
         "competition": "",
@@ -1102,6 +3334,14 @@
         "sport": "Formule 1",
         "competition": "Formule 1",
         "match": "Le podium",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -1130,16 +3370,376 @@
         "date": "2026-10-26"
       },
       {
+        "time": "23h19",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "23h27",
         "sport": "Multisports",
         "competition": "",
         "match": "Terminé : Formula One, le mag",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h33",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
         "is_live": false,
         "date": "2026-10-26"
       }
     ],
     "Canal+ Sport": [
       {
+        "time": "07h13",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Vannes – Clermont-Auvergne",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h19",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h23",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Valence-Romans – Colomiers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h23",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Dax – Provence Rugby",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "08h54",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "08h54",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "08h56",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Toulon – Pau",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h03",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h05",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Provence Rugby – Béziers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h07",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h54",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Colomiers – Agen",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h54",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Lyon – Vannes",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h37",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Vannes – Clermont-Auvergne",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h37",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Montpellier – Castres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h40",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h46",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h47",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bayonne – Lyon",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h50",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bayonne – Lyon",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h12",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h37",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Biarritz – Valence-Romans",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h37",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Stade Français – La Rochelle",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h22",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club - 1re édition",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h27",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h41",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Fractionné Rugby",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h58",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h04",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h21",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h21",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Montpellier – Castres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h32",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h33",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Toulon – Pau",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h20",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92✨",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h46",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h05",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h15",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Béziers – Grenoble",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h16",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h19",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Aurillac – Nevers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h25",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h29",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Dax – Provence Rugby",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h32",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h50",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h57",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h57",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Montauban – Narbonne",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "17h40",
         "sport": "Rugby",
         "competition": "",
@@ -1148,11 +3748,155 @@
         "date": "2026-10-25"
       },
       {
+        "time": "18h06",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Grenoble – Biarritz",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h14",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h34",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h38",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bayonne – Lyon",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h40",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "19h41",
         "sport": "Multisports",
         "competition": "",
         "match": "Championnat des Bermudes",
         "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h49",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h24",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h38",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Fractionné Rugby",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h50",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Avant-match Pro D2",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Dax – Provence Rugby",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Pau – Toulouse",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h41",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h43",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h44",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h50",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Après-match Pro D2",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h03",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
         "date": "2026-10-25"
       },
       {
@@ -1172,6 +3916,366 @@
         "date": "2026-10-25"
       },
       {
+        "time": "23h29",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Toulon – Pau",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h59",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Pau – Toulouse",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h13",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Vannes – Clermont-Auvergne",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h19",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h23",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Valence-Romans – Colomiers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h23",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Dax – Provence Rugby",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "08h54",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "08h54",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "08h56",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Toulon – Pau",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h03",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h05",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Provence Rugby – Béziers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h07",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h54",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Colomiers – Agen",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h54",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Lyon – Vannes",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h37",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Vannes – Clermont-Auvergne",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h37",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Montpellier – Castres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h40",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h46",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h47",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bayonne – Lyon",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h50",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bayonne – Lyon",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h12",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h37",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Biarritz – Valence-Romans",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h37",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Stade Français – La Rochelle",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h22",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club - 1re édition",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h27",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h41",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Fractionné Rugby",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h58",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h04",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h21",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h21",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Montpellier – Castres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h32",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h33",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Toulon – Pau",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h20",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92✨",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h46",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h05",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h15",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Béziers – Grenoble",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h16",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h19",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Aurillac – Nevers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h25",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h29",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Dax – Provence Rugby",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h32",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h50",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Clermont-Auvergne – Racing 92",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h57",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "La Rochelle féminine – Lyon féminine",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h57",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Montauban – Narbonne",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "17h40",
         "sport": "Rugby",
         "competition": "",
@@ -1180,11 +4284,155 @@
         "date": "2026-10-26"
       },
       {
+        "time": "18h06",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Grenoble – Biarritz",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h14",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h34",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Perpignan – Toulon",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h38",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bayonne – Lyon",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h40",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Bordeaux-Bègles – Bayonne",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "19h41",
         "sport": "Multisports",
         "competition": "",
         "match": "Championnat des Bermudes",
         "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h49",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h24",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h38",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Fractionné Rugby",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h50",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Avant-match Pro D2",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Dax – Provence Rugby",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Pau – Toulouse",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h41",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "La Rochelle – Bordeaux-Bègles",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h43",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h44",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h50",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Après-match Pro D2",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h03",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canterbury – Northland",
+        "is_live": false,
         "date": "2026-10-26"
       },
       {
@@ -1202,100 +4450,26 @@
         "match": "Fractionné F1",
         "is_live": false,
         "date": "2026-10-26"
-      }
-    ],
-    "Eurosport 1": [
-      {
-        "time": "18h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Etape du Caire",
-        "is_live": false,
-        "date": "2026-10-25"
       },
       {
-        "time": "19h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Open d'Irlande du Nord",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "20h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Open d'Irlande du Nord",
-        "is_live": true,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "23h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "23h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "18h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Etape du Caire",
+        "time": "23h29",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Toulon – Pau",
         "is_live": false,
         "date": "2026-10-26"
       },
       {
-        "time": "19h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Open d'Irlande du Nord",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "20h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Open d'Irlande du Nord",
-        "is_live": true,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "23h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "23h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
+        "time": "23h59",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Pau – Toulouse",
         "is_live": false,
         "date": "2026-10-26"
       }
     ],
     "RMC Sport": [
       {
-        "time": "18h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Format Boxe",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
         "time": "18h30",
         "sport": "Multisports",
         "competition": "",
@@ -1360,14 +4534,6 @@
         "date": "2026-10-25"
       },
       {
-        "time": "18h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Format Boxe",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
         "time": "18h30",
         "sport": "Multisports",
         "competition": "",
@@ -1429,88 +4595,6 @@
         "competition": "",
         "match": "La sélection RMC Sport",
         "is_live": false,
-        "date": "2026-10-26"
-      }
-    ],
-    "Eurosport 2": [
-      {
-        "time": "18h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Course messieurs",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "19h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "20h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "21h00",
-        "sport": "Tennis",
-        "competition": "ATP",
-        "match": "Tournoi ATP d'Almaty",
-        "is_live": false,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "22h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Finale dames et messieurs",
-        "is_live": true,
-        "date": "2026-10-25"
-      },
-      {
-        "time": "18h30",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Course messieurs",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "19h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "20h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Epreuve de Sölden",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "21h00",
-        "sport": "Tennis",
-        "competition": "ATP",
-        "match": "Tournoi ATP d'Almaty",
-        "is_live": false,
-        "date": "2026-10-26"
-      },
-      {
-        "time": "22h00",
-        "sport": "Multisports",
-        "competition": "",
-        "match": "Finale dames et messieurs",
-        "is_live": true,
         "date": "2026-10-26"
       }
     ],
@@ -1646,6 +4730,22 @@
     ],
     "Canal+ Sport 360": [
       {
+        "time": "13h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Histoire de Champions",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h26",
+        "sport": "Football",
+        "competition": "",
+        "match": "05/06/2027 En route pour Madrid",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "18h35",
         "sport": "Formule 1",
         "competition": "Formule 1",
@@ -1654,10 +4754,42 @@
         "date": "2026-10-25"
       },
       {
+        "time": "19h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Colomiers – Agen",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "UEFA : Ce que vous n'avez pas vu",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h41",
+        "sport": "Football",
+        "competition": "",
+        "match": "05/06/2027 En route pour Madrid",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "19h53",
         "sport": "Formule 1",
         "competition": "Formule 1",
         "match": "La grille",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby avant-match",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -1678,10 +4810,26 @@
         "date": "2026-10-25"
       },
       {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Biarritz – Valence-Romans",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "22h46",
         "sport": "Formule 1",
         "competition": "Formule 1",
         "match": "Le podium",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -1702,6 +4850,22 @@
         "date": "2026-10-25"
       },
       {
+        "time": "13h00",
+        "sport": "Football",
+        "competition": "",
+        "match": "Histoire de Champions",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h26",
+        "sport": "Football",
+        "competition": "",
+        "match": "05/06/2027 En route pour Madrid",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "18h35",
         "sport": "Formule 1",
         "competition": "Formule 1",
@@ -1710,10 +4874,42 @@
         "date": "2026-10-26"
       },
       {
+        "time": "19h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Colomiers – Agen",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h30",
+        "sport": "Football",
+        "competition": "",
+        "match": "UEFA : Ce que vous n'avez pas vu",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h41",
+        "sport": "Football",
+        "competition": "",
+        "match": "05/06/2027 En route pour Madrid",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "19h53",
         "sport": "Formule 1",
         "competition": "Formule 1",
         "match": "La grille",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby avant-match",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -1734,10 +4930,26 @@
         "date": "2026-10-26"
       },
       {
+        "time": "21h00",
+        "sport": "Rugby",
+        "competition": "Pro D2",
+        "match": "Biarritz – Valence-Romans",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
         "time": "22h46",
         "sport": "Formule 1",
         "competition": "Formule 1",
         "match": "Le podium",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h50",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Soir de rugby",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -1760,10 +4972,26 @@
     ],
     "L'Equipe": [
       {
-        "time": "18h45",
-        "sport": "Basket-ball",
+        "time": "00h10",
+        "sport": "Football",
         "competition": "",
-        "match": "Basket-ball : avant-match",
+        "match": "Téléfoot, l'after",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "01h10",
+        "sport": "Football",
+        "competition": "",
+        "match": "Téléfoot, l'after",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h50",
+        "sport": "Football",
+        "competition": "",
+        "match": "Téléfoot, l'after",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -1776,6 +5004,14 @@
         "date": "2026-10-25"
       },
       {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Pro A",
+        "match": "Paris – Chalon",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
         "time": "21h10",
         "sport": "Football",
         "competition": "NFL",
@@ -1784,10 +5020,26 @@
         "date": "2026-10-25"
       },
       {
-        "time": "18h45",
-        "sport": "Basket-ball",
+        "time": "00h10",
+        "sport": "Football",
         "competition": "",
-        "match": "Basket-ball : avant-match",
+        "match": "Téléfoot, l'after",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "01h10",
+        "sport": "Football",
+        "competition": "",
+        "match": "Téléfoot, l'after",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h50",
+        "sport": "Football",
+        "competition": "",
+        "match": "Téléfoot, l'after",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -1796,6 +5048,14 @@
         "sport": "Basket-ball",
         "competition": "Pro A",
         "match": "Pau-Orthez – Limoges",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Basket-ball",
+        "competition": "Pro A",
+        "match": "Paris – Chalon",
         "is_live": true,
         "date": "2026-10-26"
       },
@@ -1823,6 +5083,1066 @@
         "competition": "Pro A",
         "match": "Pau-Orthez – Limoges",
         "is_live": true,
+        "date": "2026-10-26"
+      }
+    ],
+    "Eurosport 1": [
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h40",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "11h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h45",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Eurosport Tennis Club",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Open d'Irlande du Nord",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Open d'Irlande du Nord",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix féminin",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "04h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h40",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "11h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h45",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Eurosport Tennis Club",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Open d'Irlande du Nord",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Open d'Irlande du Nord",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Masters 1000 de Paris 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix féminin",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      }
+    ],
+    "Eurosport 2": [
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Milan-San Remo",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Milan-San Remo",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tournoi ATP d'Almaty",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "12h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "13h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "14h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "17h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tournoi ATP d'Almaty",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Finale dames et messieurs",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Milan-San Remo",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "05h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour de Lombardie",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Milan-San Remo",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Tour des Flandres",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Paris-Roubaix",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "09h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tournoi ATP d'Almaty",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "12h30",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Liège-Bastogne-Liège",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "13h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "14h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Amstel Gold Race",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "17h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Vienne 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Epreuve de Sölden",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tournoi ATP d'Almaty",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h00",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Finale dames et messieurs",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h30",
+        "sport": "Tennis",
+        "competition": "ATP",
+        "match": "Tennis Tournoi ATP de Bâle 2026",
+        "is_live": false,
         "date": "2026-10-26"
       }
     ],
@@ -1960,11 +6280,11 @@
     ],
     "France 3": [
       {
-        "time": "20h05",
-        "sport": "Multisports",
+        "time": "07h05",
+        "sport": "Rugby",
         "competition": "",
-        "match": "Stade 2",
-        "is_live": false,
+        "match": "Nouvelle-Zélande féminine – France féminine",
+        "is_live": true,
         "date": "2026-10-25"
       },
       {
@@ -1973,15 +6293,111 @@
         "competition": "",
         "match": "Stade 2",
         "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h10",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Stade 2 Ligue 1",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "20h20",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Rencontres à XV",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h05",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Nouvelle-Zélande féminine – France féminine",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h05",
+        "sport": "Multisports",
+        "competition": "",
+        "match": "Stade 2",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h10",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Stade 2 Ligue 1",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "20h20",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Rencontres à XV",
+        "is_live": false,
         "date": "2026-10-26"
       }
     ],
     "Sport en France": [
       {
+        "time": "00h40",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open du Loiret 2026",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "07h55",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "La Boulangère Wonderligue",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "10h00",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Landerneau Bretagne féminine – Charnay Bourgogne Sud féminine",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "15h15",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Lyon féminine – Landerneau Bretagne féminine",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "19h50",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "La Boulangère Wonderligue",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
         "time": "20h10",
         "sport": "Multisports",
         "competition": "",
         "match": "Rouen – Ducs d’Angers",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "21h00",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Landerneau Bretagne féminine – Charnay Bourgogne Sud féminine",
         "is_live": false,
         "date": "2026-10-25"
       },
@@ -1994,10 +6410,58 @@
         "date": "2026-10-25"
       },
       {
+        "time": "00h40",
+        "sport": "Tennis",
+        "competition": "",
+        "match": "Tennis Open du Loiret 2026",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "07h55",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "La Boulangère Wonderligue",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "10h00",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Landerneau Bretagne féminine – Charnay Bourgogne Sud féminine",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "15h15",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Lyon féminine – Landerneau Bretagne féminine",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "19h50",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "La Boulangère Wonderligue",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
         "time": "20h10",
         "sport": "Multisports",
         "competition": "",
         "match": "Rouen – Ducs d’Angers",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "21h00",
+        "sport": "Basket-ball",
+        "competition": "",
+        "match": "Landerneau Bretagne féminine – Charnay Bourgogne Sud féminine",
         "is_live": false,
         "date": "2026-10-26"
       },
@@ -2012,7 +6476,31 @@
     ],
     "Canal+": [
       {
-        "time": "23h00",
+        "time": "16h16",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Avant-match Top 14",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h27",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Multiplex",
+        "is_live": true,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "18h35",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Débrief Top 14",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "22h57",
         "sport": "Rugby",
         "competition": "",
         "match": "Canal Rugby Club le débrief",
@@ -2021,6 +6509,62 @@
       },
       {
         "time": "23h00",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "23h02",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-25"
+      },
+      {
+        "time": "16h16",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Avant-match Top 14",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "16h27",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Multiplex",
+        "is_live": true,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "18h35",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Débrief Top 14",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "22h57",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h00",
+        "sport": "Rugby",
+        "competition": "",
+        "match": "Canal Rugby Club le débrief",
+        "is_live": false,
+        "date": "2026-10-26"
+      },
+      {
+        "time": "23h02",
         "sport": "Rugby",
         "competition": "",
         "match": "Canal Rugby Club le débrief",
