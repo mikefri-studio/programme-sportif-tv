@@ -1,1 +1,43 @@
-
+{
+  "updated_at": "2026-10-25T16:17:14.220452",
+  "channels": {
+    "Canal+ Sport": [
+      {
+        "channel": "Canal+ Sport",
+        "time": "20h37",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "PSG – Lyon",
+        "is_live": true
+      },
+      {
+        "channel": "Canal+ Sport",
+        "time": "23h00",
+        "sport": "Rugby",
+        "competition": "Top 14",
+        "match": "Toulouse – La Rochelle",
+        "is_live": false
+      }
+    ],
+    "beIN SPORTS 1": [
+      {
+        "channel": "beIN SPORTS 1",
+        "time": "21h00",
+        "sport": "Formule 1",
+        "competition": "Grand Prix des États-Unis",
+        "match": "La course",
+        "is_live": true
+      }
+    ],
+    "L'Équipe": [
+      {
+        "channel": "L'Équipe",
+        "time": "14h30",
+        "sport": "Football",
+        "competition": "Ligue 1",
+        "match": "Monaco – Lille",
+        "is_live": true
+      }
+    ]
+  }
+}
