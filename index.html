@@ -73,7 +73,6 @@
   .date-bar .date-label { font-weight: 700; color: #1e293b; font-size: 15px; }
   .date-bar .date-count { font-size: 13px; color: #64748b; font-weight: 600; }
 
-  /* ✨ CARTE CHAÎNE AVEC REFLETS */
   .channel-card {
     background: #fff;
     border-radius: 14px;
@@ -83,7 +82,6 @@
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
   .channel-card::before {
-    /* Reflet brillant en haut de la carte */
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -97,14 +95,10 @@
   .channel-card:hover {
     transform: translateY(-4px);
     border-color: rgba(59,130,246,.4);
-    box-shadow:
-      0 20px 40px -12px rgba(0,0,0,.12),
-      0 0 0 1px rgba(59,130,246,.1),
-      inset 0 1px 0 rgba(255,255,255,.6);
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,.12), 0 0 0 1px rgba(59,130,246,.1), inset 0 1px 0 rgba(255,255,255,.6);
   }
   .channel-card:hover::before { opacity: 1; }
 
-  /* Effet de brillance qui traverse la carte au hover */
   .channel-card::after {
     content: '';
     position: absolute;
@@ -132,7 +126,6 @@
     transition: background-position .5s ease;
   }
   .channel-header::before {
-    /* Reflet subtil sur le header */
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -140,9 +133,7 @@
     background: linear-gradient(180deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 100%);
     pointer-events: none;
   }
-  .channel-card:hover .channel-header {
-    background-position: 100% 100%;
-  }
+  .channel-card:hover .channel-header { background-position: 100% 100%; }
 
   .channel-logo {
     width: 48px;
@@ -282,7 +273,7 @@
       <button class="nav-pill live" id="nav-live">
         <span class="w-2 h-2 rounded-full bg-white live-dot"></span> Direct
       </button>
-      <button class="nav-pill active" data-sport="all"> Tous</button>
+      <button class="nav-pill active" data-sport="all">Tous</button>
       <button class="nav-pill" data-sport="Football">⚽ Foot</button>
       <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
       <button class="nav-pill" data-sport="Tennis">🎾 Tennis</button>
@@ -302,7 +293,7 @@
   </div>
 
   <div class="lg:hidden px-4 pb-3 flex flex-wrap gap-2">
-    <button class="nav-pill live" id="nav-live-mobile"> Direct</button>
+    <button class="nav-pill live" id="nav-live-mobile">Direct</button>
     <button class="nav-pill active" data-sport="all">Tous</button>
     <button class="nav-pill" data-sport="Football">⚽ Foot</button>
     <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
@@ -314,7 +305,6 @@
 
 <main class="w-full px-4 md:px-6 lg:px-8 py-6 pb-20">
 
-  <!-- BANDEAU DIRECT -->
   <section id="live-section" class="hidden mb-6">
     <div class="flex items-center gap-2 mb-3">
       <span class="w-2.5 h-2.5 rounded-full bg-red-500 live-dot"></span>
@@ -323,7 +313,6 @@
     <div id="live-strip" class="live-strip-scroll flex gap-3 overflow-x-auto pb-2"></div>
   </section>
 
-  <!-- FILTRES -->
   <section class="mb-6">
     <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col lg:flex-row gap-3 lg:items-center">
       <div class="relative flex-1 min-w-[220px]">
@@ -346,11 +335,10 @@
     </div>
   </section>
 
-  <!-- GRILLE DES CHAÎNES -->
   <section id="channels" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"></section>
 
   <section id="empty" class="hidden text-center py-20">
-    <div class="text-6xl mb-4">️</div>
+    <div class="text-6xl mb-4">🛰️</div>
     <h3 class="text-xl font-bold text-slate-700">Aucun programme ne correspond</h3>
     <p class="text-slate-500 mt-2">Essayez de modifier votre recherche, la date ou la chaîne.</p>
   </section>
@@ -362,13 +350,52 @@
 
 <script>
 const SPORT_EMOJI = {
-  'Football':'⚽','Rugby':'','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
-  'Formule 1':'🏎️','Handball':'🤾','Moto':'️','Multisports':'🏅'
+  'Football':'⚽','Rugby':'🏉','Tennis':'','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Formule 1':'🏎️','Handball':'','Moto':'🏍️','Multisports':'🏅'
 };
-const emoji = s => SPORT_EMOJI[s] || '🏅';
+const emoji = s => SPORT_EMOJI[s] || '';
 
 let DATA = null;
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
+
+//  Fonction pour calculer l'heure actuelle en format "YYYY-MM-DD HH:mm"
+function getCurrentDateTime() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+// 🕐 Convertir "2026-10-25" + "14h20" en Date JavaScript
+function parseMatchTime(dateStr, timeStr) {
+  const match = timeStr.match(/(\d{1,2})h(\d{2})/);
+  if (!match) return null;
+  const hours = parseInt(match[1]);
+  const minutes = parseInt(match[2]);
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day, hours, minutes);
+}
+
+// 🕐 Vérifier si un match est dans le passé
+function isMatchPast(match) {
+  const matchDate = parseMatchTime(match.date, match.time);
+  if (!matchDate) return false;
+  return matchDate < new Date();
+}
+
+// 🕐 Vérifier si un match est vraiment en direct maintenant (débuté il y a moins de 4h)
+function isCurrentlyLive(match) {
+  if (!match.is_live) return false;
+  const matchDate = parseMatchTime(match.date, match.time);
+  if (!matchDate) return false;
+  const now = new Date();
+  const diff = now - matchDate;
+  // Match commencé il y a moins de 4 heures (240 minutes)
+  return diff >= 0 && diff <= 4 * 60 * 60 * 1000;
+}
 
 function formatDate(iso) {
   const d = new Date(iso + 'T00:00:00');
@@ -403,17 +430,22 @@ function renderSelectors() {
   dateSelect.value = state.date;
 
   const channelSelect = document.getElementById('channel-select');
-  channelSelect.innerHTML = '<option value="all"> Toutes les chaînes</option>' +
+  channelSelect.innerHTML = '<option value="all">📡 Toutes les chaînes</option>' +
     Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}">📡 ${c}</option>`).join('');
   channelSelect.value = state.channel;
 }
 
 function renderLive() {
+  // 🕐 Filtrer : ne montrer que les matchs vraiment en direct maintenant
   const seen = new Set();
-  const live = allMatches().filter(m => m.is_live && !seen.has(m.match) && seen.add(m.match));
+  const live = allMatches().filter(m => 
+    isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match)
+  );
+  
   const sec = document.getElementById('live-section');
   if (!live.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
+  
   document.getElementById('live-strip').innerHTML = live.map(m => {
     const logo = DATA?.channels?.[m.channel]?.logo || '';
     return `
@@ -441,19 +473,25 @@ function renderChannels() {
 
   const entries = Object.entries(DATA?.channels || {})
     .filter(([ch]) => state.channel === 'all' || ch === state.channel)
-    .map(([ch, data]) => [ch, data.matches.filter(m =>
-      (!state.liveOnly || m.is_live) &&
-      (state.sport === 'all' || m.sport === state.sport) &&
-      (state.date === 'all' || m.date === state.date) &&
-      (!q || (m.match+' '+m.competition+' '+ch+' '+m.sport).toLowerCase().includes(q))
-    )])
+    .map(([ch, data]) => [ch, data.matches.filter(m => {
+      // 🕐 Masquer les matchs passés de la journée en cours
+      if (m.date && isMatchPast(m)) return false;
+      
+      // Filtres utilisateur
+      if (state.liveOnly && !isCurrentlyLive(m)) return false;
+      if (state.sport !== 'all' && m.sport !== state.sport) return false;
+      if (state.date !== 'all' && m.date !== state.date) return false;
+      if (q && !(m.match+' '+m.competition+' '+ch+' '+m.sport).toLowerCase().includes(q)) return false;
+      
+      return true;
+    })])
     .filter(([ch, ms]) => ms.length)
     .sort((a,b) => b[1].length - a[1].length);
 
   for (const [channel, matches] of entries) {
     shown++;
     const logo = DATA?.channels?.[channel]?.logo || '';
-    const initials = channel.replace(/[^A-Za-zÀ-ÿ+]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+    const initials = channel.replace(/[^A-Za-zÀ-+]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
     const logoHtml = logo
       ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${initials}</div>'">`
       : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm">${initials}</div>`;
@@ -465,18 +503,21 @@ function renderChannels() {
     let matchesHtml = '';
     sortedDates.forEach(date => {
       matchesHtml += `<div class="date-bar"><span class="date-label">${formatShortDate(date)}</span><span class="date-count">${byDate[date].length} programme${byDate[date].length>1?'s':''}</span></div>`;
-      matchesHtml += byDate[date].map(m => `
+      matchesHtml += byDate[date].map(m => {
+        const isLive = isCurrentlyLive(m);
+        return `
         <div class="match-row">
           <div class="match-time">
             ${m.time}
-            ${m.is_live ? '<span class="live-badge"><span class="live-dot inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
+            ${isLive ? '<span class="live-badge"><span class="live-dot inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
           </div>
           <div class="match-info">
             <div class="match-sport">${emoji(m.sport)} ${m.sport}</div>
             <div class="match-title">${m.match}</div>
             ${m.competition ? `<div class="match-comp">${m.competition}</div>` : ''}
           </div>
-        </div>`).join('');
+        </div>`;
+      }).join('');
     });
 
     html += `
