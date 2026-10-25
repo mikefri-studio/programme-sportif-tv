@@ -2,48 +2,33 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f8f9fc">
- <!-- ===== PWA & META TAGS ===== -->
-<link rel="manifest" href="/manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="SportTV">
-<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="description" content="Programme sportif TV en direct et à venir, chaîne par chaîne">
 <title>SportTV · Programme sportif par chaîne</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="icon" type="image/png" href="/icon-192.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 <style>
-  * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+  * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
   .mono { font-family: 'JetBrains Mono', monospace; }
 
-  body {
-    background: #f4f5f9;
-    min-height: 100vh;
-    color: #1a202c;
-  }
+  body { background: #f4f5f9; min-height: 100vh; color: #1a202c; }
 
-  .top-bar {
-    background: #fff;
-    border-bottom: 1px solid #e2e8f0;
-  }
+  .top-bar { background: #fff; border-bottom: 1px solid #e2e8f0; }
 
   .nav-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #475569;
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    cursor: pointer;
-    transition: all .15s ease;
-    white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 14px; font-weight: 600; color: #475569;
+    background: #fff; border: 1px solid #e2e8f0;
+    cursor: pointer; transition: all .15s ease; white-space: nowrap;
   }
   .nav-pill:hover { background: #f1f5f9; border-color: #cbd5e1; }
   .nav-pill.active { background: #1e293b; color: #fff; border-color: #1e293b; }
@@ -51,18 +36,10 @@
   .nav-pill.live:hover { background: #dc2626; }
 
   .select-ctrl {
-    appearance: none;
-    -webkit-appearance: none;
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 10px 36px 10px 36px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #334155;
-    cursor: pointer;
-    outline: none;
-    transition: border-color .15s, box-shadow .15s;
+    appearance: none; -webkit-appearance: none;
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 10px;
+    padding: 10px 36px 10px 36px; font-size: 14px; font-weight: 600; color: #334155;
+    cursor: pointer; outline: none; transition: border-color .15s, box-shadow .15s;
     min-width: 180px;
   }
   .select-ctrl:hover { border-color: #94a3b8; }
@@ -70,22 +47,16 @@
 
   .date-bar {
     background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 100%);
-    border-radius: 8px;
-    padding: 10px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-radius: 8px; padding: 10px 16px;
+    display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 16px;
   }
   .date-bar .date-label { font-weight: 700; color: #1e293b; font-size: 15px; }
   .date-bar .date-count { font-size: 13px; color: #64748b; font-weight: 600; }
 
   .channel-card {
-    background: #fff;
-    border-radius: 14px;
-    border: 1px solid #e2e8f0;
-    overflow: hidden;
-    position: relative;
+    background: #fff; border-radius: 14px; border: 1px solid #e2e8f0;
+    overflow: hidden; position: relative;
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
   .channel-card:hover {
@@ -97,36 +68,22 @@
   .channel-header {
     background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
     background-size: 200% 200%;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+    color: #fff; position: relative; overflow: hidden;
     transition: background-position .5s ease;
   }
   .channel-header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
     background: linear-gradient(180deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 100%);
     pointer-events: none;
   }
   .channel-card:hover .channel-header { background-position: 100% 100%; }
 
   .channel-logo {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 10px;
-    padding: 6px;
+    width: 48px; height: 48px; object-fit: contain;
+    background: #fff; border-radius: 10px; padding: 6px;
     box-shadow: 0 4px 12px rgba(0,0,0,.2);
-    position: relative;
-    z-index: 1;
-    transition: transform .25s ease;
+    position: relative; z-index: 1; transition: transform .25s ease;
   }
   .channel-card:hover .channel-logo { transform: scale(1.05); }
 
@@ -134,172 +91,96 @@
   .channel-count { font-size: 12px; opacity: .75; font-weight: 500; position: relative; z-index: 1; }
 
   .match-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 20px;
-    border-bottom: 1px solid #f1f5f9;
-    transition: background .15s ease, cursor .15s ease;
-    cursor: pointer;
-    position: relative;
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 20px; border-bottom: 1px solid #f1f5f9;
+    transition: background .15s ease; cursor: pointer; position: relative;
   }
   .match-row:last-child { border-bottom: none; }
   .match-row:hover { background: linear-gradient(90deg, #f8fafc 0%, #fff 100%); }
   .match-row:active { background: #f1f5f9; }
 
   .match-time {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 16px;
-    color: #1e293b;
-    min-width: 52px;
-    text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    font-size: 16px; color: #1e293b; min-width: 52px; text-align: center;
   }
   .match-time .live-badge {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    color: #ef4444;
-    letter-spacing: .05em;
-    margin-top: 2px;
+    display: block; font-family: 'Inter', sans-serif;
+    font-size: 9px; font-weight: 700; color: #ef4444;
+    letter-spacing: .05em; margin-top: 2px;
   }
 
   .match-info { flex: 1; min-width: 0; }
   .match-sport { font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 2px; }
   .match-title {
-    font-weight: 700;
-    font-size: 15px;
-    color: #1e293b;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 700; font-size: 15px; color: #1e293b;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .match-comp { font-size: 11px; color: #94a3b8; margin-top: 2px; }
 
   .live-strip {
     background: linear-gradient(90deg, #fef2f2 0%, #fff 100%);
-    border: 1px solid #fecaca;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 24px;
+    border: 1px solid #fecaca; border-radius: 12px; padding: 16px; margin-bottom: 24px;
   }
   .live-card {
-    background: #fff;
-    border: 1px solid #fecaca;
-    border-left: 4px solid #ef4444;
-    border-radius: 10px;
-    padding: 12px 16px;
-    min-width: 280px;
+    background: #fff; border: 1px solid #fecaca; border-left: 4px solid #ef4444;
+    border-radius: 10px; padding: 12px 16px; min-width: 280px;
     transition: transform .15s ease, box-shadow .15s ease;
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .live-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 40%;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40%;
     background: linear-gradient(180deg, rgba(254,202,202,.3) 0%, rgba(254,202,202,0) 100%);
     pointer-events: none;
   }
-  .live-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -8px rgba(239,68,68,.3);
-  }
-
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #475569;
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    cursor: pointer;
-    transition: all .15s ease;
-  }
-  .chip:hover { border-color: #94a3b8; background: #f8fafc; }
-  .chip.active { background: #1e293b; color: #fff; border-color: #1e293b; }
+  .live-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(239,68,68,.3); }
 
   /* MODALE */
   .modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,.5);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s ease;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+    z-index: 100; display: flex; align-items: center; justify-content: center;
+    padding: 20px; opacity: 0; pointer-events: none; transition: opacity .2s ease;
   }
-  .modal-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
   .modal-content {
-    background: #fff;
-    border-radius: 16px;
-    max-width: 500px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 24px 48px rgba(0,0,0,.2);
-    transform: scale(.95);
-    transition: transform .2s ease;
+    background: #fff; border-radius: 16px; max-width: 500px; width: 100%;
+    max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 48px rgba(0,0,0,.2);
+    transform: scale(.95); transition: transform .2s ease;
   }
-  .modal-overlay.active .modal-content {
-    transform: scale(1);
-  }
+  .modal-overlay.active .modal-content { transform: scale(1); }
   .modal-header {
     background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    padding: 24px;
-    color: #fff;
-    position: relative;
+    padding: 24px; color: #fff; position: relative;
   }
   .modal-close {
-    position: absolute;
-    top: 16px; right: 16px;
-    width: 32px; height: 32px;
-    background: rgba(255,255,255,.2);
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px; background: rgba(255,255,255,.2);
+    border: none; border-radius: 8px; color: #fff; font-size: 20px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
     transition: background .15s ease;
   }
   .modal-close:hover { background: rgba(255,255,255,.3); }
   .modal-body { padding: 24px; }
   .modal-info-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid #f1f5f9;
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid #f1f5f9;
   }
   .modal-info-row:last-child { border-bottom: none; }
   .modal-info-icon {
-    width: 40px; height: 40px;
-    background: #f1f5f9;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    width: 40px; height: 40px; background: #f1f5f9; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
   }
   .modal-info-label { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
   .modal-info-value { font-size: 15px; color: #1e293b; font-weight: 600; margin-top: 2px; }
+
+  /* Bannière installation PWA */
+  .install-banner {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: #1e293b; color: #fff; padding: 12px 20px; border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2); display: flex; align-items: center; gap: 12px;
+    z-index: 200; opacity: 0; pointer-events: none; transition: opacity .3s ease;
+  }
+  .install-banner.show { opacity: 1; pointer-events: auto; }
 
   ::-webkit-scrollbar { height: 8px; width: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -308,7 +189,7 @@
   .live-strip-scroll::-webkit-scrollbar { height: 6px; }
 
   @keyframes pulseDot { 0%,100% { opacity:1; transform:scale(1);} 50% { opacity:.4; transform:scale(.75);} }
-  .live-dot { animation: pulseDot 1.2s ease-in-out infinite; }
+  .live-dot { animation: pulseDot 1.2s ease-in-out infinite; display: inline-block; }
 
   @keyframes fadeUp { from { opacity:0; transform: translateY(12px);} to { opacity:1; transform:none;} }
   .fade-up { animation: fadeUp .4s ease both; }
@@ -329,9 +210,7 @@
     </div>
 
     <nav class="hidden lg:flex items-center gap-2">
-      <button class="nav-pill live" id="nav-live">
-        <span class="w-2 h-2 rounded-full bg-white live-dot"></span> Direct
-      </button>
+      <button class="nav-pill live" id="nav-live"><span class="w-2 h-2 rounded-full bg-white live-dot"></span> Direct</button>
       <button class="nav-pill active" data-sport="all">Tous</button>
       <button class="nav-pill" data-sport="Football">⚽ Foot</button>
       <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
@@ -345,17 +224,17 @@
         <span class="w-2 h-2 rounded-full bg-emerald-500 live-dot"></span>
         <span id="update-text">Chargement…</span>
       </div>
-      <button class="lg:hidden p-2 rounded-lg hover:bg-slate-100">
+      <button class="lg:hidden p-2 rounded-lg hover:bg-slate-100" id="mobile-menu-btn">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
       </button>
     </div>
   </div>
 
-  <div class="lg:hidden px-4 pb-3 flex flex-wrap gap-2">
+  <div class="lg:hidden px-4 pb-3 flex flex-wrap gap-2" id="mobile-nav">
     <button class="nav-pill live" id="nav-live-mobile">Direct</button>
     <button class="nav-pill active" data-sport="all">Tous</button>
-    <button class="nav-pill" data-sport="Football">⚽ Foot</button>
-    <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
+    <button class="nav-pill" data-sport="Football"> Foot</button>
+    <button class="nav-pill" data-sport="Rugby"> Rugby</button>
     <button class="nav-pill" data-sport="Tennis">🎾 Tennis</button>
     <button class="nav-pill" data-sport="Cyclisme">🚴 Vélo</button>
     <button class="nav-pill" data-sport="Basket-ball">🏀 Basket</button>
@@ -407,7 +286,7 @@
 <div id="modal" class="modal-overlay">
   <div class="modal-content">
     <div class="modal-header">
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" id="modal-close-btn">×</button>
       <div id="modal-logo-container" class="mb-3"></div>
       <h2 id="modal-title" class="text-2xl font-bold mb-2"></h2>
       <p id="modal-subtitle" class="text-sm opacity-80"></p>
@@ -416,26 +295,40 @@
   </div>
 </div>
 
+<!-- BANNIÈRE INSTALLATION PWA -->
+<div id="install-banner" class="install-banner">
+  <span class="text-sm font-semibold">📲 Installer l'application</span>
+  <button id="install-btn" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full transition">Installer</button>
+  <button id="dismiss-install" class="text-slate-400 hover:text-white ml-2">✕</button>
+</div>
+
 <footer class="border-t border-slate-200 py-6 text-center text-xs text-slate-400 bg-white">
   Données : tv-sports.fr · Mise à jour automatique via GitHub Actions · Fait avec ❤️
 </footer>
 
 <script>
+// ===== CONFIG =====
 const SPORT_EMOJI = {
   'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
-  'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
+  'Formule 1':'🏎️','Handball':'','Moto':'🏍️','Multisports':'🏅'
 };
-const emoji = s => SPORT_EMOJI[s] || '🏅';
+const emoji = s => SPORT_EMOJI[s] || '';
 
 let DATA = null;
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
+// ===== UTILITAIRES TEMPS =====
 function parseMatchTime(dateStr, timeStr) {
-  const match = timeStr.match(/(\d{1,2})h(\d{2})/);
+  const match = String(timeStr).match(/(\d{1,2})h(\d{2})/);
   if (!match) return null;
   const hours = parseInt(match[1]);
   const minutes = parseInt(match[2]);
-  const [year, month, day] = dateStr.split('-').map(Number);
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return null;
+  const year = parseInt(parts[0]);
+  const month = parseInt(parts[1]);
+  const day = parseInt(parts[2]);
+  if (isNaN(year) || isNaN(month) || isNaN(day)) return null;
   return new Date(year, month - 1, day, hours, minutes);
 }
 
@@ -478,30 +371,32 @@ function allMatches() {
   return list;
 }
 
+function getInitials(channel) {
+  return channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+}
+
+// ===== RENDU SELECTEURS =====
 function renderSelectors() {
   const dates = new Set();
   allMatches().forEach(m => { if (m.date) dates.add(m.date); });
   const dateSelect = document.getElementById('date-select');
   dateSelect.innerHTML = '<option value="all">📅 Toutes les dates</option>' +
-    [...dates].sort().map(d => `<option value="${d}"> ${formatShortDate(d)} (${formatDate(d)})</option>`).join('');
+    [...dates].sort().map(d => `<option value="${d}">📅 ${formatShortDate(d)} (${formatDate(d)})</option>`).join('');
   dateSelect.value = state.date;
 
   const channelSelect = document.getElementById('channel-select');
   channelSelect.innerHTML = '<option value="all">📡 Toutes les chaînes</option>' +
-    Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}"> ${c}</option>`).join('');
+    Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}">📡 ${c}</option>`).join('');
   channelSelect.value = state.channel;
 }
 
+// ===== RENDU DIRECT =====
 function renderLive() {
   const seen = new Set();
-  const live = allMatches().filter(m => 
-    isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match)
-  );
-  
+  const live = allMatches().filter(m => isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match));
   const sec = document.getElementById('live-section');
   if (!live.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
-  
   document.getElementById('live-strip').innerHTML = live.map(m => {
     const logo = DATA?.channels?.[m.channel]?.logo || '';
     return `
@@ -522,32 +417,30 @@ function renderLive() {
   }).join('');
 }
 
-function openModalFromElement(el) {
-  const match = JSON.parse(el.dataset.match);
-  const channel = el.dataset.channel;
-  
+// ===== MODALE =====
+function openModal(match, channel) {
   const modal = document.getElementById('modal');
   const logo = DATA?.channels?.[channel]?.logo || '';
-  const initials = channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
-  
+  const initials = getInitials(channel);
+
   document.getElementById('modal-logo-container').innerHTML = logo
     ? `<img src="${logo}" class="w-16 h-16 object-contain bg-white rounded-xl p-2 shadow-lg">`
     : `<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-xl shadow-lg">${initials}</div>`;
-  
+
   document.getElementById('modal-title').textContent = match.match;
   document.getElementById('modal-subtitle').textContent = `${emoji(match.sport)} ${match.sport} · ${match.competition || 'Compétition non renseignée'}`;
-  
+
   const isLive = isCurrentlyLive(match);
   const matchDate = parseMatchTime(match.date, match.time);
   const now = new Date();
   const diffMinutes = matchDate ? Math.round((matchDate - now) / 60000) : null;
-  
+
   let timeStatus = '';
   if (isLive) timeStatus = '<span class="text-red-500 font-bold">● EN DIRECT</span>';
   else if (diffMinutes !== null && diffMinutes > 0) timeStatus = `Commence dans ${diffMinutes} min`;
   else if (diffMinutes !== null && diffMinutes < 0) timeStatus = `Terminé il y a ${Math.abs(diffMinutes)} min`;
   else timeStatus = 'Horaire à confirmer';
-  
+
   const scoreHtml = match.score ? `
     <div class="modal-info-row">
       <div class="modal-info-icon">📊</div>
@@ -558,8 +451,19 @@ function openModalFromElement(el) {
     </div>
   ` : '';
 
+  const teamsHtml = (match.home_team || match.away_team) ? `
+    <div class="modal-info-row">
+      <div class="modal-info-icon">🏟️</div>
+      <div>
+        <div class="modal-info-label">Équipes</div>
+        <div class="modal-info-value">${match.home_team || ''} ${match.away_team ? 'vs ' + match.away_team : ''}</div>
+      </div>
+    </div>
+  ` : '';
+
   document.getElementById('modal-body').innerHTML = `
     ${scoreHtml}
+    ${teamsHtml}
     <div class="modal-info-row">
       <div class="modal-info-icon">🕒</div>
       <div>
@@ -590,7 +494,7 @@ function openModalFromElement(el) {
       </div>
     </div>
   `;
-  
+
   modal.classList.add('active');
 }
 
@@ -601,11 +505,10 @@ function closeModal() {
 document.getElementById('modal').addEventListener('click', (e) => {
   if (e.target.id === 'modal') closeModal();
 });
+document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
-});
-
+// ===== RENDU CHAÎNES =====
 function renderChannels() {
   const q = state.search.toLowerCase();
   const container = document.getElementById('channels');
@@ -627,7 +530,7 @@ function renderChannels() {
   for (const [channel, matches] of entries) {
     shown++;
     const logo = DATA?.channels?.[channel]?.logo || '';
-    const initials = channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+    const initials = getInitials(channel);
     const logoHtml = logo
       ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${initials}</div>'">`
       : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm">${initials}</div>`;
@@ -643,19 +546,20 @@ function renderChannels() {
         const isLive = isCurrentlyLive(m);
         const hasScore = m.score && m.score.trim() !== '';
         const hasLogos = m.home_logo || m.away_logo;
-        
+
         const teams = m.match.split('–').map(t => t.trim());
         const homeName = teams[0] || m.match;
         const awayName = teams[1] || '';
-        
-        const matchDataStr = JSON.stringify(m).replace(/'/g, "&#39;");
-        const channelStr = channel.replace(/"/g, '&quot;');
-        
+
+        // Stockage sécurisé des données via data-attributes
+        const matchData = encodeURIComponent(JSON.stringify(m));
+        const channelData = encodeURIComponent(channel);
+
         return `
-        <div class="match-row" data-match='${matchDataStr}' data-channel="${channelStr}" onclick="openModalFromElement(this)">
+        <div class="match-row" data-match="${matchData}" data-channel="${channelData}">
           <div class="match-time">
             ${m.time}
-            ${isLive ? '<span class="live-badge"><span class="live-dot inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
+            ${isLive ? '<span class="live-badge"><span class="live-dot w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
           </div>
           <div class="flex-1 min-w-0">
             ${hasLogos ? `
@@ -694,8 +598,20 @@ function renderChannels() {
 
   container.innerHTML = html;
   document.getElementById('empty').classList.toggle('hidden', shown > 0);
+
+  // Event delegation pour les clics sur les matchs
+  container.querySelectorAll('.match-row').forEach(row => {
+    row.addEventListener('click', () => {
+      try {
+        const match = JSON.parse(decodeURIComponent(row.dataset.match));
+        const channel = decodeURIComponent(row.dataset.channel);
+        openModal(match, channel);
+      } catch(e) { console.error('Erreur modal:', e); }
+    });
+  });
 }
 
+// ===== RENDU GLOBAL =====
 function render() {
   renderSelectors(); renderLive(); renderChannels();
   const d = new Date(DATA.updated_at);
@@ -703,6 +619,7 @@ function render() {
     `MàJ ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
 }
 
+// ===== CHARGEMENT =====
 async function load() {
   try {
     const r = await fetch('data/schedule.json?t=' + Date.now());
@@ -717,6 +634,7 @@ async function load() {
   }
 }
 
+// ===== NAVIGATION SPORT =====
 document.querySelectorAll('.nav-pill[data-sport]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.nav-pill[data-sport]').forEach(b => b.classList.remove('active'));
@@ -726,6 +644,7 @@ document.querySelectorAll('.nav-pill[data-sport]').forEach(btn => {
   });
 });
 
+// ===== TOGGLE DIRECT =====
 const toggleLive = () => {
   state.liveOnly = !state.liveOnly;
   document.querySelectorAll('.nav-pill.live').forEach(b => {
@@ -737,62 +656,59 @@ const toggleLive = () => {
 document.getElementById('nav-live')?.addEventListener('click', toggleLive);
 document.getElementById('nav-live-mobile')?.addEventListener('click', toggleLive);
 
+// ===== FILTRES =====
 document.getElementById('date-select').addEventListener('change', e => { state.date = e.target.value; renderChannels(); });
 document.getElementById('channel-select').addEventListener('change', e => { state.channel = e.target.value; renderChannels(); });
 document.getElementById('search').addEventListener('input', e => { state.search = e.target.value; renderChannels(); });
 
+// ===== MENU MOBILE =====
+document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+  const nav = document.getElementById('mobile-nav');
+  nav.classList.toggle('hidden');
+});
+
+// ===== PWA : SERVICE WORKER =====
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('Service Worker enregistré', reg))
+      .catch(err => console.log('Erreur Service Worker', err));
+  });
+}
+
+// ===== PWA : INSTALLATION =====
+let deferredPrompt;
+const installBanner = document.getElementById('install-banner');
+const installBtn = document.getElementById('install-btn');
+const dismissBtn = document.getElementById('dismiss-install');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBanner.classList.add('show');
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBanner.classList.remove('show');
+  }
+});
+
+dismissBtn.addEventListener('click', () => {
+  installBanner.classList.remove('show');
+});
+
+window.addEventListener('appinstalled', () => {
+  installBanner.classList.remove('show');
+  deferredPrompt = null;
+});
+
+// ===== DÉMARRAGE =====
 load();
 setInterval(load, 10 * 60 * 1000);
-</script>
- <!-- BOUTON D'INSTALLATION PWA -->
-<div id="install-banner" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 hidden fade-up">
-  <span class="text-sm font-semibold">📲 Installer l'application</span>
-  <button id="install-btn" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full transition">Installer</button>
-  <button id="dismiss-install" class="text-slate-400 hover:text-white ml-2">✕</button>
-</div>
-
-<script>
-  // ===== ENREGISTREMENT DU SERVICE WORKER =====
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('Service Worker enregistré', reg))
-        .catch(err => console.log('Erreur Service Worker', err));
-    });
-  }
-
-  // ===== LOGIQUE D'INSTALLATION PWA =====
-  let deferredPrompt;
-  const installBanner = document.getElementById('install-banner');
-  const installBtn = document.getElementById('install-btn');
-  const dismissBtn = document.getElementById('dismiss-install');
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installBanner.classList.remove('hidden');
-  });
-
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        console.log('Utilisateur a installé la PWA');
-      }
-      deferredPrompt = null;
-      installBanner.classList.add('hidden');
-    }
-  });
-
-  dismissBtn.addEventListener('click', () => {
-    installBanner.classList.add('hidden');
-  });
-
-  window.addEventListener('appinstalled', () => {
-    installBanner.classList.add('hidden');
-    deferredPrompt = null;
-  });
 </script>
 </body>
 </html>
