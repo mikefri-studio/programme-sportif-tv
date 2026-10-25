@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme Sportif par Chaîne</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen p-4 md:p-8">
+    <header class="max-w-7xl mx-auto mb-8 text-center">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-blue-400 mb-2">📺 Programme Sportif par Chaîne</h1>
+        <p id="last-update" class="text-gray-400 text-sm">Chargement de la date de mise à jour...</p>
+    </header>
 
+    <main id="schedule-container" class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="col-span-full text-center text-gray-500 py-10">Chargement des données en cours...</div>
+    </main>
+
+    <script>
+        async function loadSchedule() {
+            try {
+                // Ajout d'un timestamp pour éviter le cache du navigateur
+                const response = await fetch('data/schedule.json?t=' + new Date().getTime());
+                if (!response.ok) throw new Error("Fichier non trouvé");
+                const data = await response.json();
+                
+                document.getElementById('last-update').textContent = 
+                    `Dernière mise à jour : ${new Date(data.updated_at).toLocaleString('fr-FR')}`;
+                
+                const container = document.getElementById('schedule-container');
+                container.innerHTML = ''; 
+
+                for (const [channel, matches] of Object.entries(data.channels)) {
+                    const channelCard = document.createElement('div');
+                    channelCard.className = 'bg-gray-800 rounded-xl p-5 shadow-lg border border-gray-700 hover:border-blue-500 transition-colors';
+                    
+                    const matchesHtml = matches.map(match => `
+                        <div class="flex items-start gap-3 py-3 border-b border-gray-700 last:border-0">
+                            <span class="text-blue-400 font-mono font-bold text-sm min-w-[65px] pt-0.5">${match.time}</span>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap items-center gap-2 mb-1">
+                                    <span class="text-xs bg-gray-700 px-2 py-0.5 rounded text-gray-300 font-medium">${match.sport}</span>
+                                    ${match.is_live ? '<span class="text-xs bg-red-600 px-2 py-0.5 rounded text-white font-bold animate-pulse">● DIRECT</span>' : ''}
+                                </div>
+                                <p class="font-bold text-white leading-tight">${match.match}</p>
+                                <p class="text-xs text-gray-400 mt-1">${match.competition}</p>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    channelCard.innerHTML = `
+                        <h2 class="text-lg font-bold text-blue-300 mb-4 border-b border-gray-600 pb-2 flex items-center gap-2">
+                            📡 ${channel}
+                        </h2>
+                        <div class="space-y-1">
+                            ${matchesHtml}
+                        </div>
+                    `;
+                    container.appendChild(channelCard);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('schedule-container').innerHTML = 
+                    `<div class="col-span-full text-center text-red-400 bg-red-900/20 p-4 rounded-lg">
+                        Erreur lors du chargement des données. Assurez-vous que le script a généré <code>data/schedule.json</code>.
+                    </div>`;
+            }
+        }
+        loadSchedule();
+    </script>
+</body>
+</html>
