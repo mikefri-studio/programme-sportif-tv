@@ -57,6 +57,25 @@
     color: #0369a1;
   }
 
+  /* Sélecteurs (date + chaîne) */
+  .select-ctrl {
+    appearance: none;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid rgba(15,23,42,.12);
+    border-radius: .75rem;
+    padding: .75rem 2.5rem .75rem 2.75rem;
+    font-size: .875rem;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    min-width: 200px;
+  }
+  .select-ctrl:hover { border-color: rgba(2,132,199,.45); }
+  .select-ctrl:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,.18); }
+
   ::-webkit-scrollbar { height: 8px; width: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(100,116,139,.3); border-radius: 8px; }
@@ -97,7 +116,7 @@
     </p>
   </section>
 
-  <!-- ===== STATS (pleine largeur) ===== -->
+  <!-- ===== STATS ===== -->
   <section id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 fade-up" style="animation-delay:.1s"></section>
 
   <!-- ===== BANDAU DIRECT ===== -->
@@ -109,14 +128,35 @@
     <div id="live-strip" class="live-strip flex gap-4 overflow-x-auto pb-3"></div>
   </section>
 
-  <!-- ===== FILTRES ===== -->
+  <!-- ===== FILTRES (recherche + DATE + CHAÎNE + direct) ===== -->
   <section class="mb-8 fade-up" style="animation-delay:.2s">
-    <div class="glass rounded-2xl p-4 flex flex-col md:flex-row gap-4 md:items-center">
-      <div class="relative flex-1">
+    <div class="glass rounded-2xl p-4 flex flex-col xl:flex-row gap-4 xl:items-center">
+      <!-- Recherche -->
+      <div class="relative flex-1 min-w-[220px]">
         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
-        <input id="search" type="text" placeholder="Rechercher un match, une compétition, une chaîne…"
+        <input id="search" type="text" placeholder="Rechercher un match, une compétition…"
                class="w-full bg-white border border-slate-200 rounded-xl pl-11 pr-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition placeholder:text-slate-400">
       </div>
+
+      <!-- SÉLECTEUR DE DATE -->
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">📅</span>
+        <select id="date-select" class="select-ctrl w-full xl:w-auto">
+          <option value="all">Toutes les dates</option>
+        </select>
+        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
+      </div>
+
+      <!-- SÉLECTEUR DE CHAÎNE -->
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">📡</span>
+        <select id="channel-select" class="select-ctrl w-full xl:w-auto">
+          <option value="all">Toutes les chaînes</option>
+        </select>
+        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
+      </div>
+
+      <!-- Direct toggle -->
       <button id="live-toggle" class="chip glass rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 whitespace-nowrap">
         🔴 Direct uniquement
       </button>
@@ -124,14 +164,14 @@
     <div id="chips" class="flex flex-wrap gap-2 mt-4"></div>
   </section>
 
-  <!-- ===== GRILLE DES CHAÎNES (pleine largeur + colonnes adaptatives) ===== -->
+  <!-- ===== GRILLE DES CHAÎNES ===== -->
   <section id="channels" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 min-[2200px]:grid-cols-5 gap-6"></section>
 
   <!-- ===== ÉTAT VIDE ===== -->
   <section id="empty" class="hidden text-center py-20">
     <div class="text-6xl mb-4">🛰️</div>
     <h3 class="text-xl font-bold text-slate-700">Aucun programme ne correspond</h3>
-    <p class="text-slate-500 mt-2">Essayez de modifier votre recherche ou vos filtres.</p>
+    <p class="text-slate-500 mt-2">Essayez de modifier votre recherche, la date ou la chaîne.</p>
   </section>
 </main>
 
@@ -148,7 +188,7 @@ const SPORT_EMOJI = {
 const emoji = s => SPORT_EMOJI[s] || '🏅';
 
 let DATA = null;
-const state = { search:'', sport:'all', liveOnly:false };
+const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
 const timeKey = t => {
   const m = String(t).match(/(\d{1,2})h(\d{2})/);
@@ -157,11 +197,35 @@ const timeKey = t => {
 
 const hue = str => { let h=0; for (const c of str) h = (h*31 + c.charCodeAt(0)) % 360; return h; };
 
+/* Formate une date ISO (2025-06-14) en français : "sam. 14 juin 2025" */
+function formatDate(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString('fr-FR', { weekday:'short', day:'numeric', month:'long', year:'numeric' });
+}
+
 function allMatches() {
   const list = [];
   for (const [channel, matches] of Object.entries(DATA?.channels || {}))
     for (const m of matches) list.push({ ...m, channel });
   return list;
+}
+
+/* ===== REMPLIT LES SÉLECTEURS DATE + CHAÎNE ===== */
+function renderSelectors() {
+  // Dates uniques présentes dans les données
+  const dates = new Set();
+  allMatches().forEach(m => { if (m.date) dates.add(m.date); });
+  const dateSelect = document.getElementById('date-select');
+  dateSelect.innerHTML = '<option value="all">📅 Toutes les dates</option>' +
+    [...dates].sort().map(d => `<option value="${d}">📅 ${formatDate(d)}</option>`).join('');
+  dateSelect.value = state.date;
+
+  // Chaînes présentes dans les données
+  const channelSelect = document.getElementById('channel-select');
+  channelSelect.innerHTML = '<option value="all">📡 Toutes les chaînes</option>' +
+    Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}">📡 ${c}</option>`).join('');
+  channelSelect.value = state.channel;
 }
 
 function renderStats() {
@@ -212,15 +276,18 @@ function renderChips() {
     btn.onclick = () => { state.sport = btn.dataset.sport; renderChips(); renderChannels(); });
 }
 
+/* ===== GRILLE : filtre par recherche + sport + direct + DATE + CHAÎNE ===== */
 function renderChannels() {
   const q = state.search.toLowerCase();
   const container = document.getElementById('channels');
   let html = '', shown = 0, idx = 0;
 
   const entries = Object.entries(DATA?.channels || {})
+    .filter(([ch]) => state.channel === 'all' || ch === state.channel)   // ← filtre CHAÎNE
     .map(([ch, ms]) => [ch, ms.filter(m =>
       (!state.liveOnly || m.is_live) &&
       (state.sport === 'all' || m.sport === state.sport) &&
+      (state.date === 'all' || m.date === state.date) &&                  // ← filtre DATE
       (!q || (m.match+' '+m.competition+' '+ch+' '+m.sport).toLowerCase().includes(q))
     )])
     .filter(([ch, ms]) => ms.length)
@@ -247,6 +314,7 @@ function renderChannels() {
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2 mb-1 flex-wrap">
                 <span class="text-[10px] bg-slate-100 rounded-full px-2 py-0.5 text-slate-600 font-semibold">${emoji(m.sport)} ${m.sport}</span>
+                ${m.date ? `<span class="text-[10px] bg-indigo-50 text-indigo-600 rounded-full px-2 py-0.5 font-semibold">📅 ${formatDate(m.date)}</span>` : ''}
                 ${m.is_live ? '<span class="text-[10px] bg-red-50 text-red-600 border border-red-200 rounded-full px-2 py-0.5 font-bold"><span class="live-dot inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
               </div>
               <p class="font-semibold leading-snug text-slate-800">${m.match}</p>
@@ -263,6 +331,7 @@ function renderChannels() {
 }
 
 function render() {
+  renderSelectors();   // ← remplit date + chaîne
   renderStats(); renderLive(); renderChips(); renderChannels();
   const d = new Date(DATA.updated_at);
   document.getElementById('update-text').textContent =
@@ -284,6 +353,9 @@ async function load() {
   }
 }
 
+/* ===== ÉVÉNEMENTS DES SÉLECTEURS ===== */
+document.getElementById('date-select').addEventListener('change', e => { state.date = e.target.value; renderChannels(); });
+document.getElementById('channel-select').addEventListener('change', e => { state.channel = e.target.value; renderChannels(); });
 document.getElementById('search').addEventListener('input', e => { state.search = e.target.value; renderChannels(); });
 document.getElementById('live-toggle').addEventListener('click', e => {
   state.liveOnly = !state.liveOnly;
