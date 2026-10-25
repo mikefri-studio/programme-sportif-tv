@@ -1,71 +1,296 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programme Sportif par Chaîne</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b14">
+<title>SportTV · Le programme sport par chaîne</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Outfit', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  body {
+    background:
+      radial-gradient(1100px 600px at 85% -10%, rgba(56,189,248,.14), transparent 60%),
+      radial-gradient(900px 500px at 5% 0%, rgba(129,140,248,.12), transparent 60%),
+      radial-gradient(800px 600px at 50% 110%, rgba(16,185,129,.08), transparent 60%),
+      #070b14;
+    min-height: 100vh;
+  }
+
+  .glass {
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.09);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56,189,248,.4);
+    box-shadow: 0 24px 48px -24px rgba(56,189,248,.3);
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px);} to { opacity:1; transform:none;} }
+  .fade-up { animation: fadeUp .55s ease both; }
+
+  @keyframes pulseDot { 0%,100% { opacity:1; transform:scale(1);} 50% { opacity:.4; transform:scale(.75);} }
+  .live-dot { animation: pulseDot 1.2s ease-in-out infinite; }
+
+  .chip { transition: all .2s ease; cursor: pointer; }
+  .chip:hover { border-color: rgba(56,189,248,.5); }
+  .chip.active {
+    background: linear-gradient(90deg, rgba(56,189,248,.25), rgba(129,140,248,.25));
+    border-color: rgba(56,189,248,.6);
+    color: #e0f2fe;
+  }
+
+  ::-webkit-scrollbar { height: 8px; width: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(56,189,248,.4); }
+
+  .live-strip::-webkit-scrollbar { height: 6px; }
+</style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen p-4 md:p-8">
-    <header class="max-w-7xl mx-auto mb-8 text-center">
-        <h1 class="text-3xl md:text-4xl font-extrabold text-blue-400 mb-2">📺 Programme Sportif par Chaîne</h1>
-        <p id="last-update" class="text-gray-400 text-sm">Chargement...</p>
-    </header>
+<body class="text-slate-100">
 
-    <main id="schedule-container" class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <div class="col-span-full text-center text-gray-500 py-10">Chargement des données...</div>
-    </main>
+<!-- ===== HEADER ===== -->
+<header class="sticky top-0 z-50 glass border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-xl shadow-lg shadow-sky-500/30">📺</div>
+      <div>
+        <h1 class="text-lg font-bold leading-none">Sport<span class="gradient-text">TV</span></h1>
+        <p class="text-[11px] text-slate-400">Le sport à la télé, chaîne par chaîne</p>
+      </div>
+    </div>
+    <div id="update-pill" class="hidden sm:flex items-center gap-2 text-xs text-slate-400 glass rounded-full px-3 py-1.5">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 live-dot"></span>
+      <span id="update-text">Chargement…</span>
+    </div>
+  </div>
+</header>
 
-    <script>
-        async function loadSchedule() {
-            try {
-                const response = await fetch('data/schedule.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error("Fichier non trouvé");
-                const data = await response.json();
+<main class="max-w-7xl mx-auto px-4 pb-16">
 
-                document.getElementById('last-update').textContent =
-                    `Dernière mise à jour : ${new Date(data.updated_at).toLocaleString('fr-FR')} · Source : ${data.source || 'n/d'}`;
+  <!-- ===== HERO ===== -->
+  <section class="pt-10 pb-8 text-center fade-up">
+    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+      Tous les matchs diffusés, <span class="gradient-text">classés par chaîne</span>
+    </h2>
+    <p class="text-slate-400 mt-3 max-w-2xl mx-auto">
+      Football, rugby, tennis, cyclisme… Retrouvez en un coup d'œil ce qui passe à la TV, chaîne par chaîne, mis à jour automatiquement.
+    </p>
+  </section>
 
-                const container = document.getElementById('schedule-container');
-                container.innerHTML = '';
+  <!-- ===== STATS ===== -->
+  <section id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 fade-up" style="animation-delay:.1s"></section>
 
-                const entries = Object.entries(data.channels);
-                if (entries.length === 0) {
-                    container.innerHTML = '<div class="col-span-full text-center text-gray-500">Aucun programme trouvé pour le moment.</div>';
-                    return;
-                }
+  <!-- ===== BANDAU DIRECT ===== -->
+  <section id="live-section" class="hidden mb-8 fade-up" style="animation-delay:.15s">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="w-2.5 h-2.5 rounded-full bg-red-500 live-dot"></span>
+      <h3 class="font-bold text-red-400 uppercase tracking-widest text-sm">En direct maintenant</h3>
+    </div>
+    <div id="live-strip" class="live-strip flex gap-4 overflow-x-auto pb-3"></div>
+  </section>
 
-                for (const [channel, matches] of entries) {
-                    const card = document.createElement('div');
-                    card.className = 'bg-gray-800 rounded-xl p-5 shadow-lg border border-gray-700 hover:border-blue-500 transition-colors';
+  <!-- ===== FILTRES ===== -->
+  <section class="mb-8 fade-up" style="animation-delay:.2s">
+    <div class="glass rounded-2xl p-4 flex flex-col md:flex-row gap-4 md:items-center">
+      <div class="relative flex-1">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">🔍</span>
+        <input id="search" type="text" placeholder="Rechercher un match, une compétition, une chaîne…"
+               class="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm outline-none focus:border-sky-400/60 focus:bg-white/10 transition placeholder:text-slate-500">
+      </div>
+      <button id="live-toggle" class="chip glass rounded-xl px-4 py-3 text-sm font-semibold text-slate-300 whitespace-nowrap">
+        🔴 Direct uniquement
+      </button>
+    </div>
+    <div id="chips" class="flex flex-wrap gap-2 mt-4"></div>
+  </section>
 
-                    const matchesHtml = matches.map(m => `
-                        <div class="flex items-start gap-3 py-3 border-b border-gray-700 last:border-0">
-                            <span class="text-blue-400 font-mono font-bold text-sm min-w-[65px] pt-0.5">${m.time}</span>
-                            <div class="flex-1">
-                                <div class="flex flex-wrap items-center gap-2 mb-1">
-                                    <span class="text-xs bg-gray-700 px-2 py-0.5 rounded text-gray-300 font-medium">${m.sport}</span>
-                                    ${m.is_live ? '<span class="text-xs bg-red-600 px-2 py-0.5 rounded text-white font-bold animate-pulse">● DIRECT</span>' : ''}
-                                </div>
-                                <p class="font-bold text-white leading-tight">${m.match}</p>
-                                ${m.competition ? `<p class="text-xs text-gray-400 mt-1">${m.competition}</p>` : ''}
-                            </div>
-                        </div>
-                    `).join('');
+  <!-- ===== GRILLE DES CHAÎNES ===== -->
+  <section id="channels" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></section>
 
-                    card.innerHTML = `
-                        <h2 class="text-lg font-bold text-blue-300 mb-4 border-b border-gray-600 pb-2">📡 ${channel}</h2>
-                        <div class="space-y-1">${matchesHtml}</div>
-                    `;
-                    container.appendChild(card);
-                }
-            } catch (error) {
-                console.error('Erreur:', error);
-                document.getElementById('schedule-container').innerHTML =
-                    '<div class="col-span-full text-center text-red-400 bg-red-900/20 p-4 rounded-lg">Erreur de chargement de data/schedule.json</div>';
-            }
-        }
-        loadSchedule();
-    </script>
+  <!-- ===== ÉTAT VIDE ===== -->
+  <section id="empty" class="hidden text-center py-20">
+    <div class="text-6xl mb-4">🛰️</div>
+    <h3 class="text-xl font-bold text-slate-300">Aucun programme ne correspond</h3>
+    <p class="text-slate-500 mt-2">Essayez de modifier votre recherche ou vos filtres.</p>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="border-t border-white/10 py-6 text-center text-xs text-slate-500">
+  Données : tv-sports.fr · Mise à jour automatique via GitHub Actions · Fait avec ❤️
+</footer>
+
+<script>
+const SPORT_EMOJI = {
+  'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
+};
+const emoji = s => SPORT_EMOJI[s] || '🏅';
+
+let DATA = null;
+const state = { search:'', sport:'all', liveOnly:false };
+
+const timeKey = t => {
+  const m = String(t).match(/(\d{1,2})h(\d{2})/);
+  return m ? (+m[1])*60 + (+m[2]) : 9999;
+};
+
+const hue = str => { let h=0; for (const c of str) h = (h*31 + c.charCodeAt(0)) % 360; return h; };
+
+function allMatches() {
+  const list = [];
+  for (const [channel, matches] of Object.entries(DATA?.channels || {}))
+    for (const m of matches) list.push({ ...m, channel });
+  return list;
+}
+
+function renderStats() {
+  const matches = allMatches();
+  const live = matches.filter(m => m.is_live).length;
+  const sports = new Set(matches.map(m => m.sport)).size;
+  const chans = Object.keys(DATA?.channels || {}).length;
+  const items = [
+    ['📡', chans, 'Chaînes'],
+    ['🗓️', matches.length, 'Programmes'],
+    ['🔴', live, 'En direct'],
+    ['🏆', sports, 'Sports'],
+  ];
+  document.getElementById('stats').innerHTML = items.map(([ic, v, l], i) => `
+    <div class="glass card rounded-2xl p-4 text-center fade-up" style="animation-delay:${.1+i*.05}s">
+      <div class="text-2xl mb-1">${ic}</div>
+      <div class="text-2xl font-extrabold gradient-text">${v}</div>
+      <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">${l}</div>
+    </div>`).join('');
+}
+
+function renderLive() {
+  const seen = new Set();
+  const live = allMatches().filter(m => m.is_live && !seen.has(m.match) && seen.add(m.match));
+  const sec = document.getElementById('live-section');
+  if (!live.length) { sec.classList.add('hidden'); return; }
+  sec.classList.remove('hidden');
+  document.getElementById('live-strip').innerHTML = live.map(m => `
+    <div class="glass card rounded-2xl p-4 min-w-[260px] border-red-500/30">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="w-2 h-2 rounded-full bg-red-500 live-dot"></span>
+        <span class="text-[11px] font-bold text-red-400 uppercase tracking-wider">Direct</span>
+        <span class="text-[11px] text-slate-400 ml-auto">${emoji(m.sport)} ${m.sport}</span>
+      </div>
+      <p class="font-bold leading-tight">${m.match}</p>
+      <p class="text-xs text-slate-400 mt-1">${m.competition || ''} · 📡 ${m.channel}</p>
+    </div>`).join('');
+}
+
+function renderChips() {
+  const counts = {};
+  allMatches().forEach(m => counts[m.sport] = (counts[m.sport]||0)+1);
+  const chips = [['all','🌐 Tous'], ...Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([s,c])=>[s, `${emoji(s)} ${s} (${c})`])];
+  document.getElementById('chips').innerHTML = chips.map(([key,label]) => `
+    <button data-sport="${key}" class="chip glass rounded-full px-4 py-2 text-xs font-semibold text-slate-300 ${state.sport===key?'active':''}">${label}</button>
+  `).join('');
+  document.querySelectorAll('#chips .chip').forEach(btn =>
+    btn.onclick = () => { state.sport = btn.dataset.sport; renderChips(); renderChannels(); });
+}
+
+function renderChannels() {
+  const q = state.search.toLowerCase();
+  const container = document.getElementById('channels');
+  let html = '', shown = 0, idx = 0;
+
+  const entries = Object.entries(DATA?.channels || {})
+    .map(([ch, ms]) => [ch, ms.filter(m =>
+      (!state.liveOnly || m.is_live) &&
+      (state.sport === 'all' || m.sport === state.sport) &&
+      (!q || (m.match+' '+m.competition+' '+ch+' '+m.sport).toLowerCase().includes(q))
+    )])
+    .filter(([ch, ms]) => ms.length)
+    .sort((a,b) => b[1].length - a[1].length);
+
+  for (const [channel, matches] of entries) {
+    shown++;
+    const h = hue(channel);
+    const initials = channel.replace(/[^A-Za-zÀ-ÿ+ ]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+    html += `
+    <div class="glass card rounded-2xl overflow-hidden fade-up" style="animation-delay:${Math.min(idx*.06,.5)}s">
+      <div class="p-5 pb-3 flex items-center gap-3 border-b border-white/5">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center font-extrabold text-sm shadow-lg"
+             style="background:linear-gradient(135deg, hsl(${h},70%,45%), hsl(${(h+70)%360},70%,35%))">${initials}</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-bold truncate">${channel}</h3>
+          <p class="text-[11px] text-slate-400">${matches.length} programme${matches.length>1?'s':''}</p>
+        </div>
+      </div>
+      <div class="divide-y divide-white/5">
+        ${matches.map(m => `
+          <div class="p-4 flex gap-3 hover:bg-white/5 transition">
+            <div class="mono text-sky-400 font-bold text-sm pt-0.5 min-w-[52px]">${m.time}</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
+                <span class="text-[10px] bg-white/10 rounded-full px-2 py-0.5 text-slate-300 font-semibold">${emoji(m.sport)} ${m.sport}</span>
+                ${m.is_live ? '<span class="text-[10px] bg-red-500/20 text-red-400 border border-red-500/40 rounded-full px-2 py-0.5 font-bold"><span class="live-dot inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
+              </div>
+              <p class="font-semibold leading-snug">${m.match}</p>
+              ${m.competition ? `<p class="text-xs text-slate-500 mt-0.5">${m.competition}</p>` : ''}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+    idx++;
+  }
+
+  container.innerHTML = html;
+  document.getElementById('empty').classList.toggle('hidden', shown > 0);
+}
+
+function render() {
+  renderStats(); renderLive(); renderChips(); renderChannels();
+  const d = new Date(DATA.updated_at);
+  document.getElementById('update-text').textContent =
+    `MàJ ${d.toLocaleDateString('fr-FR')} à ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}` +
+    (DATA.source ? ` · ${DATA.source}` : '');
+}
+
+async function load() {
+  try {
+    const r = await fetch('data/schedule.json?t=' + Date.now());
+    if (!r.ok) throw new Error();
+    DATA = await r.json();
+    render();
+  } catch(e) {
+    document.getElementById('channels').innerHTML =
+      `<div class="col-span-full glass rounded-2xl p-8 text-center text-red-400">
+         Impossible de charger <code>data/schedule.json</code>. Lancez le workflow GitHub Actions.
+       </div>`;
+  }
+}
+
+document.getElementById('search').addEventListener('input', e => { state.search = e.target.value; renderChannels(); });
+document.getElementById('live-toggle').addEventListener('click', e => {
+  state.liveOnly = !state.liveOnly;
+  e.currentTarget.classList.toggle('active', state.liveOnly);
+  renderChannels();
+});
+
+load();
+setInterval(load, 10 * 60 * 1000); // rafraîchit auto toutes les 10 min
+</script>
 </body>
 </html>
