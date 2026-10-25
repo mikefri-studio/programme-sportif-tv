@@ -1,66 +1,93 @@
-import json
 import os
-from datetime import datetime
+import json
 import requests
-from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
 
-def scrape_data():
-    # Créer le dossier data s'il n'existe pas
-    os.makedirs("data", exist_ok=True)
+def fetch_sports_data():
+    # 1. Récupérer la clé API depuis les secrets GitHub (sécurisé)
+    api_key = os.environ.get('API_SPORTS_KEY')
+    if not api_key:
+        print("❌ Erreur: La variable d'environnement API_SPORTS_KEY n'est pas définie.")
+        return
+
+    # 2. Définir la date (aujourd'hui et demain pour avoir les matchs à venir)
+    today = datetime.now().strftime('%Y-%m-%d')
     
-    url = "https://tv-sports.fr/"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    # 3. Appeler l'API (Endpoint des matchs du jour)
+    url = f"https://v3.football.api-sports.io/fixtures?date={today}"
+    headers = {
+        'x-apisports-key': api_key
+    }
+    
+    print(f"📡 Interrogation de l'API pour la date : {today}...")
     
     try:
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
+        data = response.json()
         
-        programmes = []
-        
-        # ⚠️ À ADAPTER : Voici un exemple basé sur la structure typique.
-        # Vous devrez inspecter le code source (F12) du site cible pour trouver les bonnes classes.
-        # for item in soup.find_all('div', class_='programme-item'):
-        #     channel = item.find('span', class_='channel-name').text.strip()
-        #     time = item.find('span', class_='time').text.strip()
-        #     sport = item.find('span', class_='sport').text.strip()
-        #     competition = item.find('span', class_='competition').text.strip()
-        #     match = item.find('h3').text.strip()
-        #     programmes.append({...})
+        if data.get('errors'):
+            print(f"❌ Erreur API : {data['errors']}")
+            return
 
-        # Pour tester le site immédiatement, voici des données fictives réalistes :
-        programmes = [
-            {"channel": "Canal+ Sport", "time": "20h37", "sport": "Football", "competition": "Ligue 1", "match": "PSG – Lyon", "is_live": True},
-            {"channel": "beIN SPORTS 1", "time": "21h00", "sport": "Formule 1", "competition": "Grand Prix des États-Unis", "match": "La course", "is_live": True},
-            {"channel": "L'Équipe", "time": "14h30", "sport": "Football", "competition": "Ligue 1", "match": "Monaco – Lille", "is_live": True},
-            {"channel": "Canal+ Sport", "time": "23h00", "sport": "Rugby", "competition": "Top 14", "match": "Toulouse – La Rochelle", "is_live": False}
-        ]
-        
-        # Regrouper les matchs par chaîne
-        by_channel = {}
-        for p in programmes:
-            ch = p["channel"]
-            if ch not in by_channel:
-                by_channel[ch] = []
-            by_channel[ch].append(p)
+        fixtures = data.get('response', [])
+        print(f"✅ {len(fixtures)} matchs récupérés. Filtrage des diffusions TV...")
+
+        # 4. Traiter et regrouper les données par chaîne TV
+        schedule_by_channel = {}
+
+        for fixture in fixtures:
+            # Vérifier si l'API fournit des informations TV pour ce match
+            tv_stations = fixture.get('tv', [])
             
-        # Trier les matchs par heure pour chaque chaîne
-        for ch in by_channel:
-            by_channel[ch].sort(key=lambda x: x["time"])
+            if tv_stations: # Si la liste n'est pas vide
+                # Informations du match
+                home_team = fixture['teams']['home']['name']
+                away_team = fixture['teams']['away']['name']
+                league = fixture['league']['name']
+                sport = "Football" # Cet endpoint est spécifique au foot, on peut l'adapter
+                
+                # Heure du match (formatage en heure française)
+                match_time = fixture['fixture']['date']
+                dt = datetime.fromisoformat(match_time.replace('Z', '+00:00'))
+                time_str = dt.strftime('%H:%M')
+                
+                match_data = {
+                    "time": time_str,
+                    "sport": sport,
+                    "competition": league,
+                    "match": f"{home_team} – {away_team}",
+                    "is_live": fixture['fixture']['status']['short'] == '1H' or fixture['fixture']['status']['short'] == '2H'
+                }
 
+                # Ajouter à chaque chaîne qui diffuse ce match
+                for channel in tv_stations:
+                    channel_name = channel.strip()
+                    if channel_name not in schedule_by_channel:
+                        schedule_by_channel[channel_name] = []
+                    
+                    # Éviter les doublons si un match est listé 2 fois pour la même chaîne
+                    if match_data not in schedule_by_channel[channel_name]:
+                        schedule_by_channel[channel_name].append(match_data)
+
+        # 5. Trier les matchs par heure pour chaque chaîne
+        for channel in schedule_by_channel:
+            schedule_by_channel[channel].sort(key=lambda x: x["time"])
+
+        # 6. Sauvegarder le résultat
+        os.makedirs("data", exist_ok=True)
         output = {
             "updated_at": datetime.now().isoformat(),
-            "channels": by_channel
+            "channels": schedule_by_channel
         }
         
-        # Sauvegarder dans le fichier JSON
         with open("data/schedule.json", "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)
             
-        print("✅ Données mises à jour avec succès.")
-        
+        print(f"✅ Succès ! {len(schedule_by_channel)} chaînes avec des programmes enregistrées dans data/schedule.json")
+
     except Exception as e:
-        print(f"❌ Erreur lors du scraping : {e}")
+        print(f"❌ Erreur lors de la requête API : {e}")
 
 if __name__ == "__main__":
-    scrape_data()
+    fetch_sports_data()
