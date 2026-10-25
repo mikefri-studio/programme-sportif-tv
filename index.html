@@ -57,7 +57,6 @@
     color: #0369a1;
   }
 
-  /* Sélecteurs (date + chaîne) */
   .select-ctrl {
     appearance: none;
     -webkit-appearance: none;
@@ -82,11 +81,29 @@
   ::-webkit-scrollbar-thumb:hover { background: rgba(2,132,199,.45); }
 
   .live-strip::-webkit-scrollbar { height: 6px; }
+
+  /* Logo de chaîne */
+  .channel-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .channel-logo-live {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #fff;
+    padding: 3px;
+  }
 </style>
 </head>
 <body class="text-slate-800">
 
-<!-- ===== HEADER (pleine largeur) ===== -->
 <header class="sticky top-0 z-50 glass border-b border-slate-200/80">
   <div class="w-full px-4 md:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3">
@@ -103,10 +120,8 @@
   </div>
 </header>
 
-<!-- ===== CONTENU (pleine largeur) ===== -->
 <main class="w-full px-4 md:px-6 lg:px-8 pb-16">
 
-  <!-- ===== HERO ===== -->
   <section class="pt-10 pb-8 text-center fade-up">
     <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
       Tous les matchs diffusés, <span class="gradient-text">classés par chaîne</span>
@@ -116,10 +131,8 @@
     </p>
   </section>
 
-  <!-- ===== STATS ===== -->
   <section id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 fade-up" style="animation-delay:.1s"></section>
 
-  <!-- ===== BANDAU DIRECT ===== -->
   <section id="live-section" class="hidden mb-8 fade-up" style="animation-delay:.15s">
     <div class="flex items-center gap-2 mb-3">
       <span class="w-2.5 h-2.5 rounded-full bg-red-500 live-dot"></span>
@@ -128,17 +141,13 @@
     <div id="live-strip" class="live-strip flex gap-4 overflow-x-auto pb-3"></div>
   </section>
 
-  <!-- ===== FILTRES (recherche + DATE + CHAÎNE + direct) ===== -->
   <section class="mb-8 fade-up" style="animation-delay:.2s">
     <div class="glass rounded-2xl p-4 flex flex-col xl:flex-row gap-4 xl:items-center">
-      <!-- Recherche -->
       <div class="relative flex-1 min-w-[220px]">
         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
         <input id="search" type="text" placeholder="Rechercher un match, une compétition…"
                class="w-full bg-white border border-slate-200 rounded-xl pl-11 pr-4 py-3 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition placeholder:text-slate-400">
       </div>
-
-      <!-- SÉLECTEUR DE DATE -->
       <div class="relative">
         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">📅</span>
         <select id="date-select" class="select-ctrl w-full xl:w-auto">
@@ -146,8 +155,6 @@
         </select>
         <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
       </div>
-
-      <!-- SÉLECTEUR DE CHAÎNE -->
       <div class="relative">
         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">📡</span>
         <select id="channel-select" class="select-ctrl w-full xl:w-auto">
@@ -155,8 +162,6 @@
         </select>
         <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
       </div>
-
-      <!-- Direct toggle -->
       <button id="live-toggle" class="chip glass rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 whitespace-nowrap">
         🔴 Direct uniquement
       </button>
@@ -164,10 +169,8 @@
     <div id="chips" class="flex flex-wrap gap-2 mt-4"></div>
   </section>
 
-  <!-- ===== GRILLE DES CHAÎNES ===== -->
   <section id="channels" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 min-[2200px]:grid-cols-5 gap-6"></section>
 
-  <!-- ===== ÉTAT VIDE ===== -->
   <section id="empty" class="hidden text-center py-20">
     <div class="text-6xl mb-4">🛰️</div>
     <h3 class="text-xl font-bold text-slate-700">Aucun programme ne correspond</h3>
@@ -175,7 +178,6 @@
   </section>
 </main>
 
-<!-- ===== FOOTER ===== -->
 <footer class="border-t border-slate-200 py-6 text-center text-xs text-slate-400">
   Données : tv-sports.fr · Mise à jour automatique via GitHub Actions · Fait avec ❤️
 </footer>
@@ -197,7 +199,6 @@ const timeKey = t => {
 
 const hue = str => { let h=0; for (const c of str) h = (h*31 + c.charCodeAt(0)) % 360; return h; };
 
-/* Formate une date ISO (2025-06-14) en français : "sam. 14 juin 2025" */
 function formatDate(iso) {
   const d = new Date(iso + 'T00:00:00');
   if (isNaN(d)) return iso;
@@ -206,24 +207,21 @@ function formatDate(iso) {
 
 function allMatches() {
   const list = [];
-  for (const [channel, matches] of Object.entries(DATA?.channels || {}))
-    for (const m of matches) list.push({ ...m, channel });
+  for (const [channel, data] of Object.entries(DATA?.channels || {}))
+    for (const m of data.matches) list.push({ ...m, channel });
   return list;
 }
 
-/* ===== REMPLIT LES SÉLECTEURS DATE + CHAÎNE ===== */
 function renderSelectors() {
-  // Dates uniques présentes dans les données
   const dates = new Set();
   allMatches().forEach(m => { if (m.date) dates.add(m.date); });
   const dateSelect = document.getElementById('date-select');
   dateSelect.innerHTML = '<option value="all">📅 Toutes les dates</option>' +
-    [...dates].sort().map(d => `<option value="${d}">📅 ${formatDate(d)}</option>`).join('');
+    [...dates].sort().map(d => `<option value="${d}"> ${formatDate(d)}</option>`).join('');
   dateSelect.value = state.date;
 
-  // Chaînes présentes dans les données
   const channelSelect = document.getElementById('channel-select');
-  channelSelect.innerHTML = '<option value="all">📡 Toutes les chaînes</option>' +
+  channelSelect.innerHTML = '<option value="all"> Toutes les chaînes</option>' +
     Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}">📡 ${c}</option>`).join('');
   channelSelect.value = state.channel;
 }
@@ -253,16 +251,27 @@ function renderLive() {
   const sec = document.getElementById('live-section');
   if (!live.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
-  document.getElementById('live-strip').innerHTML = live.map(m => `
-    <div class="glass card rounded-2xl p-4 min-w-[260px] !border-red-300 bg-red-50/70">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="w-2 h-2 rounded-full bg-red-500 live-dot"></span>
-        <span class="text-[11px] font-bold text-red-600 uppercase tracking-wider">Direct</span>
-        <span class="text-[11px] text-slate-500 ml-auto">${emoji(m.sport)} ${m.sport}</span>
+  document.getElementById('live-strip').innerHTML = live.map(m => {
+    const logo = DATA?.channels?.[m.channel]?.logo || '';
+    const logoHtml = logo 
+      ? `<img src="${logo}" class="channel-logo-live" onerror="this.style.display='none'">`
+      : '';
+    return `
+    <div class="glass card rounded-2xl p-4 min-w-[280px] !border-red-300 bg-red-50/70">
+      <div class="flex items-center gap-3 mb-2">
+        ${logoHtml}
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500 live-dot"></span>
+            <span class="text-[11px] font-bold text-red-600 uppercase tracking-wider">Direct</span>
+          </div>
+          <p class="text-[11px] text-slate-500">${emoji(m.sport)} ${m.sport} · ${m.channel}</p>
+        </div>
       </div>
       <p class="font-bold leading-tight text-slate-900">${m.match}</p>
-      <p class="text-xs text-slate-500 mt-1">${m.competition || ''} · 📡 ${m.channel}</p>
-    </div>`).join('');
+      <p class="text-xs text-slate-500 mt-1">${m.competition || ''}</p>
+    </div>`;
+  }).join('');
 }
 
 function renderChips() {
@@ -276,18 +285,17 @@ function renderChips() {
     btn.onclick = () => { state.sport = btn.dataset.sport; renderChips(); renderChannels(); });
 }
 
-/* ===== GRILLE : filtre par recherche + sport + direct + DATE + CHAÎNE ===== */
 function renderChannels() {
   const q = state.search.toLowerCase();
   const container = document.getElementById('channels');
   let html = '', shown = 0, idx = 0;
 
   const entries = Object.entries(DATA?.channels || {})
-    .filter(([ch]) => state.channel === 'all' || ch === state.channel)   // ← filtre CHAÎNE
-    .map(([ch, ms]) => [ch, ms.filter(m =>
+    .filter(([ch]) => state.channel === 'all' || ch === state.channel)
+    .map(([ch, data]) => [ch, data.matches.filter(m =>
       (!state.liveOnly || m.is_live) &&
       (state.sport === 'all' || m.sport === state.sport) &&
-      (state.date === 'all' || m.date === state.date) &&                  // ← filtre DATE
+      (state.date === 'all' || m.date === state.date) &&
       (!q || (m.match+' '+m.competition+' '+ch+' '+m.sport).toLowerCase().includes(q))
     )])
     .filter(([ch, ms]) => ms.length)
@@ -295,13 +303,18 @@ function renderChannels() {
 
   for (const [channel, matches] of entries) {
     shown++;
+    const logo = DATA?.channels?.[channel]?.logo || '';
     const h = hue(channel);
     const initials = channel.replace(/[^A-Za-zÀ-ÿ+ ]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+    
+    const headerHtml = logo 
+      ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-11 h-11 rounded-xl flex items-center justify-center font-extrabold text-sm text-white shadow-lg\\' style=\\'background:linear-gradient(135deg, hsl(${h},70%,45%), hsl(${(h+70)%360},70%,35%))\\'>${initials}</div>'">`
+      : `<div class="w-11 h-11 rounded-xl flex items-center justify-center font-extrabold text-sm text-white shadow-lg" style="background:linear-gradient(135deg, hsl(${h},70%,45%), hsl(${(h+70)%360},70%,35%))">${initials}</div>`;
+    
     html += `
     <div class="glass card rounded-2xl overflow-hidden fade-up" style="animation-delay:${Math.min(idx*.06,.5)}s">
       <div class="p-5 pb-3 flex items-center gap-3 border-b border-slate-100">
-        <div class="w-11 h-11 rounded-xl flex items-center justify-center font-extrabold text-sm text-white shadow-lg"
-             style="background:linear-gradient(135deg, hsl(${h},70%,45%), hsl(${(h+70)%360},70%,35%))">${initials}</div>
+        ${headerHtml}
         <div class="flex-1 min-w-0">
           <h3 class="font-bold truncate text-slate-900">${channel}</h3>
           <p class="text-[11px] text-slate-500">${matches.length} programme${matches.length>1?'s':''}</p>
@@ -331,8 +344,7 @@ function renderChannels() {
 }
 
 function render() {
-  renderSelectors();   // ← remplit date + chaîne
-  renderStats(); renderLive(); renderChips(); renderChannels();
+  renderSelectors(); renderStats(); renderLive(); renderChips(); renderChannels();
   const d = new Date(DATA.updated_at);
   document.getElementById('update-text').textContent =
     `MàJ ${d.toLocaleDateString('fr-FR')} à ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}` +
@@ -353,7 +365,6 @@ async function load() {
   }
 }
 
-/* ===== ÉVÉNEMENTS DES SÉLECTEURS ===== */
 document.getElementById('date-select').addEventListener('change', e => { state.date = e.target.value; renderChannels(); });
 document.getElementById('channel-select').addEventListener('change', e => { state.channel = e.target.value; renderChannels(); });
 document.getElementById('search').addEventListener('input', e => { state.search = e.target.value; renderChannels(); });
@@ -364,7 +375,7 @@ document.getElementById('live-toggle').addEventListener('click', e => {
 });
 
 load();
-setInterval(load, 10 * 60 * 1000); // rafraîchit auto toutes les 10 min
+setInterval(load, 10 * 60 * 1000);
 </script>
 </body>
 </html>
