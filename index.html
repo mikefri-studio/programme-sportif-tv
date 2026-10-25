@@ -81,37 +81,11 @@
     position: relative;
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
-  .channel-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,.8) 0%, rgba(255,255,255,0) 100%);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity .3s ease;
-  }
   .channel-card:hover {
     transform: translateY(-4px);
     border-color: rgba(59,130,246,.4);
-    box-shadow: 0 20px 40px -12px rgba(0,0,0,.12), 0 0 0 1px rgba(59,130,246,.1), inset 0 1px 0 rgba(255,255,255,.6);
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,.12), 0 0 0 1px rgba(59,130,246,.1);
   }
-  .channel-card:hover::before { opacity: 1; }
-
-  .channel-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
-    transform: skewX(-20deg);
-    transition: left .6s ease;
-    pointer-events: none;
-    z-index: 2;
-  }
-  .channel-card:hover::after { left: 150%; }
 
   .channel-header {
     background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
@@ -158,11 +132,13 @@
     gap: 14px;
     padding: 14px 20px;
     border-bottom: 1px solid #f1f5f9;
-    transition: background .15s ease;
+    transition: background .15s ease, cursor .15s ease;
+    cursor: pointer;
     position: relative;
   }
   .match-row:last-child { border-bottom: none; }
   .match-row:hover { background: linear-gradient(90deg, #f8fafc 0%, #fff 100%); }
+  .match-row:active { background: #f1f5f9; }
 
   .match-time {
     font-family: 'JetBrains Mono', monospace;
@@ -241,6 +217,82 @@
   }
   .chip:hover { border-color: #94a3b8; background: #f8fafc; }
   .chip.active { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  /* MODALE */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal-content {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 48px rgba(0,0,0,.2);
+    transform: scale(.95);
+    transition: transform .2s ease;
+  }
+  .modal-overlay.active .modal-content {
+    transform: scale(1);
+  }
+  .modal-header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    padding: 24px;
+    color: #fff;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,.2);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s ease;
+  }
+  .modal-close:hover { background: rgba(255,255,255,.3); }
+  .modal-body { padding: 24px; }
+  .modal-info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .modal-info-row:last-child { border-bottom: none; }
+  .modal-info-icon {
+    width: 40px; height: 40px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .modal-info-label { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .modal-info-value { font-size: 15px; color: #1e293b; font-weight: 600; margin-top: 2px; }
 
   ::-webkit-scrollbar { height: 8px; width: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -330,7 +382,7 @@
         <select id="channel-select" class="select-ctrl w-full lg:w-auto">
           <option value="all">Toutes les chaînes</option>
         </select>
-        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></span>
       </div>
     </div>
   </section>
@@ -344,29 +396,32 @@
   </section>
 </main>
 
+<!-- MODALE -->
+<div id="modal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div id="modal-logo-container" class="mb-3"></div>
+      <h2 id="modal-title" class="text-2xl font-bold mb-2"></h2>
+      <p id="modal-subtitle" class="text-sm opacity-80"></p>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 <footer class="border-t border-slate-200 py-6 text-center text-xs text-slate-400 bg-white">
-  Fait avec ❤️
+  Données : tv-sports.fr · Mise à jour automatique via GitHub Actions · Fait avec ❤️
 </footer>
 
 <script>
 const SPORT_EMOJI = {
-  'Football':'','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
   'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
 };
 const emoji = s => SPORT_EMOJI[s] || '🏅';
 
 let DATA = null;
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
-
-function getCurrentDateTime() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  return `${year}-${month}-${day} ${hours}:${minutes}`;
-}
 
 function parseMatchTime(dateStr, timeStr) {
   const match = timeStr.match(/(\d{1,2})h(\d{2})/);
@@ -421,12 +476,12 @@ function renderSelectors() {
   allMatches().forEach(m => { if (m.date) dates.add(m.date); });
   const dateSelect = document.getElementById('date-select');
   dateSelect.innerHTML = '<option value="all">📅 Toutes les dates</option>' +
-    [...dates].sort().map(d => `<option value="${d}">📅 ${formatShortDate(d)} (${formatDate(d)})</option>`).join('');
+    [...dates].sort().map(d => `<option value="${d}"> ${formatShortDate(d)} (${formatDate(d)})</option>`).join('');
   dateSelect.value = state.date;
 
   const channelSelect = document.getElementById('channel-select');
   channelSelect.innerHTML = '<option value="all">📡 Toutes les chaînes</option>' +
-    Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}">📡 ${c}</option>`).join('');
+    Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}"> ${c}</option>`).join('');
   channelSelect.value = state.channel;
 }
 
@@ -460,6 +515,76 @@ function renderLive() {
   }).join('');
 }
 
+function openModal(match, channel) {
+  const modal = document.getElementById('modal');
+  const logo = DATA?.channels?.[channel]?.logo || '';
+  const initials = channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+  
+  document.getElementById('modal-logo-container').innerHTML = logo
+    ? `<img src="${logo}" class="w-16 h-16 object-contain bg-white rounded-xl p-2 shadow-lg">`
+    : `<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-xl shadow-lg">${initials}</div>`;
+  
+  document.getElementById('modal-title').textContent = match.match;
+  document.getElementById('modal-subtitle').textContent = `${emoji(match.sport)} ${match.sport} · ${match.competition || 'Compétition non renseignée'}`;
+  
+  const isLive = isCurrentlyLive(match);
+  const matchDate = parseMatchTime(match.date, match.time);
+  const now = new Date();
+  const diffMinutes = matchDate ? Math.round((matchDate - now) / 60000) : null;
+  
+  let timeStatus = '';
+  if (isLive) timeStatus = '<span class="text-red-500 font-bold">● EN DIRECT</span>';
+  else if (diffMinutes !== null && diffMinutes > 0) timeStatus = `Commence dans ${diffMinutes} min`;
+  else if (diffMinutes !== null && diffMinutes < 0) timeStatus = `Terminé il y a ${Math.abs(diffMinutes)} min`;
+  else timeStatus = 'Horaire à confirmer';
+  
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-info-row">
+      <div class="modal-info-icon"></div>
+      <div>
+        <div class="modal-info-label">Horaire</div>
+        <div class="modal-info-value">${match.time} · ${formatDate(match.date)}</div>
+        <div class="text-xs text-slate-500 mt-1">${timeStatus}</div>
+      </div>
+    </div>
+    <div class="modal-info-row">
+      <div class="modal-info-icon">📡</div>
+      <div>
+        <div class="modal-info-label">Chaîne</div>
+        <div class="modal-info-value">${channel}</div>
+      </div>
+    </div>
+    <div class="modal-info-row">
+      <div class="modal-info-icon">🏆</div>
+      <div>
+        <div class="modal-info-label">Compétition</div>
+        <div class="modal-info-value">${match.competition || 'Non renseignée'}</div>
+      </div>
+    </div>
+    <div class="modal-info-row">
+      <div class="modal-info-icon">${emoji(match.sport)}</div>
+      <div>
+        <div class="modal-info-label">Sport</div>
+        <div class="modal-info-value">${match.sport}</div>
+      </div>
+    </div>
+  `;
+  
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
 function renderChannels() {
   const q = state.search.toLowerCase();
   const container = document.getElementById('channels');
@@ -481,7 +606,6 @@ function renderChannels() {
   for (const [channel, matches] of entries) {
     shown++;
     const logo = DATA?.channels?.[channel]?.logo || '';
-    // ✅ CORRECTION : regex avec tiret échappé à la fin
     const initials = channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
     const logoHtml = logo
       ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${initials}</div>'">`
@@ -497,7 +621,7 @@ function renderChannels() {
       matchesHtml += byDate[date].map(m => {
         const isLive = isCurrentlyLive(m);
         return `
-        <div class="match-row">
+        <div class="match-row" onclick='openModal(${JSON.stringify(m).replace(/'/g, "\\'")}, "${channel.replace(/"/g, '\\"')}")'>
           <div class="match-time">
             ${m.time}
             ${isLive ? '<span class="live-badge"><span class="live-dot inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
