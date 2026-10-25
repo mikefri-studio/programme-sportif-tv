@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-NB_JOURS_TVSPORTS = 7  # ✅ Scraper tv-sports.fr sur 7 jours (au lieu de 2)
+NB_JOURS_TVSPORTS = 7
 NB_JOURS_TOTAL = 7
 
 URLS_TVSPORTS = [
@@ -23,13 +23,44 @@ HEADERS = {
 }
 TIME_RE = re.compile(r"^\d{1,2}h\d{2}$")
 
-KNOWN_CHANNELS = [
-    "Canal+ Sport 360", "Canal+ Première League", "Canal+ Sport", "Canal+ Foot", "Canal+ Live", "Canal+",
-    "beIN SPORTS MAX", "beIN SPORTS", "L'Équipe", "L'Equipe",
-    "Eurosport 1", "Eurosport 2", "Eurosport", "RMC Sport",
-    "France 2", "France 3", "France 4", "DAZN", "Ligue 1+", "Sport en France",
-    "Automoto", "Equidia", "MGG TV", "ABXplore", "Golf+", "Infosport+", "TV5MONDE",
-]
+# 🎨 LOGOS DES CHAÎNES (source : github.com/tv-logo/tv-logos)
+CHANNEL_LOGOS = {
+    "Canal+": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-fr.png",
+    "Canal+ Sport": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-sport-fr.png",
+    "Canal+ Sport 360": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-sport-360-fr.png",
+    "Canal+ Foot": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-foot-fr.png",
+    "Canal+ Live": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-live-fr.png",
+    "Canal+ Première League": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-premiere-league-fr.png",
+    "beIN SPORTS": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png",
+    "beIN SPORTS 1": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-1-fr.png",
+    "beIN SPORTS 2": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-2-fr.png",
+    "beIN SPORTS 3": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-3-fr.png",
+    "beIN SPORTS MAX": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-max-fr.png",
+    "beIN SPORTS MAX 4": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-max-4-fr.png",
+    "beIN SPORTS MAX 5": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-max-5-fr.png",
+    "L'Équipe": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/lequipe-fr.png",
+    "L'Equipe": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/lequipe-fr.png",
+    "Eurosport": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/eurosport-fr.png",
+    "Eurosport 1": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/eurosport-1-fr.png",
+    "Eurosport 2": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/eurosport-2-fr.png",
+    "RMC Sport": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/rmc-sport-fr.png",
+    "RMC Sport 1": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/rmc-sport-1-fr.png",
+    "France 2": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/france-2-fr.png",
+    "France 3": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/france-3-fr.png",
+    "France 4": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/france-4-fr.png",
+    "DAZN": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/dazn-fr.png",
+    "Ligue 1+": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1-plus-fr.png",
+    "Sport en France": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/sport-en-france-fr.png",
+    "Automoto": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/automoto-la-chaine-fr.png",
+    "Equidia": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/equidia-fr.png",
+    "MGG TV": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/mgg-tv-fr.png",
+    "ABXplore": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/abxplore-fr.png",
+    "Golf+": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/golf-plus-fr.png",
+    "Infosport+": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/infosport-plus-fr.png",
+    "TV5MONDE": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/tv5-monde-fr.png",
+}
+
+KNOWN_CHANNELS = list(CHANNEL_LOGOS.keys())
 
 SPORT_RULES = [
     ("Formule 1", ["Formule 1", "F1"]),
@@ -120,12 +151,7 @@ def scraperapi_fetch(url):
         print("  ❌ SCRAPERAPI_KEY non définie")
         return None
     try:
-        params = {
-            "api_key": api_key,
-            "url": url,
-            "premium": "true",
-            "country_code": "fr",
-        }
+        params = {"api_key": api_key, "url": url, "premium": "true", "country_code": "fr"}
         r = requests.get("https://api.scraperapi.com/", params=params, timeout=45)
         r.raise_for_status()
         html = r.text
@@ -189,23 +215,18 @@ def parse_tvsports_html(html, date_iso):
 
 
 def scrape_tvsports():
-    """Scrape tv-sports.fr sur NB_JOURS_TVSPORTS jours."""
     programs = []
     today = datetime.now().strftime("%Y-%m-%d")
-    
-    # On scrape les URLs une seule fois (elles contiennent plusieurs jours)
     print(f"  📅 Scraping tv-sports.fr sur {NB_JOURS_TVSPORTS} jours...")
     for url in URLS_TVSPORTS:
         html = scraperapi_fetch(url)
         if not html:
             continue
-        # Parse pour chaque jour
         for offset in range(NB_JOURS_TVSPORTS):
             d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
             found = parse_tvsports_html(html, d)
             programs += found
-        print(f"     + {len([p for p in programs if p['date'] >= today])} programmes depuis {url}")
-    
+        print(f"     + programmes depuis {url}")
     total = len([p for p in programs if p["date"] >= today])
     print(f"     ✅ Total tv-sports.fr : {total} programmes")
     return programs
@@ -268,16 +289,14 @@ def main():
     print(f"🚀 Construction du programme sportif sur {NB_JOURS_TOTAL} jours...")
     print("=" * 60)
 
-    # 1. tv-sports.fr sur 7 jours via ScraperAPI
     print("\n📡 Phase 1 : tv-sports.fr (via ScraperAPI)")
     programs = scrape_tvsports()
 
-    # 2. Complément TheSportsDB pour les jours sans données
     print("\n📡 Phase 2 : TheSportsDB (complément)")
     for offset in range(NB_JOURS_TOTAL):
         d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
         existing = len([p for p in programs if p["date"] == d])
-        if existing < 5:  # Si moins de 5 programmes, on complète
+        if existing < 5:
             print(f"  ⚠️  {d} : seulement {existing} programmes → complément TheSportsDB")
             programs += fetch_thesportsdb(d)
 
@@ -301,27 +320,34 @@ def main():
     uniq = [m for m in uniq if m.get("date") and m["date"] >= today_iso]
 
     channels = group_by_channel(uniq)
-    total = sum(len(v) for v in channels.values())
-    dates = sorted({m["date"] for ms in channels.values() for m in ms})
+    
+    # 🎨 Ajouter les logos aux chaînes
+    channels_with_logos = {}
+    for ch, matches in channels.items():
+        channels_with_logos[ch] = {
+            "logo": CHANNEL_LOGOS.get(ch, ""),
+            "matches": matches,
+        }
+    
+    total = sum(len(v["matches"]) for v in channels_with_logos.values())
+    dates = sorted({m["date"] for v in channels_with_logos.values() for m in v["matches"]})
 
-    source_parts = []
-    if any(m.get("date") >= today_iso for ms in channels.values() for m in ms):
-        source_parts.append("tv-sports.fr")
+    source_parts = ["tv-sports.fr"] if any(m.get("date") >= today_iso for v in channels_with_logos.values() for m in v["matches"]) else []
     source = " + ".join(source_parts) if source_parts else "secours"
 
     output = {
         "updated_at": datetime.now().isoformat(),
         "source": source,
         "total_matches": total,
-        "total_channels": len(channels),
-        "channels": channels,
+        "total_channels": len(channels_with_logos),
+        "channels": channels_with_logos,
     }
 
     with open("data/schedule.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
     print(f"\n{'=' * 60}")
-    print(f"✅ Terminé : {total} programmes / {len(channels)} chaînes / {len(dates)} dates")
+    print(f"✅ Terminé : {total} programmes / {len(channels_with_logos)} chaînes / {len(dates)} dates")
     print(f"   Sources : {source}")
     print(f"   Dates : {', '.join(dates)}")
     print(f"💾 data/schedule.json")
