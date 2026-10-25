@@ -1,43 +1,32 @@
 {
-  "updated_at": "2026-10-25T16:17:14.220452",
+  "updated_at": "2026-10-25T16:17:14",
   "channels": {
     "Canal+ Sport": [
-      {
-        "channel": "Canal+ Sport",
-        "time": "20h37",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "PSG – Lyon",
-        "is_live": true
-      },
-      {
-        "channel": "Canal+ Sport",
-        "time": "23h00",
-        "sport": "Rugby",
-        "competition": "Top 14",
-        "match": "Toulouse – La Rochelle",
-        "is_live": false
-      }
+      {"time": "20h37", "sport": "Football", "competition": "Ligue 1", "match": "PSG – Lyon", "is_live": true},
+      {"time": "23h00", "sport": "Rugby", "competition": "Top 14", "match": "Toulouse – La Rochelle", "is_live": false}
     ],
     "beIN SPORTS 1": [
-      {
-        "channel": "beIN SPORTS 1",
-        "time": "21h00",
-        "sport": "Formule 1",
-        "competition": "Grand Prix des États-Unis",
-        "match": "La course",
-        "is_live": true
-      }
+      {"time": "21h00", "sport": "Formule 1", "competition": "Grand Prix des États-Unis", "match": "La course", "is_live": true}
     ],
     "L'Équipe": [
-      {
-        "channel": "L'Équipe",
-        "time": "14h30",
-        "sport": "Football",
-        "competition": "Ligue 1",
-        "match": "Monaco – Lille",
-        "is_live": true
-      }
+      {"time": "14h30", "sport": "Football", "competition": "Ligue 1", "match": "Monaco – Lille", "is_live": true}
+    ],
+    "RMC Sport 1": [
+      {"time": "20h45", "sport": "Football", "competition": "Premier League", "match": "Liverpool – Manchester City", "is_live": false},
+      {"time": "22h30", "sport": "MMA", "competition": "UFC", "match": "UFC Fight Night", "is_live": false}
+    ],
+    "Eurosport 1": [
+      {"time": "15h00", "sport": "Tennis", "competition": "ATP Paris", "match": "Demi-finale", "is_live": false},
+      {"time": "20h00", "sport": "Cyclisme", "competition": "Tour de Lombardie", "match": "Course en ligne", "is_live": false}
+    ],
+    "France 2": [
+      {"time": "21h00", "sport": "Rugby", "competition": "Top 14", "match": "Stade Français – Racing 92", "is_live": false}
+    ],
+    "beIN SPORTS 2": [
+      {"time": "18h30", "sport": "Football", "competition": "La Liga", "match": "Real Madrid – Barcelone", "is_live": false}
+    ],
+    "Canal+ Foot": [
+      {"time": "17h00", "sport": "Football", "competition": "Ligue 1", "match": "Marseille – Lyon", "is_live": false}
     ]
   }
 }
