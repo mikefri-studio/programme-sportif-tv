@@ -382,7 +382,7 @@
         <select id="channel-select" class="select-ctrl w-full lg:w-auto">
           <option value="all">Toutes les chaînes</option>
         </select>
-        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></span>
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
       </div>
     </div>
   </section>
@@ -515,7 +515,10 @@ function renderLive() {
   }).join('');
 }
 
-function openModal(match, channel) {
+function openModalFromElement(el) {
+  const match = JSON.parse(el.dataset.match);
+  const channel = el.dataset.channel;
+  
   const modal = document.getElementById('modal');
   const logo = DATA?.channels?.[channel]?.logo || '';
   const initials = channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
@@ -538,9 +541,20 @@ function openModal(match, channel) {
   else if (diffMinutes !== null && diffMinutes < 0) timeStatus = `Terminé il y a ${Math.abs(diffMinutes)} min`;
   else timeStatus = 'Horaire à confirmer';
   
-  document.getElementById('modal-body').innerHTML = `
+  const scoreHtml = match.score ? `
     <div class="modal-info-row">
-      <div class="modal-info-icon"></div>
+      <div class="modal-info-icon">📊</div>
+      <div>
+        <div class="modal-info-label">Score</div>
+        <div class="modal-info-value text-2xl font-bold text-blue-600 mono">${match.score}</div>
+      </div>
+    </div>
+  ` : '';
+
+  document.getElementById('modal-body').innerHTML = `
+    ${scoreHtml}
+    <div class="modal-info-row">
+      <div class="modal-info-icon">🕒</div>
       <div>
         <div class="modal-info-label">Horaire</div>
         <div class="modal-info-value">${match.time} · ${formatDate(match.date)}</div>
@@ -620,16 +634,38 @@ function renderChannels() {
       matchesHtml += `<div class="date-bar"><span class="date-label">${formatShortDate(date)}</span><span class="date-count">${byDate[date].length} programme${byDate[date].length>1?'s':''}</span></div>`;
       matchesHtml += byDate[date].map(m => {
         const isLive = isCurrentlyLive(m);
+        const hasScore = m.score && m.score.trim() !== '';
+        const hasLogos = m.home_logo || m.away_logo;
+        
+        const teams = m.match.split('–').map(t => t.trim());
+        const homeName = teams[0] || m.match;
+        const awayName = teams[1] || '';
+        
+        const matchDataStr = JSON.stringify(m).replace(/'/g, "&#39;");
+        const channelStr = channel.replace(/"/g, '&quot;');
+        
         return `
-        <div class="match-row" onclick='openModal(${JSON.stringify(m).replace(/'/g, "\\'")}, "${channel.replace(/"/g, '\\"')}")'>
+        <div class="match-row" data-match='${matchDataStr}' data-channel="${channelStr}" onclick="openModalFromElement(this)">
           <div class="match-time">
             ${m.time}
             ${isLive ? '<span class="live-badge"><span class="live-dot inline-block w-1.5 h-1.5 rounded-full bg-red-500 mr-1"></span>DIRECT</span>' : ''}
           </div>
-          <div class="match-info">
-            <div class="match-sport">${emoji(m.sport)} ${m.sport}</div>
-            <div class="match-title">${m.match}</div>
-            ${m.competition ? `<div class="match-comp">${m.competition}</div>` : ''}
+          <div class="flex-1 min-w-0">
+            ${hasLogos ? `
+              <div class="flex items-center gap-2 mb-1">
+                ${m.home_logo ? `<img src="${m.home_logo}" class="w-5 h-5 object-contain rounded bg-white p-0.5 shadow-sm" onerror="this.style.display='none'">` : ''}
+                <span class="font-semibold text-sm text-slate-900 truncate">${homeName}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                ${m.away_logo ? `<img src="${m.away_logo}" class="w-5 h-5 object-contain rounded bg-white p-0.5 shadow-sm" onerror="this.style.display='none'">` : ''}
+                <span class="font-semibold text-sm text-slate-900 truncate">${awayName}</span>
+              </div>
+            ` : `
+              <div class="match-sport">${emoji(m.sport)} ${m.sport}</div>
+              <div class="match-title">${m.match}</div>
+            `}
+            ${hasScore ? `<div class="text-lg font-bold text-blue-600 mt-1 mono">${m.score}</div>` : ''}
+            ${m.competition ? `<div class="text-[10px] text-slate-500 mt-1">${m.competition}</div>` : ''}
           </div>
         </div>`;
       }).join('');
