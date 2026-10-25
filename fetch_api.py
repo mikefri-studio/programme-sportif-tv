@@ -8,7 +8,7 @@ def fetch_tvsports():
     
     # La clé "3" est la clé de test publique gratuite de TheSportsDB.
     # Tu peux la remplacer par ta propre clé gratuite si tu en demandes une.
-    API_KEY = os.environ.get("THESPORTSDB_API_KEY", "3")
+    API_KEY = os.environ.get("THESPORTSDB_API_KEY", "123")
     
     today = datetime.now().strftime("%Y-%m-%d")
     tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
