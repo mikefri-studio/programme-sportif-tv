@@ -18,7 +18,6 @@
     color: #1a202c;
   }
 
-  /* Header style tv-sports */
   .top-bar {
     background: #fff;
     border-bottom: 1px solid #e2e8f0;
@@ -44,7 +43,6 @@
   .nav-pill.live { background: #ef4444; color: #fff; border-color: #ef4444; }
   .nav-pill.live:hover { background: #dc2626; }
 
-  /* Sélecteurs */
   .select-ctrl {
     appearance: none;
     -webkit-appearance: none;
@@ -63,9 +61,8 @@
   .select-ctrl:hover { border-color: #94a3b8; }
   .select-ctrl:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
 
-  /* Barre de date */
   .date-bar {
-    background: #e2e8f0;
+    background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 100%);
     border-radius: 8px;
     padding: 10px 16px;
     display: flex;
@@ -76,41 +73,94 @@
   .date-bar .date-label { font-weight: 700; color: #1e293b; font-size: 15px; }
   .date-bar .date-count { font-size: 13px; color: #64748b; font-weight: 600; }
 
-  /* Carte chaîne */
+  /* ✨ CARTE CHAÎNE AVEC REFLETS */
   .channel-card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
     border: 1px solid #e2e8f0;
     overflow: hidden;
-    transition: box-shadow .2s ease, transform .2s ease;
+    position: relative;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .channel-card::before {
+    /* Reflet brillant en haut de la carte */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,.8) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity .3s ease;
   }
   .channel-card:hover {
-    box-shadow: 0 8px 24px -8px rgba(0,0,0,.1);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    border-color: rgba(59,130,246,.4);
+    box-shadow:
+      0 20px 40px -12px rgba(0,0,0,.12),
+      0 0 0 1px rgba(59,130,246,.1),
+      inset 0 1px 0 rgba(255,255,255,.6);
   }
+  .channel-card:hover::before { opacity: 1; }
 
-  /* Header de carte chaîne */
+  /* Effet de brillance qui traverse la carte au hover */
+  .channel-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+    transform: skewX(-20deg);
+    transition: left .6s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .channel-card:hover::after { left: 150%; }
+
   .channel-header {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+    background-size: 200% 200%;
     padding: 16px 20px;
     display: flex;
     align-items: center;
     gap: 12px;
     color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: background-position .5s ease;
   }
+  .channel-header::before {
+    /* Reflet subtil sur le header */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+  }
+  .channel-card:hover .channel-header {
+    background-position: 100% 100%;
+  }
+
   .channel-logo {
     width: 48px;
     height: 48px;
     object-fit: contain;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    position: relative;
+    z-index: 1;
+    transition: transform .25s ease;
   }
-  .channel-name { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
-  .channel-count { font-size: 12px; opacity: .75; font-weight: 500; }
+  .channel-card:hover .channel-logo { transform: scale(1.05); }
 
-  /* Ligne de match */
+  .channel-name { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; position: relative; z-index: 1; }
+  .channel-count { font-size: 12px; opacity: .75; font-weight: 500; position: relative; z-index: 1; }
+
   .match-row {
     display: flex;
     align-items: center;
@@ -118,9 +168,10 @@
     padding: 14px 20px;
     border-bottom: 1px solid #f1f5f9;
     transition: background .15s ease;
+    position: relative;
   }
   .match-row:last-child { border-bottom: none; }
-  .match-row:hover { background: #f8fafc; }
+  .match-row:hover { background: linear-gradient(90deg, #f8fafc 0%, #fff 100%); }
 
   .match-time {
     font-family: 'JetBrains Mono', monospace;
@@ -141,12 +192,7 @@
   }
 
   .match-info { flex: 1; min-width: 0; }
-  .match-sport {
-    font-size: 11px;
-    color: #64748b;
-    font-weight: 500;
-    margin-bottom: 2px;
-  }
+  .match-sport { font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 2px; }
   .match-title {
     font-weight: 700;
     font-size: 15px;
@@ -155,23 +201,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .match-comp {
-    font-size: 11px;
-    color: #94a3b8;
-    margin-top: 2px;
-  }
+  .match-comp { font-size: 11px; color: #94a3b8; margin-top: 2px; }
 
-  .match-date-badge {
-    font-size: 10px;
-    background: #f1f5f9;
-    color: #475569;
-    padding: 3px 8px;
-    border-radius: 999px;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  /* Bandeau direct */
   .live-strip {
     background: linear-gradient(90deg, #fef2f2 0%, #fff 100%);
     border: 1px solid #fecaca;
@@ -186,22 +217,23 @@
     border-radius: 10px;
     padding: 12px 16px;
     min-width: 280px;
-    transition: transform .15s ease;
+    transition: transform .15s ease, box-shadow .15s ease;
+    position: relative;
+    overflow: hidden;
   }
-  .live-card:hover { transform: translateY(-2px); }
-
-  /* Stats */
-  .stat-box {
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
+  .live-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(254,202,202,.3) 0%, rgba(254,202,202,0) 100%);
+    pointer-events: none;
   }
-  .stat-value { font-size: 28px; font-weight: 800; color: #1e293b; line-height: 1; }
-  .stat-label { font-size: 11px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-top: 6px; }
+  .live-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -8px rgba(239,68,68,.3);
+  }
 
-  /* Chips sport */
   .chip {
     display: inline-flex;
     align-items: center;
@@ -217,13 +249,8 @@
     transition: all .15s ease;
   }
   .chip:hover { border-color: #94a3b8; background: #f8fafc; }
-  .chip.active {
-    background: #1e293b;
-    color: #fff;
-    border-color: #1e293b;
-  }
+  .chip.active { background: #1e293b; color: #fff; border-color: #1e293b; }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { height: 8px; width: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
@@ -239,7 +266,6 @@
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="top-bar sticky top-0 z-50">
   <div class="w-full px-4 md:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3">
@@ -252,7 +278,6 @@
       </div>
     </div>
 
-    <!-- Menu navigation style tv-sports -->
     <nav class="hidden lg:flex items-center gap-2">
       <button class="nav-pill live" id="nav-live">
         <span class="w-2 h-2 rounded-full bg-white live-dot"></span> Direct
@@ -260,8 +285,8 @@
       <button class="nav-pill active" data-sport="all"> Tous</button>
       <button class="nav-pill" data-sport="Football">⚽ Foot</button>
       <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
-      <button class="nav-pill" data-sport="Tennis"> Tennis</button>
-      <button class="nav-pill" data-sport="Cyclisme"> Cyclisme</button>
+      <button class="nav-pill" data-sport="Tennis">🎾 Tennis</button>
+      <button class="nav-pill" data-sport="Cyclisme">🚴 Cyclisme</button>
       <button class="nav-pill" data-sport="Basket-ball">🏀 Basket</button>
     </nav>
 
@@ -276,7 +301,6 @@
     </div>
   </div>
 
-  <!-- Barre de filtres (mobile : visible) -->
   <div class="lg:hidden px-4 pb-3 flex flex-wrap gap-2">
     <button class="nav-pill live" id="nav-live-mobile"> Direct</button>
     <button class="nav-pill active" data-sport="all">Tous</button>
@@ -290,10 +314,7 @@
 
 <main class="w-full px-4 md:px-6 lg:px-8 py-6 pb-20">
 
-  <!-- ===== STATS ===== -->
-  <section id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6"></section>
-
-  <!-- ===== BANDEAU DIRECT ===== -->
+  <!-- BANDEAU DIRECT -->
   <section id="live-section" class="hidden mb-6">
     <div class="flex items-center gap-2 mb-3">
       <span class="w-2.5 h-2.5 rounded-full bg-red-500 live-dot"></span>
@@ -302,7 +323,7 @@
     <div id="live-strip" class="live-strip-scroll flex gap-3 overflow-x-auto pb-2"></div>
   </section>
 
-  <!-- ===== FILTRES (date + chaîne + recherche) ===== -->
+  <!-- FILTRES -->
   <section class="mb-6">
     <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col lg:flex-row gap-3 lg:items-center">
       <div class="relative flex-1 min-w-[220px]">
@@ -311,14 +332,12 @@
                class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:bg-white transition placeholder:text-slate-400">
       </div>
       <div class="relative">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></span>
         <select id="date-select" class="select-ctrl w-full lg:w-auto">
           <option value="all">Toutes les dates</option>
         </select>
         <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
       </div>
       <div class="relative">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></span>
         <select id="channel-select" class="select-ctrl w-full lg:w-auto">
           <option value="all">Toutes les chaînes</option>
         </select>
@@ -327,12 +346,11 @@
     </div>
   </section>
 
-  <!-- ===== GRILLE DES CHAÎNES ===== -->
+  <!-- GRILLE DES CHAÎNES -->
   <section id="channels" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"></section>
 
-  <!-- ===== ÉTAT VIDE ===== -->
   <section id="empty" class="hidden text-center py-20">
-    <div class="text-6xl mb-4">🛰️</div>
+    <div class="text-6xl mb-4">️</div>
     <h3 class="text-xl font-bold text-slate-700">Aucun programme ne correspond</h3>
     <p class="text-slate-500 mt-2">Essayez de modifier votre recherche, la date ou la chaîne.</p>
   </section>
@@ -344,18 +362,13 @@
 
 <script>
 const SPORT_EMOJI = {
-  'Football':'','Rugby':'🏉','Tennis':'🎾','Cyclisme':'','Basket-ball':'🏀',
-  'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
+  'Football':'⚽','Rugby':'','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Formule 1':'🏎️','Handball':'🤾','Moto':'️','Multisports':'🏅'
 };
 const emoji = s => SPORT_EMOJI[s] || '🏅';
 
 let DATA = null;
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
-
-const timeKey = t => {
-  const m = String(t).match(/(\d{1,2})h(\d{2})/);
-  return m ? (+m[1])*60 + (+m[2]) : 9999;
-};
 
 function formatDate(iso) {
   const d = new Date(iso + 'T00:00:00');
@@ -385,7 +398,7 @@ function renderSelectors() {
   const dates = new Set();
   allMatches().forEach(m => { if (m.date) dates.add(m.date); });
   const dateSelect = document.getElementById('date-select');
-  dateSelect.innerHTML = '<option value="all"> Toutes les dates</option>' +
+  dateSelect.innerHTML = '<option value="all">📅 Toutes les dates</option>' +
     [...dates].sort().map(d => `<option value="${d}">📅 ${formatShortDate(d)} (${formatDate(d)})</option>`).join('');
   dateSelect.value = state.date;
 
@@ -393,25 +406,6 @@ function renderSelectors() {
   channelSelect.innerHTML = '<option value="all"> Toutes les chaînes</option>' +
     Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}">📡 ${c}</option>`).join('');
   channelSelect.value = state.channel;
-}
-
-function renderStats() {
-  const matches = allMatches();
-  const live = matches.filter(m => m.is_live).length;
-  const sports = new Set(matches.map(m => m.sport)).size;
-  const chans = Object.keys(DATA?.channels || {}).length;
-  const items = [
-    ['📡', chans, 'Chaînes'],
-    ['🗓️', matches.length, 'Programmes'],
-    ['🔴', live, 'En direct'],
-    ['🏆', sports, 'Sports'],
-  ];
-  document.getElementById('stats').innerHTML = items.map(([ic, v, l]) => `
-    <div class="stat-box">
-      <div class="text-2xl mb-1">${ic}</div>
-      <div class="stat-value">${v}</div>
-      <div class="stat-label">${l}</div>
-    </div>`).join('');
 }
 
 function renderLive() {
@@ -459,21 +453,17 @@ function renderChannels() {
   for (const [channel, matches] of entries) {
     shown++;
     const logo = DATA?.channels?.[channel]?.logo || '';
-    const logoHtml = logo 
-      ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${channel.replace(/[^A-Za-zÀ-ÿ+]/g,'').trim().split(/\\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>'">`
-      : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm">${channel.replace(/[^A-Za-zÀ-ÿ+]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>`;
+    const initials = channel.replace(/[^A-Za-zÀ-ÿ+]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+    const logoHtml = logo
+      ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${initials}</div>'">`
+      : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm">${initials}</div>`;
 
-    // Grouper par date
     const byDate = {};
-    matches.forEach(m => {
-      const d = m.date || 'inconnue';
-      byDate[d] = byDate[d] || [];
-      byDate[d].push(m);
-    });
+    matches.forEach(m => { const d = m.date || 'inconnue'; byDate[d] = byDate[d] || []; byDate[d].push(m); });
     const sortedDates = Object.keys(byDate).sort();
 
     let matchesHtml = '';
-    sortedDates.forEach((date, di) => {
+    sortedDates.forEach(date => {
       matchesHtml += `<div class="date-bar"><span class="date-label">${formatShortDate(date)}</span><span class="date-count">${byDate[date].length} programme${byDate[date].length>1?'s':''}</span></div>`;
       matchesHtml += byDate[date].map(m => `
         <div class="match-row">
@@ -508,7 +498,7 @@ function renderChannels() {
 }
 
 function render() {
-  renderSelectors(); renderStats(); renderLive(); renderChannels();
+  renderSelectors(); renderLive(); renderChannels();
   const d = new Date(DATA.updated_at);
   document.getElementById('update-text').textContent =
     `MàJ ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
@@ -528,7 +518,6 @@ async function load() {
   }
 }
 
-// Navigation sport
 document.querySelectorAll('.nav-pill[data-sport]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.nav-pill[data-sport]').forEach(b => b.classList.remove('active'));
@@ -538,7 +527,6 @@ document.querySelectorAll('.nav-pill[data-sport]').forEach(btn => {
   });
 });
 
-// Direct
 const toggleLive = () => {
   state.liveOnly = !state.liveOnly;
   document.querySelectorAll('.nav-pill.live').forEach(b => {
