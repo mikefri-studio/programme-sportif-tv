@@ -1,12 +1,12 @@
-name: Mettre à jour le programme TV
+name: Mettre à jour le programme TV (via API)
 
 on:
   schedule:
-    - cron: '0 * * * *' # S'exécute toutes les heures (à 00 min)
-  workflow_dispatch: # Permet de le lancer manuellement depuis l'onglet "Actions"
+    - cron: '0 6,18 * * *' # S'exécute à 06h00 et 18h00 (2 fois/jour pour économiser le quota API)
+  workflow_dispatch: # Permet de le lancer manuellement
 
 permissions:
-  contents: write # Nécessaire pour pousser les modifications
+  contents: write
 
 jobs:
   update-schedule:
@@ -21,15 +21,17 @@ jobs:
           python-version: '3.11'
           
       - name: Installer les dépendances
-        run: pip install beautifulsoup4 requests
+        run: pip install requests
         
-      - name: Lancer le script de scraping
-        run: python scrape.py
+      - name: Lancer le script de récupération API
+        env:
+          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }} # Injection sécurisée de la clé
+        run: python fetch_api.py
         
       - name: Commit et push des modifications
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/schedule.json
-          git commit -m "chore: mise à jour automatique du programme TV" || exit 0
+          git commit -m "chore: mise à jour du programme TV via API" || exit 0
           git push
