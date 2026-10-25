@@ -1,9 +1,9 @@
-name: Mettre à jour le programme TV multisports
+name: Mettre à jour le programme TV (TheSportsDB)
 
 on:
   schedule:
-    - cron: '0 7,19 * * *'  # 2 fois par jour
-  workflow_dispatch:
+    - cron: '0 8,18 * * *'  # 2 fois par jour (08h00 et 18h00)
+  workflow_dispatch:        # Pour lancer manuellement
 
 permissions:
   contents: write
@@ -23,15 +23,17 @@ jobs:
       - name: Installer les dépendances
         run: pip install requests
         
-      - name: Lancer le script
+      - name: Lancer le script TheSportsDB
         env:
-          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }} # Une seule clé suffit !
+          # Optionnel : tu peux ajouter cette clé dans tes secrets GitHub, 
+          # sinon le script utilisera la clé publique "3" par défaut.
+          THESPORTSDB_API_KEY: ${{ secrets.THESPORTSDB_API_KEY }}
         run: python fetch_api.py
         
-      - name: Commit et push
+      - name: Commit et push des modifications
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/schedule.json
-          git commit -m "chore: mise à jour programme multisports" || exit 0
+          git commit -m "chore: mise à jour programme TV via TheSportsDB" || exit 0
           git push
