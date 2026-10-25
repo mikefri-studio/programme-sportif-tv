@@ -1,9 +1,9 @@
-name: Mettre à jour le programme TV (via API)
+name: Mettre à jour le programme TV multisports
 
 on:
   schedule:
-    - cron: '0 6,18 * * *' # S'exécute à 06h00 et 18h00 (2 fois/jour pour économiser le quota API)
-  workflow_dispatch: # Permet de le lancer manuellement
+    - cron: '0 7,19 * * *'  # 2 fois/jour (07h00 et 19h00)
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -23,15 +23,18 @@ jobs:
       - name: Installer les dépendances
         run: pip install requests
         
-      - name: Lancer le script de récupération API
+      - name: Lancer le script multisports
         env:
-          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }} # Injection sécurisée de la clé
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          API_RUGBY_KEY: ${{ secrets.API_RUGBY_KEY }}
+          API_TENNIS_KEY: ${{ secrets.API_TENNIS_KEY }}
+          API_CYCLING_KEY: ${{ secrets.API_CYCLING_KEY }}
         run: python fetch_api.py
         
-      - name: Commit et push des modifications
+      - name: Commit et push
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/schedule.json
-          git commit -m "chore: mise à jour du programme TV via API" || exit 0
+          git commit -m "chore: mise à jour programme multisports (foot, rugby, tennis, vélo)" || exit 0
           git push
