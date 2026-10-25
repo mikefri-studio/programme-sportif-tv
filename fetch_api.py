@@ -5,8 +5,8 @@ import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-NB_JOURS_TVSPORTS = 2   # aujourd'hui + demain via tv-sports.fr (le plus fiable)
-NB_JOURS_TOTAL = 7       # aujourd'hui → J+6
+NB_JOURS_TVSPORTS = 2
+NB_JOURS_TOTAL = 7
 
 URLS_TVSPORTS = [
     "https://tv-sports.fr/",
@@ -46,7 +46,6 @@ LEAGUES = ["Ligue 1", "Ligue 2", "Premier League", "La Liga", "Bundesliga", "Ser
            "Champions League", "Ligue Europa", "Top 14", "Pro D2", "NBA", "Euroligue",
            "Pro A", "Tour de France", "Formule 1", "NFL", "Starligue", "ATP", "WTA"]
 
-# Droits TV français (utilisés pour J+2 → J+6 via TheSportsDB)
 TV_RIGHTS = [
     ("ligue 1", ["Ligue 1+", "Canal+ Foot"]),
     ("ligue 2", ["beIN SPORTS 1"]),
@@ -116,33 +115,31 @@ def channels_from_rights(text):
 
 
 def scraperapi_fetch(url):
-    """Récupère une URL via ScraperAPI (contourne Cloudflare)."""
+    """Méthode directe ScraperAPI (celle qui marche dans ton test local)."""
     api_key = os.environ.get("SCRAPERAPI_KEY")
     if not api_key:
-        print("  ❌ SCRAPERAPI_KEY non définie dans les secrets GitHub")
+        print("  ❌ SCRAPERAPI_KEY non définie")
         return None
     try:
-        # ScraperAPI en mode "premium" pour Cloudflare
-        proxy_url = f"http://scraperapi:{api_key}@proxy-server.scraperapi.com:8001"
-        r = requests.get(url, headers=HEADERS, proxies={"http": proxy_url, "https": proxy_url}, timeout=30)
+        params = {
+            "api_key": api_key,
+            "url": url,
+            "premium": "true",   # contourne Cloudflare
+            "country_code": "fr",
+        }
+        r = requests.get("https://api.scraperapi.com/", params=params, timeout=45)
         r.raise_for_status()
-        return r.text
-    except Exception as e:
-        # Fallback : méthode directe de ScraperAPI
-        try:
-            r = requests.get(
-                f"https://api.scraperapi.com?api_key={api_key}&url={url}&premium=true&render=true",
-                timeout=30
-            )
-            r.raise_for_status()
-            return r.text
-        except Exception as e2:
-            print(f"  ❌ Erreur ScraperAPI sur {url} : {e2}")
+        html = r.text
+        if "Verify you are human" in html or "challenge-platform" in html:
+            print(f"  ⚠️  Cloudflare encore actif sur {url}")
             return None
+        return html
+    except Exception as e:
+        print(f"  ❌ Erreur ScraperAPI sur {url} : {e}")
+        return None
 
 
 def parse_tvsports_html(html, date_iso):
-    """Parse le HTML de tv-sports.fr et extrait les programmes."""
     soup = BeautifulSoup(html, "html.parser")
     programs = []
     seen = set()
@@ -193,7 +190,6 @@ def parse_tvsports_html(html, date_iso):
 
 
 def scrape_tvsports():
-    """Scrape tv-sports.fr via ScraperAPI pour aujourd'hui et demain."""
     programs = []
     today = datetime.now().strftime("%Y-%m-%d")
     tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
@@ -205,18 +201,15 @@ def scrape_tvsports():
             html = scraperapi_fetch(url)
             if not html:
                 continue
-            # Vérifie que ce n'est pas une page Cloudflare
-            if "Cloudflare" in html or "Verify you are human" in html:
-                print(f"  ⚠️  Cloudflare détecté sur {url}, tentative suivante...")
-                continue
             found = parse_tvsports_html(html, date_iso)
             programs += found
-        print(f"     ✅ {len([p for p in programs if p['date'] == date_iso])} programmes pour {date_iso}")
+            print(f"     + {len(found)} programmes depuis {url}")
+        total_jour = len([p for p in programs if p["date"] == date_iso])
+        print(f"     ✅ Total {date_iso} : {total_jour} programmes")
     return programs
 
 
 def fetch_thesportsdb(date_iso):
-    """Récupère les matchs via TheSportsDB et applique les droits TV français."""
     programs = []
     try:
         url = f"https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={date_iso}"
@@ -273,18 +266,16 @@ def main():
     print(f"🚀 Construction du programme sportif sur {NB_JOURS_TOTAL} jours...")
     print("=" * 60)
 
-    # 1. Aujourd'hui + demain : scraping tv-sports.fr via ScraperAPI (100% français)
     print("\n📡 Phase 1 : tv-sports.fr (via ScraperAPI)")
     programs = scrape_tvsports()
 
-    # 2. J+2 → J+6 : TheSportsDB + droits TV français
     print("\n📡 Phase 2 : TheSportsDB + droits TV français")
     for offset in range(2, NB_JOURS_TOTAL):
         d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
         programs += fetch_thesportsdb(d)
 
     if not programs:
-        print("\n⚠️ Aucune donnée récupérée → programme de secours")
+        print("\n⚠️ Aucune donnée → programme de secours")
         for offset in range(NB_JOURS_TOTAL):
             d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
             programs += [
@@ -293,7 +284,6 @@ def main():
                 {"time": "21h05", "sport": "Rugby", "competition": "Top 14", "match": "Toulouse – La Rochelle", "is_live": False, "channels": ["Canal+ Sport"], "date": d},
             ]
 
-    # Dédoublonnage
     uniq, seen = [], set()
     for p in programs:
         key = (p["date"], p["time"], p["match"], tuple(sorted(p["channels"])))
@@ -301,7 +291,6 @@ def main():
             seen.add(key)
             uniq.append(p)
 
-    # Suppression du passé
     uniq = [m for m in uniq if m.get("date") and m["date"] >= today_iso]
 
     channels = group_by_channel(uniq)
