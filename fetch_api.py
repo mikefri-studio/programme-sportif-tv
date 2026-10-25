@@ -232,6 +232,91 @@ def scrape_tvsports():
     return programs
 
 
+def scrape_pro_d2_scores():
+    """Scrape les scores et logos Pro D2 depuis tv-sports.fr"""
+    url = "https://tv-sports.fr/rugby/pro-d2/scores"
+    scores = []
+    today = datetime.now().strftime("%Y-%m-%d")
+    
+    try:
+        html = scraperapi_fetch(url)
+        if not html:
+            print("  ❌ Impossible de scraper les scores Pro D2")
+            return []
+        
+        soup = BeautifulSoup(html, "html.parser")
+        
+        # Cherche les cartes de matchs (structure flexible pour capturer les blocs)
+        match_cards = soup.find_all(['div', 'article'], class_=lambda x: x and any(kw in x.lower() for kw in ['match', 'game', 'score', 'event']))
+        
+        print(f"  📊 Analyse de {len(match_cards)} éléments pour les scores Pro D2...")
+        
+        for card in match_cards:
+            try:
+                # Extraire les équipes et logos
+                teams = []
+                logos = []
+                
+                # Cherche les éléments contenant les noms d'équipes
+                team_elems = card.find_all(['div', 'span', 'a'], class_=lambda x: x and 'team' in x.lower())
+                for team in team_elems[:2]:
+                    name = team.get_text(strip=True)
+                    if name and len(name) > 2:
+                        teams.append(name)
+                
+                # Cherche les logos d'équipes
+                logo_elems = card.find_all('img')
+                for img in logo_elems[:2]:
+                    src = img.get('src', '') or img.get('data-src', '')
+                    if src and ('logo' in src.lower() or 'badge' in src.lower() or 'team' in src.lower() or 'club' in src.lower()):
+                        if src.startswith('//'):
+                            src = 'https:' + src
+                        elif src.startswith('/'):
+                            src = 'https://tv-sports.fr' + src
+                        logos.append(src)
+                
+                # Extraire le score
+                score_elem = card.find(['div', 'span'], class_=lambda x: x and 'score' in x.lower())
+                score_text = score_elem.get_text(strip=True) if score_elem else ""
+                
+                # Extraire le statut (en direct, terminé, etc.)
+                status_elem = card.find(['div', 'span'], class_=lambda x: x and ('status' in x.lower() or 'live' in x.lower() or 'time' in x.lower()))
+                status = status_elem.get_text(strip=True).lower() if status_elem else ""
+                is_live = "direct" in status or "live" in status or "1ère" in status or "2ème" in status or "mi-temps" in status
+                
+                # Extraire l'heure si disponible
+                time_elem = card.find(['div', 'span', 'time'], class_=lambda x: x and 'time' in x.lower())
+                time_str = time_elem.get_text(strip=True) if time_elem else ""
+                if not time_str or not re.match(r"\d{1,2}h\d{2}", time_str):
+                    time_str = "TBD"
+                
+                # Si on a au moins 2 équipes, on crée l'entrée
+                if len(teams) >= 2:
+                    scores.append({
+                        "time": time_str,
+                        "sport": "Rugby",
+                        "competition": "Pro D2",
+                        "match": f"{teams[0]} – {teams[1]}",
+                        "is_live": is_live,
+                        "channels": ["Canal+ Sport"],  # Pro D2 diffusée sur Canal+ Sport
+                        "date": today,
+                        "home_team": teams[0],
+                        "away_team": teams[1],
+                        "home_logo": logos[0] if len(logos) > 0 else "",
+                        "away_logo": logos[1] if len(logos) > 1 else "",
+                        "score": score_text,
+                    })
+            except Exception as e:
+                continue
+        
+        print(f"  ✅ {len(scores)} scores Pro D2 extraits avec logos")
+        return scores
+        
+    except Exception as e:
+        print(f"  ❌ Erreur scraping scores Pro D2: {e}")
+        return []
+
+
 def fetch_thesportsdb(date_iso):
     programs = []
     try:
@@ -272,7 +357,19 @@ def fetch_thesportsdb(date_iso):
 def group_by_channel(programs):
     by_channel = {}
     for p in programs:
-        entry = {k: p[k] for k in ("time", "sport", "competition", "match", "is_live", "date")}
+        # On garde les clés standards + les clés spécifiques aux scores (logos équipes, score)
+        entry = {
+            "time": p.get("time", "TBD"),
+            "sport": p.get("sport", "Multisports"),
+            "competition": p.get("competition", ""),
+            "match": p.get("match", ""),
+            "is_live": p.get("is_live", False),
+            "date": p.get("date", ""),
+        }
+        for key in ["home_team", "away_team", "home_logo", "away_logo", "score"]:
+            if key in p:
+                entry[key] = p[key]
+                
         for ch in p["channels"]:
             by_channel.setdefault(ch, [])
             if entry not in by_channel[ch]:
@@ -289,10 +386,17 @@ def main():
     print(f"🚀 Construction du programme sportif sur {NB_JOURS_TOTAL} jours...")
     print("=" * 60)
 
+    # 1. tv-sports.fr sur 7 jours via ScraperAPI
     print("\n📡 Phase 1 : tv-sports.fr (via ScraperAPI)")
     programs = scrape_tvsports()
+    
+    # 2. Scores Pro D2 en direct et résultats avec logos
+    print("\n📊 Phase 2 : Scores Pro D2 (logos + résultats)")
+    pro_d2_scores = scrape_pro_d2_scores()
+    programs.extend(pro_d2_scores)
 
-    print("\n📡 Phase 2 : TheSportsDB (complément)")
+    # 3. Complément TheSportsDB pour les jours sans données
+    print("\n📡 Phase 3 : TheSportsDB (complément)")
     for offset in range(NB_JOURS_TOTAL):
         d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
         existing = len([p for p in programs if p["date"] == d])
@@ -301,7 +405,7 @@ def main():
             programs += fetch_thesportsdb(d)
 
     if not programs:
-        print("\n️ Aucune donnée → programme de secours")
+        print("\n⚠️ Aucune donnée → programme de secours")
         for offset in range(NB_JOURS_TOTAL):
             d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
             programs += [
@@ -310,6 +414,7 @@ def main():
                 {"time": "21h05", "sport": "Rugby", "competition": "Top 14", "match": "Toulouse – La Rochelle", "is_live": False, "channels": ["Canal+ Sport"], "date": d},
             ]
 
+    # Dédoublonnage
     uniq, seen = [], set()
     for p in programs:
         key = (p["date"], p["time"], p["match"], tuple(sorted(p["channels"])))
@@ -317,6 +422,7 @@ def main():
             seen.add(key)
             uniq.append(p)
 
+    # Suppression du passé
     uniq = [m for m in uniq if m.get("date") and m["date"] >= today_iso]
 
     channels = group_by_channel(uniq)
