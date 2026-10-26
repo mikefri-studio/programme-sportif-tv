@@ -68,7 +68,7 @@
   .channel-header {
     background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
     background-size: 200% 200%;
-    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
     color: #fff; position: relative; overflow: hidden;
     transition: background-position .5s ease;
   }
@@ -84,13 +84,13 @@
     background: #fff; border-radius: 10px; padding: 6px;
     box-shadow: 0 4px 12px rgba(0,0,0,.2);
     position: relative; z-index: 1; transition: transform .25s ease;
+    flex-shrink: 0;
   }
   .channel-card:hover .channel-logo { transform: scale(1.05); }
 
   .channel-name { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; position: relative; z-index: 1; }
   .channel-count { font-size: 12px; opacity: .75; font-weight: 500; position: relative; z-index: 1; }
 
-  /* NOUVEAU : Style du bouton Direct */
   .watch-btn {
     background: rgba(255,255,255,0.15); 
     backdrop-filter: blur(4px);
@@ -153,12 +153,13 @@
     transition: transform .15s ease, box-shadow .15s ease;
     position: relative; overflow: hidden;
   }
+  .live-card.clickable { cursor: pointer; }
+  .live-card.clickable:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(239,68,68,.3); }
   .live-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40%;
     background: linear-gradient(180deg, rgba(254,202,202,.3) 0%, rgba(254,202,202,0) 100%);
     pointer-events: none;
   }
-  .live-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(239,68,68,.3); }
 
   /* MODALE */
   .modal-overlay {
@@ -195,6 +196,7 @@
   .modal-info-icon {
     width: 40px; height: 40px; background: #f1f5f9; border-radius: 10px;
     display: flex; align-items: center; justify-content: center; font-size: 20px;
+    flex-shrink: 0;
   }
   .modal-info-label { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
   .modal-info-value { font-size: 15px; color: #1e293b; font-weight: 600; margin-top: 2px; }
@@ -336,7 +338,7 @@
 // ===== CONFIG =====
 const SPORT_EMOJI = {
   'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
-  'Formule 1':'🏎️','Handball':'','Moto':'🏍️','Multisports':'🏅'
+  'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
 };
 const emoji = s => SPORT_EMOJI[s] || '';
 
@@ -344,33 +346,27 @@ let DATA = null;
 let CHANNELS_DATA = null; 
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
-// ===== NOUVELLE FONCTION : Trouver un logo depuis channels.json =====
+// ===== FONCTIONS DE CORRESPONDANCE (MATCHING) =====
 function findLogoFromChannels(channelName) {
   if (!CHANNELS_DATA) return '';
   const normalizedChannel = channelName.toLowerCase().trim();
   const found = CHANNELS_DATA.find(ch => {
     const chName = ch.name.toLowerCase().trim();
-    return chName === normalizedChannel || 
-           normalizedChannel.includes(chName) || 
-           chName.includes(normalizedChannel);
+    return chName === normalizedChannel || normalizedChannel.includes(chName) || chName.includes(normalizedChannel);
   });
   return found?.logo || '';
 }
 
-// ===== NOUVELLE FONCTION : Trouver l'URL du stream depuis channels.json =====
 function getChannelUrl(channelName) {
   if (!CHANNELS_DATA) return null;
   const normalizedChannel = channelName.toLowerCase().trim();
   const found = CHANNELS_DATA.find(ch => {
     const chName = ch.name.toLowerCase().trim();
-    return chName === normalizedChannel || 
-           normalizedChannel.includes(chName) || 
-           chName.includes(normalizedChannel);
+    return chName === normalizedChannel || normalizedChannel.includes(chName) || chName.includes(normalizedChannel);
   });
   return found?.url || null;
 }
 
-// ===== FONCTION : Récupérer le logo d'une chaîne (avec fallback) =====
 function getChannelLogo(channelName) {
   const localLogo = DATA?.channels?.[channelName]?.logo;
   if (localLogo) return localLogo;
@@ -457,14 +453,15 @@ function renderLive() {
   const sec = document.getElementById('live-section');
   if (!live.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
+  
   document.getElementById('live-strip').innerHTML = live.map(m => {
     const logo = getChannelLogo(m.channel);
     const streamUrl = getChannelUrl(m.channel);
     const clickAction = streamUrl ? `onclick="window.open('${streamUrl}', '_blank', 'noopener,noreferrer')"` : '';
-    const cursorClass = streamUrl ? 'cursor-pointer hover:bg-red-50' : '';
+    const clickableClass = streamUrl ? 'clickable' : '';
 
     return `
-    <div class="live-card ${cursorClass}" ${clickAction}>
+    <div class="live-card ${clickableClass}" ${clickAction}>
       <div class="flex items-center gap-3">
         ${logo ? `<img src="${logo}" class="w-10 h-10 object-contain bg-white rounded-lg p-1 shadow-sm flex-shrink-0" onerror="this.style.display='none'">` : ''}
         <div class="flex-1 min-w-0">
@@ -511,7 +508,7 @@ function openModal(match, channel) {
       <div class="modal-info-icon bg-red-100 text-red-600">▶</div>
       <div class="flex-1">
         <div class="modal-info-label">Regarder</div>
-        <a href="${streamUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">
+        <a href="${streamUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition shadow-sm">
           Ouvrir le lecteur en direct
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </a>
@@ -612,9 +609,8 @@ function renderChannels() {
     const streamUrl = getChannelUrl(channel);
     const initials = getInitials(channel);
     
-    // NOUVEAU : Bouton pour lancer le direct
     const watchButton = streamUrl 
-      ? `<button class="watch-btn" onclick="window.open('${streamUrl}', '_blank', 'noopener,noreferrer')" title="Regarder en direct">
+      ? `<button class="watch-btn" onclick="event.stopPropagation(); window.open('${streamUrl}', '_blank', 'noopener,noreferrer')" title="Regarder en direct">
            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
            Direct
          </button>`
@@ -672,7 +668,7 @@ function renderChannels() {
 
     html += `
     <div class="channel-card fade-up" style="animation-delay:${Math.min(idx*.05,.3)}s">
-      <div class="channel-header justify-between">
+      <div class="channel-header">
         <div class="flex items-center gap-3 flex-1 min-w-0">
           ${logoHtml}
           <div class="flex-1 min-w-0">
@@ -720,10 +716,10 @@ async function load() {
       const ch = await fetch('data/channels.json?t=' + Date.now());
       if (ch.ok) {
         CHANNELS_DATA = await ch.json();
-        console.log('✅ Logos et URLs chargés depuis channels.json :', CHANNELS_DATA.length, 'chaînes');
+        console.log(`✅ Logos et URLs chargés depuis channels.json : ${CHANNELS_DATA.length} chaînes`);
       }
     } catch(e) {
-      console.log('ℹ️ channels.json non trouvé (les boutons Direct ne s\'afficheront pas)');
+      console.warn('ℹ️ channels.json non trouvé (les boutons Direct ne s\'afficheront pas)');
     }
     
     render();
