@@ -331,13 +331,28 @@
 
 <script>
 const SPORT_EMOJI = {
-  'Football':'⚽','Rugby':'🏉','Tennis':'','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
   'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
 };
 const emoji = s => SPORT_EMOJI[s] || '';
 
+// ✅ NOUVEAU : Durées typiques des émissions (en minutes) pour savoir quand un direct est TERMINÉ
+const SPORT_DURATION_MIN = {
+  'Football': 115,      // match + mi-temps
+  'Rugby': 110,
+  'Basket-ball': 110,
+  'Handball': 110,
+  'Tennis': 200,        // session pouvant aller jusqu'à ~3h20
+  'Cyclisme': 300,
+  'Formule 1': 120,
+  'Moto': 120,
+  'Multisports': 150,
+};
+const DEFAULT_DURATION_MIN = 120;
+
 let DATA = null;
-let CHANNELS_DATA = null; 
+let CHANNELS_DATA = null;
+let LIVE_INDEX = null; // ✅ index des horaires par chaîne/date pour calculer la fin d'un direct
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
 function findLogoFromChannels(channelName) {
@@ -397,13 +412,53 @@ function isMatchPast(match) {
   return matchDate < new Date();
 }
 
+// ✅ NOUVEAU : construit l'index des horaires (par chaîne et par date)
+function buildLiveIndex() {
+  LIVE_INDEX = {};
+  for (const [channel, data] of Object.entries(DATA?.channels || {})) {
+    const byDate = {};
+    for (const m of data.matches) {
+      const t = parseMatchTime(m.date, m.time);
+      if (!t) continue;
+      (byDate[m.date] = byDate[m.date] || []).push(t.getTime());
+    }
+    for (const d in byDate) byDate[d].sort((a, b) => a - b);
+    LIVE_INDEX[channel] = byDate;
+  }
+}
+
+// ✅ NOUVEAU : heure de fin estimée = min(programme suivant sur la chaîne, durée typique du sport)
+function getMatchEnd(match) {
+  const start = parseMatchTime(match.date, match.time);
+  if (!start) return null;
+  const startMs = start.getTime();
+  const dur = (SPORT_DURATION_MIN[match.sport] || DEFAULT_DURATION_MIN) * 60000;
+  let end = startMs + dur;
+  const times = LIVE_INDEX?.[match.channel]?.[match.date];
+  if (times) {
+    const next = times.find(t => t > startMs);
+    if (next && next < end) end = next;
+  }
+  return end;
+}
+
+// ✅ CORRIGÉ : un direct = commencé ET pas encore terminé (fin estimée)
 function isCurrentlyLive(match) {
   if (!match.is_live) return false;
-  const matchDate = parseMatchTime(match.date, match.time);
-  if (!matchDate) return false;
-  const now = new Date();
-  const diff = now - matchDate;
-  return diff >= 0 && diff <= 4 * 60 * 60 * 1000;
+  const start = parseMatchTime(match.date, match.time);
+  if (!start) return false;
+  const now = Date.now();
+  const startMs = start.getTime();
+  if (now < startMs) return false;          // pas encore commencé
+  const end = getMatchEnd(match);
+  return end !== null && now < end;          // terminé → plus "direct"
+}
+
+// ✅ NOUVEAU : minutes écoulées depuis le début du direct
+function liveElapsedMin(match) {
+  const start = parseMatchTime(match.date, match.time);
+  if (!start) return null;
+  return Math.max(0, Math.round((Date.now() - start.getTime()) / 60000));
 }
 
 function formatDate(iso) {
@@ -430,7 +485,6 @@ function allMatches() {
   return list;
 }
 
-// ✅ REGEX CORRIGÉE ICI
 function getInitials(channel) {
   return channel.replace(/[^a-zA-ZÀ-ÿ\s+]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
 }
@@ -451,14 +505,22 @@ function renderSelectors() {
 
 function renderLive() {
   const seen = new Set();
-  const live = allMatches().filter(m => isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match));
+  const live = allMatches()
+    .filter(m => isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match))
+    .sort((a, b) => {
+      // ✅ Trie du plus récemment commencé au plus ancien
+      const ta = parseMatchTime(a.date, a.time)?.getTime() || 0;
+      const tb = parseMatchTime(b.date, b.time)?.getTime() || 0;
+      return tb - ta;
+    });
   const sec = document.getElementById('live-section');
   if (!live.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
-  
+
   document.getElementById('live-strip').innerHTML = live.map(m => {
     const logo = getChannelLogo(m.channel);
     const streamUrl = getChannelUrl(m.channel);
+    const elapsed = liveElapsedMin(m);
     const channelEscaped = m.channel.replace(/'/g, "\\'");
     const logoEscaped = (logo || '').replace(/'/g, "\\'");
     const sportEscaped = (m.sport || '').replace(/'/g, "\\'");
@@ -473,6 +535,7 @@ function renderLive() {
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-red-500 live-dot flex-shrink-0"></span>
             <span class="text-[10px] font-bold text-red-600 uppercase tracking-wider">Direct</span>
+            ${elapsed !== null ? `<span class="text-[10px] text-slate-400 font-semibold">· depuis ${elapsed} min</span>` : ''}
             <span class="text-[11px] text-slate-500 ml-auto mono font-bold">${m.time}</span>
           </div>
           <p class="font-bold text-sm text-slate-900 truncate">${m.match}</p>
@@ -500,9 +563,10 @@ function openModal(match, channel) {
   const matchDate = parseMatchTime(match.date, match.time);
   const now = new Date();
   const diffMinutes = matchDate ? Math.round((matchDate - now) / 60000) : null;
+  const elapsed = liveElapsedMin(match);
 
   let timeStatus = '';
-  if (isLive) timeStatus = '<span class="text-red-500 font-bold">● EN DIRECT</span>';
+  if (isLive) timeStatus = `<span class="text-red-500 font-bold">● EN DIRECT${elapsed !== null ? ` · depuis ${elapsed} min` : ''}</span>`;
   else if (diffMinutes !== null && diffMinutes > 0) timeStatus = `Commence dans ${diffMinutes} min`;
   else if (diffMinutes !== null && diffMinutes < 0) timeStatus = `Terminé il y a ${Math.abs(diffMinutes)} min`;
   else timeStatus = 'Horaire à confirmer';
@@ -536,7 +600,7 @@ function openModal(match, channel) {
 
   const teamsHtml = (match.home_team || match.away_team) ? `
     <div class="modal-info-row">
-      <div class="modal-info-icon">️</div>
+      <div class="modal-info-icon">🏟️</div>
       <div>
         <div class="modal-info-label">Équipes</div>
         <div class="modal-info-value">${match.home_team || ''} ${match.away_team ? 'vs ' + match.away_team : ''}</div>
@@ -564,7 +628,7 @@ function openModal(match, channel) {
       </div>
     </div>
     <div class="modal-info-row">
-      <div class="modal-info-icon"></div>
+      <div class="modal-info-icon">🏆</div>
       <div>
         <div class="modal-info-label">Compétition</div>
         <div class="modal-info-value">${match.competition || 'Non renseignée'}</div>
@@ -615,11 +679,11 @@ function renderChannels() {
     const logo = getChannelLogo(channel);
     const streamUrl = getChannelUrl(channel);
     const initials = getInitials(channel);
-    
+
     const channelEscaped = channel.replace(/'/g, "\\'");
     const logoEscaped = (logo || '').replace(/'/g, "\\'");
-    
-    const watchButton = streamUrl 
+
+    const watchButton = streamUrl
       ? `<button class="watch-btn" onclick="event.stopPropagation(); openPlayer('${streamUrl}', '${channelEscaped}', '${logoEscaped}', '')" title="Regarder en direct">
            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
            Direct
@@ -708,6 +772,7 @@ function renderChannels() {
 }
 
 function render() {
+  buildLiveIndex(); // ✅ reconstruit l'index des horaires avant tout rendu
   renderSelectors(); renderLive(); renderChannels();
   const d = new Date(DATA.updated_at);
   document.getElementById('update-text').textContent =
@@ -719,7 +784,7 @@ async function load() {
     const r = await fetch('data/schedule.json?t=' + Date.now());
     if (!r.ok) throw new Error();
     DATA = await r.json();
-    
+
     try {
       const gistUrl = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channel2.json';
       const ch = await fetch(gistUrl + '?t=' + Date.now());
@@ -730,9 +795,9 @@ async function load() {
         throw new Error('Gist non accessible');
       }
     } catch(e) {
-      console.warn('⚠️ Impossible de charger channel2.json depuis le Gist:', e);
+      console.warn('️ Impossible de charger channel2.json depuis le Gist:', e);
     }
-    
+
     render();
   } catch(e) {
     document.getElementById('channels').innerHTML =
@@ -810,6 +875,11 @@ window.addEventListener('appinstalled', () => {
 
 load();
 setInterval(load, 10 * 60 * 1000);
+
+// ✅ NOUVEAU : rafraîchit le statut "direct" toutes les 60 secondes (sans recharger les données)
+setInterval(() => {
+  if (DATA) { renderLive(); }
+}, 60 * 1000);
 </script>
 </body>
 </html>
