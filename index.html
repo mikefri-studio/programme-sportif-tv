@@ -9,7 +9,6 @@
 <meta name="apple-mobile-web-app-title" content="SportTV">
 <meta name="description" content="Programme sportif TV en direct et à venir, chaîne par chaîne">
 <title>SportTV · Programme sportif par chaîne</title>
-<link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <link rel="icon" type="image/png" href="/icon-192.png">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -161,7 +160,6 @@
     pointer-events: none;
   }
 
-  /* MODALE */
   .modal-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
@@ -201,7 +199,6 @@
   .modal-info-label { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
   .modal-info-value { font-size: 15px; color: #1e293b; font-weight: 600; margin-top: 2px; }
 
-  /* Bannière installation PWA */
   .install-banner {
     position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
     background: #1e293b; color: #fff; padding: 12px 20px; border-radius: 999px;
@@ -263,9 +260,9 @@
     <button class="nav-pill active" data-sport="all">Tous</button>
     <button class="nav-pill" data-sport="Football">⚽ Foot</button>
     <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
-    <button class="nav-pill" data-sport="Tennis"> Tennis</button>
-    <button class="nav-pill" data-sport="Cyclisme"> Vélo</button>
-    <button class="nav-pill" data-sport="Basket-ball"> Basket</button>
+    <button class="nav-pill" data-sport="Tennis">🎾 Tennis</button>
+    <button class="nav-pill" data-sport="Cyclisme">🚴 Vélo</button>
+    <button class="nav-pill" data-sport="Basket-ball">🏀 Basket</button>
   </div>
 </header>
 
@@ -282,7 +279,7 @@
   <section class="mb-6">
     <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col lg:flex-row gap-3 lg:items-center">
       <div class="relative flex-1 min-w-[220px]">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></span>
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
         <input id="search" type="text" placeholder="Rechercher un match, une compétition, une chaîne…"
                class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:bg-white transition placeholder:text-slate-400">
       </div>
@@ -304,13 +301,12 @@
   <section id="channels" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"></section>
 
   <section id="empty" class="hidden text-center py-20">
-    <div class="text-6xl mb-4">️</div>
+    <div class="text-6xl mb-4">🛰️</div>
     <h3 class="text-xl font-bold text-slate-700">Aucun programme ne correspond</h3>
     <p class="text-slate-500 mt-2">Essayez de modifier votre recherche, la date ou la chaîne.</p>
   </section>
 </main>
 
-<!-- MODALE -->
 <div id="modal" class="modal-overlay">
   <div class="modal-content">
     <div class="modal-header">
@@ -323,7 +319,6 @@
   </div>
 </div>
 
-<!-- BANNIÈRE INSTALLATION PWA -->
 <div id="install-banner" class="install-banner">
   <span class="text-sm font-semibold">📲 Installer l'application</span>
   <button id="install-btn" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full transition">Installer</button>
@@ -335,10 +330,9 @@
 </footer>
 
 <script>
-// ===== CONFIG =====
 const SPORT_EMOJI = {
-  'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
-  'Formule 1':'🏎️','Handball':'🤾','Moto':'️','Multisports':'🏅'
+  'Football':'⚽','Rugby':'🏉','Tennis':'','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
 };
 const emoji = s => SPORT_EMOJI[s] || '';
 
@@ -346,7 +340,6 @@ let DATA = null;
 let CHANNELS_DATA = null; 
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
-// ===== FONCTIONS DE CORRESPONDANCE (MATCHING) =====
 function findLogoFromChannels(channelName) {
   if (!CHANNELS_DATA) return '';
   const normalizedChannel = channelName.toLowerCase().trim();
@@ -373,7 +366,6 @@ function getChannelLogo(channelName) {
   return findLogoFromChannels(channelName);
 }
 
-// ===== OUVERTURE DU LECTEUR INTÉGRÉ (avec autoplay) =====
 function openPlayer(url, channel, logo, sport) {
   const params = new URLSearchParams({
     url: url,
@@ -385,7 +377,6 @@ function openPlayer(url, channel, logo, sport) {
   window.open(`player.html?${params.toString()}`, '_blank', 'noopener,noreferrer');
 }
 
-// ===== UTILITAIRES TEMPS =====
 function parseMatchTime(dateStr, timeStr) {
   const match = String(timeStr).match(/(\d{1,2})h(\d{2})/);
   if (!match) return null;
@@ -439,11 +430,11 @@ function allMatches() {
   return list;
 }
 
+// ✅ REGEX CORRIGÉE ICI
 function getInitials(channel) {
-  return channel.replace(/[^A-Za-zÀ-+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+  return channel.replace(/[^a-zA-ZÀ-ÿ\s+]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
 }
 
-// ===== RENDU SELECTEURS =====
 function renderSelectors() {
   const dates = new Set();
   allMatches().forEach(m => { if (m.date) dates.add(m.date); });
@@ -458,7 +449,6 @@ function renderSelectors() {
   channelSelect.value = state.channel;
 }
 
-// ===== RENDU DIRECT =====
 function renderLive() {
   const seen = new Set();
   const live = allMatches().filter(m => isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match));
@@ -469,7 +459,10 @@ function renderLive() {
   document.getElementById('live-strip').innerHTML = live.map(m => {
     const logo = getChannelLogo(m.channel);
     const streamUrl = getChannelUrl(m.channel);
-    const clickAction = streamUrl ? `onclick="openPlayer('${streamUrl}', '${m.channel.replace(/'/g, "\\'")}', '${logo}', '${m.sport || ''}')"` : '';
+    const channelEscaped = m.channel.replace(/'/g, "\\'");
+    const logoEscaped = (logo || '').replace(/'/g, "\\'");
+    const sportEscaped = (m.sport || '').replace(/'/g, "\\'");
+    const clickAction = streamUrl ? `onclick="openPlayer('${streamUrl}', '${channelEscaped}', '${logoEscaped}', '${sportEscaped}')"` : '';
     const clickableClass = streamUrl ? 'clickable' : '';
 
     return `
@@ -490,7 +483,6 @@ function renderLive() {
   }).join('');
 }
 
-// ===== MODALE =====
 function openModal(match, channel) {
   const modal = document.getElementById('modal');
   const logo = getChannelLogo(channel);
@@ -515,12 +507,16 @@ function openModal(match, channel) {
   else if (diffMinutes !== null && diffMinutes < 0) timeStatus = `Terminé il y a ${Math.abs(diffMinutes)} min`;
   else timeStatus = 'Horaire à confirmer';
 
+  const channelEscaped = channel.replace(/'/g, "\\'");
+  const logoEscaped = (logo || '').replace(/'/g, "\\'");
+  const sportEscaped = (match.sport || '').replace(/'/g, "\\'");
+
   const watchButtonHtml = streamUrl ? `
     <div class="modal-info-row">
       <div class="modal-info-icon bg-red-100 text-red-600">▶</div>
       <div class="flex-1">
         <div class="modal-info-label">Regarder</div>
-        <button onclick="openPlayer('${streamUrl}', '${channel.replace(/'/g, "\\'")}', '${logo}', '${match.sport || ''}')" class="inline-flex items-center gap-2 mt-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition shadow-sm cursor-pointer">
+        <button onclick="openPlayer('${streamUrl}', '${channelEscaped}', '${logoEscaped}', '${sportEscaped}')" class="inline-flex items-center gap-2 mt-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition shadow-sm cursor-pointer">
           Lancer le lecteur en direct
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </button>
@@ -540,7 +536,7 @@ function openModal(match, channel) {
 
   const teamsHtml = (match.home_team || match.away_team) ? `
     <div class="modal-info-row">
-      <div class="modal-info-icon">🏟️</div>
+      <div class="modal-info-icon">️</div>
       <div>
         <div class="modal-info-label">Équipes</div>
         <div class="modal-info-value">${match.home_team || ''} ${match.away_team ? 'vs ' + match.away_team : ''}</div>
@@ -568,7 +564,7 @@ function openModal(match, channel) {
       </div>
     </div>
     <div class="modal-info-row">
-      <div class="modal-info-icon">🏆</div>
+      <div class="modal-info-icon"></div>
       <div>
         <div class="modal-info-label">Compétition</div>
         <div class="modal-info-value">${match.competition || 'Non renseignée'}</div>
@@ -596,7 +592,6 @@ document.getElementById('modal').addEventListener('click', (e) => {
 document.getElementById('modal-close-btn').addEventListener('click', closeModal);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-// ===== RENDU CHAÎNES =====
 function renderChannels() {
   const q = state.search.toLowerCase();
   const container = document.getElementById('channels');
@@ -621,8 +616,11 @@ function renderChannels() {
     const streamUrl = getChannelUrl(channel);
     const initials = getInitials(channel);
     
+    const channelEscaped = channel.replace(/'/g, "\\'");
+    const logoEscaped = (logo || '').replace(/'/g, "\\'");
+    
     const watchButton = streamUrl 
-      ? `<button class="watch-btn" onclick="event.stopPropagation(); openPlayer('${streamUrl}', '${channel.replace(/'/g, "\\'")}', '${logo}', '')" title="Regarder en direct">
+      ? `<button class="watch-btn" onclick="event.stopPropagation(); openPlayer('${streamUrl}', '${channelEscaped}', '${logoEscaped}', '')" title="Regarder en direct">
            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
            Direct
          </button>`
@@ -709,7 +707,6 @@ function renderChannels() {
   });
 }
 
-// ===== RENDU GLOBAL =====
 function render() {
   renderSelectors(); renderLive(); renderChannels();
   const d = new Date(DATA.updated_at);
@@ -717,7 +714,6 @@ function render() {
     `MàJ ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}`;
 }
 
-// ===== CHARGEMENT =====
 async function load() {
   try {
     const r = await fetch('data/schedule.json?t=' + Date.now());
@@ -746,7 +742,6 @@ async function load() {
   }
 }
 
-// ===== NAVIGATION SPORT =====
 document.querySelectorAll('.nav-pill[data-sport]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.nav-pill[data-sport]').forEach(b => b.classList.remove('active'));
@@ -756,7 +751,6 @@ document.querySelectorAll('.nav-pill[data-sport]').forEach(btn => {
   });
 });
 
-// ===== TOGGLE DIRECT =====
 const toggleLive = () => {
   state.liveOnly = !state.liveOnly;
   document.querySelectorAll('.nav-pill.live').forEach(b => {
@@ -768,18 +762,15 @@ const toggleLive = () => {
 document.getElementById('nav-live')?.addEventListener('click', toggleLive);
 document.getElementById('nav-live-mobile')?.addEventListener('click', toggleLive);
 
-// ===== FILTRES =====
 document.getElementById('date-select').addEventListener('change', e => { state.date = e.target.value; renderChannels(); });
 document.getElementById('channel-select').addEventListener('change', e => { state.channel = e.target.value; renderChannels(); });
 document.getElementById('search').addEventListener('input', e => { state.search = e.target.value; renderChannels(); });
 
-// ===== MENU MOBILE =====
 document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
   const nav = document.getElementById('mobile-nav');
   nav.classList.toggle('hidden');
 });
 
-// ===== PWA : SERVICE WORKER =====
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
@@ -788,7 +779,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// ===== PWA : INSTALLATION =====
 let deferredPrompt;
 const installBanner = document.getElementById('install-banner');
 const installBtn = document.getElementById('install-btn');
@@ -818,7 +808,6 @@ window.addEventListener('appinstalled', () => {
   deferredPrompt = null;
 });
 
-// ===== DÉMARRAGE =====
 load();
 setInterval(load, 10 * 60 * 1000);
 </script>
