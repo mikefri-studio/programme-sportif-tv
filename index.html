@@ -233,8 +233,8 @@
   <div class="lg:hidden px-4 pb-3 flex flex-wrap gap-2" id="mobile-nav">
     <button class="nav-pill live" id="nav-live-mobile">Direct</button>
     <button class="nav-pill active" data-sport="all">Tous</button>
-    <button class="nav-pill" data-sport="Football"> Foot</button>
-    <button class="nav-pill" data-sport="Rugby"> Rugby</button>
+    <button class="nav-pill" data-sport="Football">⚽ Foot</button>
+    <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
     <button class="nav-pill" data-sport="Tennis">🎾 Tennis</button>
     <button class="nav-pill" data-sport="Cyclisme">🚴 Vélo</button>
     <button class="nav-pill" data-sport="Basket-ball">🏀 Basket</button>
@@ -315,7 +315,31 @@ const SPORT_EMOJI = {
 const emoji = s => SPORT_EMOJI[s] || '';
 
 let DATA = null;
+let CHANNELS_DATA = null; // Nouveau : pour stocker les logos des chaînes (fallback)
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
+
+// ===== NOUVELLE FONCTION : Trouver un logo depuis channels.json =====
+function findLogoFromChannels(channelName) {
+  if (!CHANNELS_DATA) return '';
+  const normalizedChannel = channelName.toLowerCase().trim();
+  const found = CHANNELS_DATA.find(ch => {
+    const chName = ch.name.toLowerCase().trim();
+    return chName === normalizedChannel || 
+           normalizedChannel.includes(chName) || 
+           chName.includes(normalizedChannel);
+  });
+  return found?.logo || '';
+}
+
+// ===== FONCTION MODIFIÉE : Récupérer le logo d'une chaîne (avec fallback) =====
+function getChannelLogo(channelName) {
+  // 1. Essayer d'abord dans DATA (schedule.json)
+  const localLogo = DATA?.channels?.[channelName]?.logo;
+  if (localLogo) return localLogo;
+  
+  // 2. Sinon, chercher dans CHANNELS_DATA (channels.json)
+  return findLogoFromChannels(channelName);
+}
 
 // ===== UTILITAIRES TEMPS =====
 function parseMatchTime(dateStr, timeStr) {
@@ -398,7 +422,7 @@ function renderLive() {
   if (!live.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
   document.getElementById('live-strip').innerHTML = live.map(m => {
-    const logo = DATA?.channels?.[m.channel]?.logo || '';
+    const logo = getChannelLogo(m.channel); // MODIFIÉ
     return `
     <div class="live-card">
       <div class="flex items-center gap-3">
@@ -420,7 +444,7 @@ function renderLive() {
 // ===== MODALE =====
 function openModal(match, channel) {
   const modal = document.getElementById('modal');
-  const logo = DATA?.channels?.[channel]?.logo || '';
+  const logo = getChannelLogo(channel); // MODIFIÉ
   const initials = getInitials(channel);
 
   document.getElementById('modal-logo-container').innerHTML = logo
@@ -529,7 +553,7 @@ function renderChannels() {
 
   for (const [channel, matches] of entries) {
     shown++;
-    const logo = DATA?.channels?.[channel]?.logo || '';
+    const logo = getChannelLogo(channel); // MODIFIÉ
     const initials = getInitials(channel);
     const logoHtml = logo
       ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${initials}</div>'">`
@@ -551,7 +575,6 @@ function renderChannels() {
         const homeName = teams[0] || m.match;
         const awayName = teams[1] || '';
 
-        // Stockage sécurisé des données via data-attributes
         const matchData = encodeURIComponent(JSON.stringify(m));
         const channelData = encodeURIComponent(channel);
 
@@ -599,7 +622,6 @@ function renderChannels() {
   container.innerHTML = html;
   document.getElementById('empty').classList.toggle('hidden', shown > 0);
 
-  // Event delegation pour les clics sur les matchs
   container.querySelectorAll('.match-row').forEach(row => {
     row.addEventListener('click', () => {
       try {
@@ -622,9 +644,22 @@ function render() {
 // ===== CHARGEMENT =====
 async function load() {
   try {
+    // 1. Charger schedule.json
     const r = await fetch('data/schedule.json?t=' + Date.now());
     if (!r.ok) throw new Error();
     DATA = await r.json();
+    
+    // 2. Charger channels.json (logos des chaînes en fallback)
+    try {
+      const ch = await fetch('data/channels.json?t=' + Date.now());
+      if (ch.ok) {
+        CHANNELS_DATA = await ch.json();
+        console.log('✅ Logos chargés depuis channels.json :', CHANNELS_DATA.length, 'chaînes');
+      }
+    } catch(e) {
+      console.log('ℹ️ channels.json non trouvé ou erreur de chargement (ce n\'est pas bloquant)');
+    }
+    
     render();
   } catch(e) {
     document.getElementById('channels').innerHTML =
