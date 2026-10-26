@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>SportTV · Lecteur en direct</title>
+<link rel="icon" type="image/png" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+  
+  body {
+    background: #0a0a0f;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Fond animé subtil */
+  .bg-glow {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(239,68,68,0.15) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  .player-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  .back-btn:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-2px);
+  }
+
+  /* Conteneur lecteur */
+  .player-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .player-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #000;
+  }
+
+  .player-container iframe,
+  .player-container video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .player-container.fullscreen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding-bottom: 0;
+    z-index: 100;
+    border-radius: 0;
+  }
+
+  /* Boutons de contrôle */
+  .control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  .control-btn:hover {
+    background: rgba(239,68,68,0.2);
+    border-color: rgba(239,68,68,0.4);
+    transform: scale(1.05);
+  }
+  .control-btn.active {
+    background: #ef4444;
+    border-color: #ef4444;
+  }
+
+  /* Info chaîne */
+  .channel-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+  }
+
+  .channel-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 10px;
+    padding: 6px;
+  }
+
+  /* Live indicator */
+  .live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: #ef4444;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+  }
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulseDot 1.2s ease-in-out infinite;
+  }
+
+  /* Loading state */
+  .loading-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 10;
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: #ef4444;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Error state */
+  .error-box {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+  @media (max-width: 640px) {
+    .player-container { border-radius: 0; }
+    .player-wrapper { border-radius: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- HEADER -->
+<header class="player-header">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <button class="back-btn" onclick="goBack()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span class="hidden sm:inline">Retour</span>
+      </button>
+      
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-black text-xs">TV</div>
+        <span class="text-lg font-black tracking-tight">SPORTS</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button class="control-btn" onclick="toggleFullscreen()" title="Plein écran" id="fs-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+      </button>
+      <button class="control-btn" onclick="openExternal()" title="Ouvrir dans un nouvel onglet">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- CONTENU PRINCIPAL -->
+<main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
+  
+  <!-- Info chaîne -->
+  <div class="mb-4 flex flex-wrap items-center gap-3">
+    <div id="channel-info" class="channel-badge flex-1 min-w-0">
+      <div class="spinner" style="width:32px;height:32px;border-width:2px;"></div>
+      <div>
+        <div class="text-sm text-white/60">Chargement...</div>
+      </div>
+    </div>
+    <div class="live-indicator">
+      <span class="live-dot"></span>
+      EN DIRECT
+    </div>
+  </div>
+
+  <!-- Lecteur -->
+  <div class="player-wrapper">
+    <div class="player-container" id="player-container">
+      <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+        <div class="text-sm text-white/60">Chargement du flux...</div>
+      </div>
+      <iframe id="video-player" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="mt-4 flex flex-wrap gap-2">
+    <button onclick="reloadPlayer()" class="control-btn" style="width:auto;padding:0 16px;gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="23 4 23 10 17 10"/>
+        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+      </svg>
+      <span class="text-sm font-semibold">Recharger</span>
+    </button>
+    
+    <button onclick="reportIssue()" class="control-btn" style="width:auto;padding:0 16px;gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span class="text-sm font-semibold">Signaler un problème</span>
+    </button>
+  </div>
+
+  <!-- Info technique -->
+  <div class="mt-6 p-4 bg-white/5 border border-white/10 rounded-xl">
+    <div class="flex items-start gap-3">
+      <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center flex-shrink-0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </div>
+      <div class="text-sm text-white/70">
+        <p class="font-semibold text-white mb-1"> Astuces</p>
+        <ul class="space-y-1 text-xs">
+          <li>• Utilisez le bouton <strong>plein écran</strong> pour une expérience immersive</li>
+          <li>• Si le flux ne se charge pas, essayez de <strong>recharger</strong> la page</li>
+          <li>• Le lecteur s'ouvre dans un environnement sécurisé (sandbox)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="relative z-10 border-t border-white/10 py-4 mt-8 text-center text-xs text-white/40">
+  SportTV · Lecteur intégré · <a href="/" class="underline hover:text-white/70">Retour à l'accueil</a>
+</footer>
+
+<script>
+// ===== PARAMÈTRES URL =====
+const params = new URLSearchParams(window.location.search);
+const streamUrl = params.get('url');
+const channelName = params.get('channel') || 'Chaîne en direct';
+const channelLogo = params.get('logo') || '';
+const sport = params.get('sport') || '';
+
+// ===== INITIALISATION =====
+document.addEventListener('DOMContentLoaded', () => {
+  if (!streamUrl) {
+    showError('Aucun flux vidéo spécifié');
+    return;
+  }
+
+  // Afficher les infos de la chaîne
+  updateChannelInfo();
+
+  // Charger le lecteur
+  loadPlayer();
+});
+
+function updateChannelInfo() {
+  const infoDiv = document.getElementById('channel-info');
+  const logoHtml = channelLogo 
+    ? `<img src="${channelLogo}" class="channel-logo" onerror="this.style.display='none'">`
+    : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-black">${channelName.charAt(0)}</div>`;
+  
+  infoDiv.innerHTML = `
+    ${logoHtml}
+    <div class="flex-1 min-w-0">
+      <div class="font-bold text-white truncate">${channelName}</div>
+      ${sport ? `<div class="text-xs text-white/60">${sport}</div>` : ''}
+    </div>
+  `;
+  
+  // Mettre à jour le titre
+  document.title = `${channelName} · SportTV en direct`;
+}
+
+function loadPlayer() {
+  const iframe = document.getElementById('video-player');
+  const loading = document.getElementById('loading');
+  
+  iframe.src = streamUrl;
+  
+  iframe.onload = () => {
+    setTimeout(() => {
+      loading.style.display = 'none';
+    }, 500);
+  };
+  
+  // Timeout de sécurité
+  setTimeout(() => {
+    loading.style.display = 'none';
+  }, 5000);
+}
+
+function reloadPlayer() {
+  const iframe = document.getElementById('video-player');
+  const loading = document.getElementById('loading');
+  loading.style.display = 'flex';
+  iframe.src = 'about:blank';
+  setTimeout(() => {
+    iframe.src = streamUrl;
+  }, 300);
+}
+
+function goBack() {
+  if (document.referrer && document.referrer.includes(window.location.hostname)) {
+    window.history.back();
+  } else {
+    window.location.href = '/';
+  }
+}
+
+function toggleFullscreen() {
+  const container = document.getElementById('player-container');
+  const btn = document.getElementById('fs-btn');
+  
+  if (!document.fullscreenElement) {
+    container.requestFullscreen().catch(err => {
+      console.error('Erreur plein écran:', err);
+      // Fallback : ouvrir dans nouvel onglet
+      openExternal();
+    });
+    btn.classList.add('active');
+  } else {
+    document.exitFullscreen();
+    btn.classList.remove('active');
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const btn = document.getElementById('fs-btn');
+  if (document.fullscreenElement) {
+    btn.classList.add('active');
+  } else {
+    btn.classList.remove('active');
+  }
+});
+
+function openExternal() {
+  if (streamUrl) {
+    window.open(streamUrl, '_blank', 'noopener,noreferrer');
+  }
+}
+
+function reportIssue() {
+  const message = encodeURIComponent(`Problème avec le flux : ${channelName}\nURL: ${streamUrl}`);
+  window.open(`https://github.com/mikefri/Teslatv01/issues/new?title=Problème+flux+${encodeURIComponent(channelName)}&body=${message}`, '_blank');
+}
+
+function showError(msg) {
+  const container = document.getElementById('player-container');
+  container.innerHTML = `
+    <div class="error-box absolute inset-0 flex items-center justify-center p-8">
+      <div>
+        <div class="text-5xl mb-4">📡</div>
+        <h3 class="text-lg font-bold text-white mb-2">${msg}</h3>
+        <p class="text-sm text-white/60 mb-4">Vérifiez l'URL ou retournez à l'accueil</p>
+        <a href="/" class="inline-block px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition">
+          Retour à l'accueil
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+// Raccourci clavier : F pour plein écran, Échap pour quitter
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'f' || e.key === 'F') {
+    if (document.activeElement.tagName !== 'INPUT') toggleFullscreen();
+  }
+});
+</script>
+</body>
+</html>
