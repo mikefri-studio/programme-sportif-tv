@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-10-26T19:08:23.887887",
+  "updated_at": "2026-10-26T19:34:41.203455",
   "source": "tv-sports.fr",
-  "total_matches": 153,
+  "total_matches": 155,
   "total_channels": 20,
   "channels": {
     "beIN SPORTS 3": {
@@ -540,6 +540,15 @@
           "sport": "Football",
           "competition": "Ligue 2",
           "match": "Boulogne-sur-Mer – Reims✨",
+          "is_live": true,
+          "date": "2026-10-26",
+          "source": "tv-sports.fr"
+        },
+        {
+          "time": "21h00",
+          "sport": "Football",
+          "competition": "",
+          "match": "Fleetwood – Arsenal",
           "is_live": true,
           "date": "2026-10-26",
           "source": "tv-sports.fr"
@@ -1461,6 +1470,15 @@
     "Sport en France": {
       "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/sport-en-france-fr.png",
       "matches": [
+        {
+          "time": "15h00",
+          "sport": "Basket-ball",
+          "competition": "",
+          "match": "Lyon féminine – Landerneau Bretagne féminine",
+          "is_live": false,
+          "date": "2026-10-26",
+          "source": "tv-sports.fr"
+        },
         {
           "time": "15h15",
           "sport": "Basket-ball",
