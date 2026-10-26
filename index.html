@@ -90,6 +90,32 @@
   .channel-name { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; position: relative; z-index: 1; }
   .channel-count { font-size: 12px; opacity: .75; font-weight: 500; position: relative; z-index: 1; }
 
+  /* NOUVEAU : Style du bouton Direct */
+  .watch-btn {
+    background: rgba(255,255,255,0.15); 
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; 
+    font-size: 12px; 
+    font-weight: 700; 
+    padding: 8px 14px; 
+    border-radius: 8px; 
+    display: flex; 
+    align-items: center; 
+    gap: 6px;
+    cursor: pointer; 
+    transition: all .2s ease;
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+  }
+  .watch-btn:hover { 
+    background: #ef4444; 
+    border-color: #ef4444; 
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  }
+
   .match-row {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 20px; border-bottom: 1px solid #f1f5f9;
@@ -315,7 +341,7 @@ const SPORT_EMOJI = {
 const emoji = s => SPORT_EMOJI[s] || '';
 
 let DATA = null;
-let CHANNELS_DATA = null; // Nouveau : pour stocker les logos des chaînes (fallback)
+let CHANNELS_DATA = null; 
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
 // ===== NOUVELLE FONCTION : Trouver un logo depuis channels.json =====
@@ -331,13 +357,23 @@ function findLogoFromChannels(channelName) {
   return found?.logo || '';
 }
 
-// ===== FONCTION MODIFIÉE : Récupérer le logo d'une chaîne (avec fallback) =====
+// ===== NOUVELLE FONCTION : Trouver l'URL du stream depuis channels.json =====
+function getChannelUrl(channelName) {
+  if (!CHANNELS_DATA) return null;
+  const normalizedChannel = channelName.toLowerCase().trim();
+  const found = CHANNELS_DATA.find(ch => {
+    const chName = ch.name.toLowerCase().trim();
+    return chName === normalizedChannel || 
+           normalizedChannel.includes(chName) || 
+           chName.includes(normalizedChannel);
+  });
+  return found?.url || null;
+}
+
+// ===== FONCTION : Récupérer le logo d'une chaîne (avec fallback) =====
 function getChannelLogo(channelName) {
-  // 1. Essayer d'abord dans DATA (schedule.json)
   const localLogo = DATA?.channels?.[channelName]?.logo;
   if (localLogo) return localLogo;
-  
-  // 2. Sinon, chercher dans CHANNELS_DATA (channels.json)
   return findLogoFromChannels(channelName);
 }
 
@@ -422,14 +458,18 @@ function renderLive() {
   if (!live.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
   document.getElementById('live-strip').innerHTML = live.map(m => {
-    const logo = getChannelLogo(m.channel); // MODIFIÉ
+    const logo = getChannelLogo(m.channel);
+    const streamUrl = getChannelUrl(m.channel);
+    const clickAction = streamUrl ? `onclick="window.open('${streamUrl}', '_blank', 'noopener,noreferrer')"` : '';
+    const cursorClass = streamUrl ? 'cursor-pointer hover:bg-red-50' : '';
+
     return `
-    <div class="live-card">
+    <div class="live-card ${cursorClass}" ${clickAction}>
       <div class="flex items-center gap-3">
-        ${logo ? `<img src="${logo}" class="w-10 h-10 object-contain bg-white rounded-lg p-1 shadow-sm" onerror="this.style.display='none'">` : ''}
+        ${logo ? `<img src="${logo}" class="w-10 h-10 object-contain bg-white rounded-lg p-1 shadow-sm flex-shrink-0" onerror="this.style.display='none'">` : ''}
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-red-500 live-dot"></span>
+            <span class="w-2 h-2 rounded-full bg-red-500 live-dot flex-shrink-0"></span>
             <span class="text-[10px] font-bold text-red-600 uppercase tracking-wider">Direct</span>
             <span class="text-[11px] text-slate-500 ml-auto mono font-bold">${m.time}</span>
           </div>
@@ -444,7 +484,8 @@ function renderLive() {
 // ===== MODALE =====
 function openModal(match, channel) {
   const modal = document.getElementById('modal');
-  const logo = getChannelLogo(channel); // MODIFIÉ
+  const logo = getChannelLogo(channel);
+  const streamUrl = getChannelUrl(channel);
   const initials = getInitials(channel);
 
   document.getElementById('modal-logo-container').innerHTML = logo
@@ -464,6 +505,19 @@ function openModal(match, channel) {
   else if (diffMinutes !== null && diffMinutes > 0) timeStatus = `Commence dans ${diffMinutes} min`;
   else if (diffMinutes !== null && diffMinutes < 0) timeStatus = `Terminé il y a ${Math.abs(diffMinutes)} min`;
   else timeStatus = 'Horaire à confirmer';
+
+  const watchButtonHtml = streamUrl ? `
+    <div class="modal-info-row">
+      <div class="modal-info-icon bg-red-100 text-red-600">▶</div>
+      <div class="flex-1">
+        <div class="modal-info-label">Regarder</div>
+        <a href="${streamUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">
+          Ouvrir le lecteur en direct
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+      </div>
+    </div>
+  ` : '';
 
   const scoreHtml = match.score ? `
     <div class="modal-info-row">
@@ -486,6 +540,7 @@ function openModal(match, channel) {
   ` : '';
 
   document.getElementById('modal-body').innerHTML = `
+    ${watchButtonHtml}
     ${scoreHtml}
     ${teamsHtml}
     <div class="modal-info-row">
@@ -553,11 +608,21 @@ function renderChannels() {
 
   for (const [channel, matches] of entries) {
     shown++;
-    const logo = getChannelLogo(channel); // MODIFIÉ
+    const logo = getChannelLogo(channel);
+    const streamUrl = getChannelUrl(channel);
     const initials = getInitials(channel);
+    
+    // NOUVEAU : Bouton pour lancer le direct
+    const watchButton = streamUrl 
+      ? `<button class="watch-btn" onclick="window.open('${streamUrl}', '_blank', 'noopener,noreferrer')" title="Regarder en direct">
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+           Direct
+         </button>`
+      : '';
+
     const logoHtml = logo
-      ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm\\'>${initials}</div>'">`
-      : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm">${initials}</div>`;
+      ? `<img src="${logo}" class="channel-logo" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm flex-shrink-0\\'>${initials}</div>'">`
+      : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-black text-sm shadow-sm flex-shrink-0">${initials}</div>`;
 
     const byDate = {};
     matches.forEach(m => { const d = m.date || 'inconnue'; byDate[d] = byDate[d] || []; byDate[d].push(m); });
@@ -607,12 +672,15 @@ function renderChannels() {
 
     html += `
     <div class="channel-card fade-up" style="animation-delay:${Math.min(idx*.05,.3)}s">
-      <div class="channel-header">
-        ${logoHtml}
-        <div class="flex-1 min-w-0">
-          <div class="channel-name truncate">${channel}</div>
-          <div class="channel-count">${matches.length} programme${matches.length>1?'s':''}</div>
+      <div class="channel-header justify-between">
+        <div class="flex items-center gap-3 flex-1 min-w-0">
+          ${logoHtml}
+          <div class="flex-1 min-w-0">
+            <div class="channel-name truncate">${channel}</div>
+            <div class="channel-count">${matches.length} programme${matches.length>1?'s':''}</div>
+          </div>
         </div>
+        ${watchButton}
       </div>
       <div>${matchesHtml}</div>
     </div>`;
@@ -644,20 +712,18 @@ function render() {
 // ===== CHARGEMENT =====
 async function load() {
   try {
-    // 1. Charger schedule.json
     const r = await fetch('data/schedule.json?t=' + Date.now());
     if (!r.ok) throw new Error();
     DATA = await r.json();
     
-    // 2. Charger channels.json (logos des chaînes en fallback)
     try {
       const ch = await fetch('data/channels.json?t=' + Date.now());
       if (ch.ok) {
         CHANNELS_DATA = await ch.json();
-        console.log('✅ Logos chargés depuis channels.json :', CHANNELS_DATA.length, 'chaînes');
+        console.log('✅ Logos et URLs chargés depuis channels.json :', CHANNELS_DATA.length, 'chaînes');
       }
     } catch(e) {
-      console.log('ℹ️ channels.json non trouvé ou erreur de chargement (ce n\'est pas bloquant)');
+      console.log('ℹ️ channels.json non trouvé (les boutons Direct ne s\'afficheront pas)');
     }
     
     render();
