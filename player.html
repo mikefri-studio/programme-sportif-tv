@@ -22,7 +22,6 @@
     overflow-x: hidden;
   }
 
-  /* Fond animé subtil */
   .bg-glow {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -31,7 +30,6 @@
     z-index: 0;
   }
 
-  /* Header */
   .player-header {
     position: sticky;
     top: 0;
@@ -55,13 +53,13 @@
     font-weight: 600;
     cursor: pointer;
     transition: all .2s ease;
+    text-decoration: none;
   }
   .back-btn:hover {
     background: rgba(255,255,255,0.15);
     transform: translateX(-2px);
   }
 
-  /* Conteneur lecteur */
   .player-wrapper {
     position: relative;
     width: 100%;
@@ -74,12 +72,11 @@
   .player-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 */
+    padding-bottom: 56.25%;
     background: #000;
   }
 
-  .player-container iframe,
-  .player-container video {
+  .player-container iframe {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
@@ -87,15 +84,6 @@
     border: 0;
   }
 
-  .player-container.fullscreen {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    padding-bottom: 0;
-    z-index: 100;
-    border-radius: 0;
-  }
-
-  /* Boutons de contrôle */
   .control-btn {
     display: flex;
     align-items: center;
@@ -119,7 +107,6 @@
     border-color: #ef4444;
   }
 
-  /* Info chaîne */
   .channel-badge {
     display: flex;
     align-items: center;
@@ -139,7 +126,6 @@
     padding: 6px;
   }
 
-  /* Live indicator */
   .live-indicator {
     display: inline-flex;
     align-items: center;
@@ -165,7 +151,6 @@
     animation: pulseDot 1.2s ease-in-out infinite;
   }
 
-  /* Loading state */
   .loading-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -191,7 +176,6 @@
     to { transform: rotate(360deg); }
   }
 
-  /* Error state */
   .error-box {
     background: rgba(239,68,68,0.1);
     border: 1px solid rgba(239,68,68,0.3);
@@ -200,7 +184,6 @@
     text-align: center;
   }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 8px; }
@@ -216,7 +199,6 @@
 
 <div class="bg-glow"></div>
 
-<!-- HEADER -->
 <header class="player-header">
   <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3">
@@ -234,7 +216,7 @@
     </div>
 
     <div class="flex items-center gap-2">
-      <button class="control-btn" onclick="toggleFullscreen()" title="Plein écran" id="fs-btn">
+      <button class="control-btn" onclick="toggleFullscreen()" title="Plein écran (F)" id="fs-btn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
@@ -250,10 +232,8 @@
   </div>
 </header>
 
-<!-- CONTENU PRINCIPAL -->
 <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
   
-  <!-- Info chaîne -->
   <div class="mb-4 flex flex-wrap items-center gap-3">
     <div id="channel-info" class="channel-badge flex-1 min-w-0">
       <div class="spinner" style="width:32px;height:32px;border-width:2px;"></div>
@@ -267,7 +247,6 @@
     </div>
   </div>
 
-  <!-- Lecteur -->
   <div class="player-wrapper">
     <div class="player-container" id="player-container">
       <div class="loading-overlay" id="loading">
@@ -278,7 +257,6 @@
     </div>
   </div>
 
-  <!-- Actions -->
   <div class="mt-4 flex flex-wrap gap-2">
     <button onclick="reloadPlayer()" class="control-btn" style="width:auto;padding:0 16px;gap:8px;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -294,11 +272,10 @@
         <line x1="12" y1="8" x2="12" y2="12"/>
         <line x1="12" y1="16" x2="12.01" y2="16"/>
       </svg>
-      <span class="text-sm font-semibold">Signaler un problème</span>
+      <span class="text-sm font-semibold">Signaler</span>
     </button>
   </div>
 
-  <!-- Info technique -->
   <div class="mt-6 p-4 bg-white/5 border border-white/10 rounded-xl">
     <div class="flex items-start gap-3">
       <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center flex-shrink-0">
@@ -309,11 +286,11 @@
         </svg>
       </div>
       <div class="text-sm text-white/70">
-        <p class="font-semibold text-white mb-1"> Astuces</p>
+        <p class="font-semibold text-white mb-1">💡 Astuces</p>
         <ul class="space-y-1 text-xs">
-          <li>• Utilisez le bouton <strong>plein écran</strong> pour une expérience immersive</li>
-          <li>• Si le flux ne se charge pas, essayez de <strong>recharger</strong> la page</li>
-          <li>• Le lecteur s'ouvre dans un environnement sécurisé (sandbox)</li>
+          <li>• Appuie sur <strong>F</strong> pour le plein écran</li>
+          <li>• Si le flux ne se charge pas, clique sur <strong>Recharger</strong></li>
+          <li>• Le lecteur s'ouvre dans un environnement sécurisé</li>
         </ul>
       </div>
     </div>
@@ -326,24 +303,20 @@
 </footer>
 
 <script>
-// ===== PARAMÈTRES URL =====
 const params = new URLSearchParams(window.location.search);
 const streamUrl = params.get('url');
 const channelName = params.get('channel') || 'Chaîne en direct';
 const channelLogo = params.get('logo') || '';
 const sport = params.get('sport') || '';
+const autoplay = params.get('autoplay') === '1';
 
-// ===== INITIALISATION =====
 document.addEventListener('DOMContentLoaded', () => {
   if (!streamUrl) {
     showError('Aucun flux vidéo spécifié');
     return;
   }
 
-  // Afficher les infos de la chaîne
   updateChannelInfo();
-
-  // Charger le lecteur
   loadPlayer();
 });
 
@@ -361,7 +334,6 @@ function updateChannelInfo() {
     </div>
   `;
   
-  // Mettre à jour le titre
   document.title = `${channelName} · SportTV en direct`;
 }
 
@@ -369,7 +341,19 @@ function loadPlayer() {
   const iframe = document.getElementById('video-player');
   const loading = document.getElementById('loading');
   
-  iframe.src = streamUrl;
+  // Ajout du paramètre autoplay si demandé
+  let finalUrl = streamUrl;
+  if (autoplay) {
+    try {
+      const urlObj = new URL(streamUrl);
+      urlObj.searchParams.set('autoplay', '1');
+      finalUrl = urlObj.toString();
+    } catch(e) {
+      finalUrl = streamUrl + (streamUrl.includes('?') ? '&' : '?') + 'autoplay=1';
+    }
+  }
+  
+  iframe.src = finalUrl;
   
   iframe.onload = () => {
     setTimeout(() => {
@@ -377,7 +361,6 @@ function loadPlayer() {
     }, 500);
   };
   
-  // Timeout de sécurité
   setTimeout(() => {
     loading.style.display = 'none';
   }, 5000);
@@ -389,7 +372,7 @@ function reloadPlayer() {
   loading.style.display = 'flex';
   iframe.src = 'about:blank';
   setTimeout(() => {
-    iframe.src = streamUrl;
+    loadPlayer();
   }, 300);
 }
 
@@ -408,7 +391,6 @@ function toggleFullscreen() {
   if (!document.fullscreenElement) {
     container.requestFullscreen().catch(err => {
       console.error('Erreur plein écran:', err);
-      // Fallback : ouvrir dans nouvel onglet
       openExternal();
     });
     btn.classList.add('active');
@@ -443,7 +425,7 @@ function showError(msg) {
   container.innerHTML = `
     <div class="error-box absolute inset-0 flex items-center justify-center p-8">
       <div>
-        <div class="text-5xl mb-4">📡</div>
+        <div class="text-5xl mb-4"></div>
         <h3 class="text-lg font-bold text-white mb-2">${msg}</h3>
         <p class="text-sm text-white/60 mb-4">Vérifiez l'URL ou retournez à l'accueil</p>
         <a href="/" class="inline-block px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition">
@@ -454,10 +436,12 @@ function showError(msg) {
   `;
 }
 
-// Raccourci clavier : F pour plein écran, Échap pour quitter
 document.addEventListener('keydown', (e) => {
   if (e.key === 'f' || e.key === 'F') {
     if (document.activeElement.tagName !== 'INPUT') toggleFullscreen();
+  }
+  if (e.key === 'Escape' && document.fullscreenElement) {
+    document.exitFullscreen();
   }
 });
 </script>
