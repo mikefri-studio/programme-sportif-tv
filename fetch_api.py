@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-NB_JOURS_TVSPORTS = 1   # ⚠️ tv-sports.fr ne fournit que le jour courant en HTML statique
+NB_JOURS_TVSPORTS = 1
 NB_JOURS_TOTAL = 7
 
 URLS_TVSPORTS = [
@@ -30,7 +30,6 @@ CHANNEL_LOGOS = {
     "Canal+ Sport 360": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-sport-360-fr.png",
     "Canal+ Foot": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-foot-fr.png",
     "Canal+ Live": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-live-fr.png",
-    # ✅ NOUVEAU : Chaînes Canal+ Live numérotées (sinon tout est fusionné dans "Canal+ Live")
     "Canal+ Live 1": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_1.webp",
     "Canal+ Live 2": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_2.webp",
     "Canal+ Live 3": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_3.webp",
@@ -86,31 +85,6 @@ LEAGUES = ["Ligue 1", "Ligue 2", "Premier League", "La Liga", "Bundesliga", "Ser
            "Champions League", "Ligue Europa", "Top 14", "Pro D2", "NBA", "Euroligue",
            "Pro A", "Tour de France", "Formule 1", "NFL", "Starligue", "ATP", "WTA"]
 
-TV_RIGHTS = [
-    ("ligue 1", ["Ligue 1+", "Canal+ Foot"]),
-    ("ligue 2", ["beIN SPORTS 1"]),
-    ("premier league", ["Canal+ Sport", "Canal+ Foot"]),
-    ("la liga", ["beIN SPORTS 1"]),
-    ("bundesliga", ["beIN SPORTS MAX 4"]),
-    ("serie a", ["beIN SPORTS 3"]),
-    ("champions league", ["Canal+ Sport", "Canal+ Foot"]),
-    ("ligue europa", ["RMC Sport 1"]),
-    ("conference league", ["Canal+ Foot"]),
-    ("top 14", ["Canal+ Sport"]),
-    ("pro d2", ["Canal+ Sport"]),
-    ("nba", ["beIN SPORTS 3"]),
-    ("euroligue", ["Eurosport 2"]),
-    ("atp", ["Eurosport 1"]),
-    ("wta", ["Eurosport 1"]),
-    ("roland-garros", ["Eurosport 1", "France 2"]),
-    ("tour de france", ["France 2", "Eurosport 1"]),
-    ("giro", ["Eurosport 1"]),
-    ("vuelta", ["Eurosport 1"]),
-    ("formule 1", ["Canal+ Sport 360"]),
-    ("f1", ["Canal+ Sport 360"]),
-    ("nfl", ["beIN SPORTS 1"]),
-]
-
 SPORTSDB_MAP = {
     "Soccer": "Football", "Rugby": "Rugby", "Tennis": "Tennis",
     "Cycling": "Cyclisme", "Basketball": "Basket-ball",
@@ -141,19 +115,18 @@ def detect_competition(text):
 
 
 def detect_channels(text):
-    found = [ch for ch in KNOWN_CHANNELS if ch in text]
-    # ✅ Garde uniquement la chaîne la plus précise :
-    # si "Canal+ Live 6" est trouvé, on retire "Canal+ Live" et "Canal+"
+    """✅ CORRIGÉ : Détecte les chaînes de manière plus stricte"""
+    found = []
+    # Cherche d'abord les chaînes les plus spécifiques (avec numéros)
+    for ch in KNOWN_CHANNELS:
+        # Utilise des word boundaries pour éviter les faux positifs
+        pattern = r'\b' + re.escape(ch) + r'\b'
+        if re.search(pattern, text, re.IGNORECASE):
+            found.append(ch)
+    
+    # Garde uniquement la chaîne la plus précise
     return [ch for ch in found
             if not any(o != ch and o.startswith(ch) and len(o) > len(ch) for o in found)]
-
-
-def channels_from_rights(text):
-    low = text.lower()
-    for kw, chans in TV_RIGHTS:
-        if kw in low:
-            return chans
-    return []
 
 
 def scraperapi_fetch(url):
@@ -176,6 +149,7 @@ def scraperapi_fetch(url):
 
 
 def parse_tvsports_html(html, date_iso):
+    """✅ AMÉLIORÉ : Parsing plus strict avec validation"""
     soup = BeautifulSoup(html, "html.parser")
     programs = []
     seen = set()
@@ -184,6 +158,8 @@ def parse_tvsports_html(html, date_iso):
         el = node.parent
         if el is None:
             continue
+        
+        # Remonte dans l'arbre pour trouver le contexte
         block = el
         for _ in range(6):
             parent = block.parent
@@ -195,43 +171,71 @@ def parse_tvsports_html(html, date_iso):
             block = parent
             if len(t) >= 60:
                 break
+        
         text = block.get_text(" ", strip=True)
+        
+        # ✅ Validation : ignore les blocs trop courts ou sans contenu sportif
+        if len(text) < 30:
+            continue
         if "Sans diffusion TV" in text or "Aucune diffusion TV" in text:
             continue
+        
+        # ✅ Validation : doit contenir au moins un sport connu
+        sport = detect_sport(text)
+        if sport == "Multisports" and not any(kw in text.lower() for kw in ["sport", "match", "contre", "vs"]):
+            continue
+        
         channels = detect_channels(text)
         if not channels:
             continue
+        
+        # Cherche le titre du match
         title = ""
         for tag in block.find_all(["h1", "h2", "h3", "h4"]):
             t = tag.get_text(strip=True)
             if t and len(t) > 3:
                 title = t
                 break
+        
         if not title:
             for tag in block.find_all(["strong", "b"]):
                 t = tag.get_text(strip=True)
-                if t and len(t) > 3:
+                if t and len(t) > 3 and "–" in t or " vs " in t.lower() or "contre" in t.lower():
                     title = t
                     break
-        if not title or (date_iso, node.strip(), title) in seen:
+        
+        # ✅ Validation : le titre doit ressembler à un match
+        if not title or len(title) < 5:
             continue
+        if not ("–" in title or " vs " in title.lower() or "contre" in title.lower()):
+            # Pas un match, peut-être une émission
+            continue
+        
+        if (date_iso, node.strip(), title) in seen:
+            continue
+        
         seen.add((date_iso, node.strip(), title))
+        
         programs.append({
-            "time": node.strip(), "sport": detect_sport(text),
-            "competition": detect_competition(text), "match": title,
+            "time": node.strip(),
+            "sport": sport,
+            "competition": detect_competition(text),
+            "match": title,
             "is_live": "Direct" in text or "LIVE" in text,
-            "channels": channels, "date": date_iso,
+            "channels": channels,
+            "date": date_iso,
+            "source": "tv-sports.fr"  # ✅ Log la source
         })
+    
     return programs
 
 
 def scrape_tvsports():
-    """✅ CORRIGÉ : on parse chaque page UNE SEULE fois avec la date du jour.
-    Avant, la boucle sur 7 jours re-parsait le même HTML 7 fois → chaque match
-    était dupliqué sur 7 dates (d'où les '429 programmes')."""
+    """✅ CORRIGÉ : Parse chaque page UNE SEULE fois"""
     programs = []
     today = datetime.now().strftime("%Y-%m-%d")
     print(f"  📅 Scraping tv-sports.fr (programme du jour)...")
+    
     for url in URLS_TVSPORTS:
         html = scraperapi_fetch(url)
         if not html:
@@ -239,12 +243,13 @@ def scrape_tvsports():
         found = parse_tvsports_html(html, today)
         programs += found
         print(f"     + {len(found)} programmes depuis {url}")
+    
     print(f"     ✅ Total tv-sports.fr : {len(programs)} programmes")
     return programs
 
 
 def scrape_pro_d2_scores():
-    """Scrape les scores et logos Pro D2 depuis tv-sports.fr"""
+    """Scrape les scores Pro D2"""
     url = "https://tv-sports.fr/rugby/pro-d2/scores"
     scores = []
     today = datetime.now().strftime("%Y-%m-%d")
@@ -299,18 +304,19 @@ def scrape_pro_d2_scores():
                         "competition": "Pro D2",
                         "match": f"{teams[0]} – {teams[1]}",
                         "is_live": is_live,
-                        "channels": ["Canal+ Sport"],
+                        "channels": ["Canal+ Sport"],  # Pro D2 toujours sur Canal+ Sport
                         "date": today,
                         "home_team": teams[0],
                         "away_team": teams[1],
                         "home_logo": logos[0] if len(logos) > 0 else "",
                         "away_logo": logos[1] if len(logos) > 1 else "",
                         "score": score_text,
+                        "source": "tv-sports.fr/scores"  # ✅ Log la source
                     })
             except Exception:
                 continue
 
-        print(f"  ✅ {len(scores)} scores Pro D2 extraits avec logos")
+        print(f"  ✅ {len(scores)} scores Pro D2 extraits")
         return scores
 
     except Exception as e:
@@ -319,37 +325,52 @@ def scrape_pro_d2_scores():
 
 
 def fetch_thesportsdb(date_iso):
+    """✅ AMÉLIORÉ : N'utilise QUE les chaînes fournies par l'API, pas de suppositions"""
     programs = []
     try:
         url = f"https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={date_iso}"
         r = requests.get(url, timeout=15)
         r.raise_for_status()
         events = r.json().get("events") or []
+        
         for ev in events:
             sport_fr = SPORTSDB_MAP.get(ev.get("strSport"))
             if not sport_fr:
                 continue
+            
             title = ev.get("strEvent") or ""
             competition = ev.get("strLeague") or ""
             if not title:
                 continue
-            haystack = f"{competition} {title}"
+            
+            # ✅ IMPORTANT : N'utilise QUE les chaînes fournies par l'API
             tv = ev.get("strTVStation")
-            if tv and tv.lower() != "null":
-                channels = [c.strip() for c in tv.split(",") if c.strip()]
-            else:
-                channels = channels_from_rights(haystack)
-            if not channels:
+            if not tv or tv.lower() == "null" or tv.strip() == "":
+                # Pas de chaîne TV fournie → on ignore ce match
                 continue
+            
+            channels = [c.strip() for c in tv.split(",") if c.strip() and c.strip() in KNOWN_CHANNELS]
+            if not channels:
+                # Les chaînes ne sont pas dans notre liste → on ignore
+                continue
+            
             t = ev.get("strTime") or ""
             time_str = f"{t[:2]}h{t[3:5]}" if re.match(r"\d{2}:\d{2}", t) else "TBD"
             status = ev.get("strStatus") or ""
             is_live = "Live" in status or "Progress" in status
+            
             programs.append({
-                "time": time_str, "sport": sport_fr, "competition": competition,
-                "match": title, "is_live": is_live, "channels": channels, "date": date_iso,
+                "time": time_str,
+                "sport": sport_fr,
+                "competition": competition,
+                "match": title,
+                "is_live": is_live,
+                "channels": channels,
+                "date": date_iso,
+                "source": "TheSportsDB"  # ✅ Log la source
             })
-        print(f"  ✅ TheSportsDB {date_iso} : {len(programs)} programmes")
+        
+        print(f"  ✅ TheSportsDB {date_iso} : {len(programs)} programmes (avec chaînes TV confirmées)")
     except Exception as e:
         print(f"  ❌ TheSportsDB {date_iso} : {e}")
     return programs
@@ -366,7 +387,7 @@ def group_by_channel(programs):
             "is_live": p.get("is_live", False),
             "date": p.get("date", ""),
         }
-        for key in ["home_team", "away_team", "home_logo", "away_logo", "score"]:
+        for key in ["home_team", "away_team", "home_logo", "away_logo", "score", "source"]:
             if key in p:
                 entry[key] = p[key]
 
@@ -374,6 +395,7 @@ def group_by_channel(programs):
             by_channel.setdefault(ch, [])
             if entry not in by_channel[ch]:
                 by_channel[ch].append(entry)
+    
     for ch in by_channel:
         by_channel[ch].sort(key=lambda m: (m.get("date", ""), time_key(m["time"])))
     return by_channel
@@ -386,30 +408,39 @@ def main():
     print(f"🚀 Construction du programme sportif sur {NB_JOURS_TOTAL} jours...")
     print("=" * 60)
 
+    # Phase 1 : tv-sports.fr
     print("\n📡 Phase 1 : tv-sports.fr (via ScraperAPI)")
     programs = scrape_tvsports()
 
-    print("\n📊 Phase 2 : Scores Pro D2 (logos + résultats)")
+    # Phase 2 : Scores Pro D2
+    print("\n📊 Phase 2 : Scores Pro D2")
     pro_d2_scores = scrape_pro_d2_scores()
     programs.extend(pro_d2_scores)
 
+    # Phase 3 : TheSportsDB (complément)
     print("\n📡 Phase 3 : TheSportsDB (complément)")
     for offset in range(NB_JOURS_TOTAL):
         d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
         existing = len([p for p in programs if p["date"] == d])
-        if existing < 5:
+        if existing < 3:  # ✅ Réduit le seuil pour éviter d'inventer
             print(f"  ⚠️  {d} : seulement {existing} programmes → complément TheSportsDB")
             programs += fetch_thesportsdb(d)
 
+    # ✅ SUPPRIMÉ : Plus de programme de secours inventé !
     if not programs:
-        print("\n⚠️ Aucune donnée → programme de secours")
-        for offset in range(NB_JOURS_TOTAL):
-            d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
-            programs += [
-                {"time": "20h45", "sport": "Football", "competition": "Ligue 1", "match": "PSG – Marseille", "is_live": False, "channels": ["Canal+ Sport"], "date": d},
-                {"time": "21h00", "sport": "Football", "competition": "Premier League", "match": "Liverpool – Manchester City", "is_live": False, "channels": ["beIN SPORTS 1"], "date": d},
-                {"time": "21h05", "sport": "Rugby", "competition": "Top 14", "match": "Toulouse – La Rochelle", "is_live": False, "channels": ["Canal+ Sport"], "date": d},
-            ]
+        print("\n⚠️ Aucune donnée trouvée → fichier vide")
+        # On crée un fichier vide au lieu d'inventer des matchs
+        output = {
+            "updated_at": datetime.now().isoformat(),
+            "source": "aucune donnée disponible",
+            "total_matches": 0,
+            "total_channels": 0,
+            "channels": {},
+        }
+        with open("data/schedule.json", "w", encoding="utf-8") as f:
+            json.dump(output, f, indent=2, ensure_ascii=False)
+        print("💾 data/schedule.json (vide)")
+        return
 
     # Dédoublonnage
     uniq, seen = [], set()
@@ -424,7 +455,7 @@ def main():
 
     channels = group_by_channel(uniq)
 
-    # 🎨 Ajouter les logos aux chaînes
+    # Ajouter les logos aux chaînes
     channels_with_logos = {}
     for ch, matches in channels.items():
         channels_with_logos[ch] = {
@@ -435,8 +466,14 @@ def main():
     total = sum(len(v["matches"]) for v in channels_with_logos.values())
     dates = sorted({m["date"] for v in channels_with_logos.values() for m in v["matches"]})
 
-    source_parts = ["tv-sports.fr"] if any(m.get("date") >= today_iso for v in channels_with_logos.values() for m in v["matches"]) else []
-    source = " + ".join(source_parts) if source_parts else "secours"
+    # Log des sources
+    sources = set()
+    for v in channels_with_logos.values():
+        for m in v["matches"]:
+            if "source" in m:
+                sources.add(m["source"])
+    
+    source = " + ".join(sorted(sources)) if sources else "inconnue"
 
     output = {
         "updated_at": datetime.now().isoformat(),
