@@ -263,9 +263,9 @@
     <button class="nav-pill active" data-sport="all">Tous</button>
     <button class="nav-pill" data-sport="Football">⚽ Foot</button>
     <button class="nav-pill" data-sport="Rugby">🏉 Rugby</button>
-    <button class="nav-pill" data-sport="Tennis">🎾 Tennis</button>
-    <button class="nav-pill" data-sport="Cyclisme">🚴 Vélo</button>
-    <button class="nav-pill" data-sport="Basket-ball">🏀 Basket</button>
+    <button class="nav-pill" data-sport="Tennis"> Tennis</button>
+    <button class="nav-pill" data-sport="Cyclisme"> Vélo</button>
+    <button class="nav-pill" data-sport="Basket-ball"> Basket</button>
   </div>
 </header>
 
@@ -282,7 +282,7 @@
   <section class="mb-6">
     <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col lg:flex-row gap-3 lg:items-center">
       <div class="relative flex-1 min-w-[220px]">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></span>
         <input id="search" type="text" placeholder="Rechercher un match, une compétition, une chaîne…"
                class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:bg-white transition placeholder:text-slate-400">
       </div>
@@ -304,7 +304,7 @@
   <section id="channels" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"></section>
 
   <section id="empty" class="hidden text-center py-20">
-    <div class="text-6xl mb-4">🛰️</div>
+    <div class="text-6xl mb-4">️</div>
     <h3 class="text-xl font-bold text-slate-700">Aucun programme ne correspond</h3>
     <p class="text-slate-500 mt-2">Essayez de modifier votre recherche, la date ou la chaîne.</p>
   </section>
@@ -338,7 +338,7 @@
 // ===== CONFIG =====
 const SPORT_EMOJI = {
   'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
-  'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
+  'Formule 1':'🏎️','Handball':'🤾','Moto':'️','Multisports':'🏅'
 };
 const emoji = s => SPORT_EMOJI[s] || '';
 
@@ -371,6 +371,18 @@ function getChannelLogo(channelName) {
   const localLogo = DATA?.channels?.[channelName]?.logo;
   if (localLogo) return localLogo;
   return findLogoFromChannels(channelName);
+}
+
+// ===== OUVERTURE DU LECTEUR INTÉGRÉ (avec autoplay) =====
+function openPlayer(url, channel, logo, sport) {
+  const params = new URLSearchParams({
+    url: url,
+    channel: channel || '',
+    logo: logo || '',
+    sport: sport || '',
+    autoplay: '1'
+  });
+  window.open(`player.html?${params.toString()}`, '_blank', 'noopener,noreferrer');
 }
 
 // ===== UTILITAIRES TEMPS =====
@@ -428,7 +440,7 @@ function allMatches() {
 }
 
 function getInitials(channel) {
-  return channel.replace(/[^A-Za-zÀ-ÿ+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
+  return channel.replace(/[^A-Za-zÀ-+\s]/g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase() || 'TV';
 }
 
 // ===== RENDU SELECTEURS =====
@@ -457,7 +469,7 @@ function renderLive() {
   document.getElementById('live-strip').innerHTML = live.map(m => {
     const logo = getChannelLogo(m.channel);
     const streamUrl = getChannelUrl(m.channel);
-    const clickAction = streamUrl ? `onclick="window.open('${streamUrl}', '_blank', 'noopener,noreferrer')"` : '';
+    const clickAction = streamUrl ? `onclick="openPlayer('${streamUrl}', '${m.channel.replace(/'/g, "\\'")}', '${logo}', '${m.sport || ''}')"` : '';
     const clickableClass = streamUrl ? 'clickable' : '';
 
     return `
@@ -508,10 +520,10 @@ function openModal(match, channel) {
       <div class="modal-info-icon bg-red-100 text-red-600">▶</div>
       <div class="flex-1">
         <div class="modal-info-label">Regarder</div>
-        <a href="${streamUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition shadow-sm">
-          Ouvrir le lecteur en direct
+        <button onclick="openPlayer('${streamUrl}', '${channel.replace(/'/g, "\\'")}', '${logo}', '${match.sport || ''}')" class="inline-flex items-center gap-2 mt-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2.5 rounded-lg transition shadow-sm cursor-pointer">
+          Lancer le lecteur en direct
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-        </a>
+        </button>
       </div>
     </div>
   ` : '';
@@ -610,7 +622,7 @@ function renderChannels() {
     const initials = getInitials(channel);
     
     const watchButton = streamUrl 
-      ? `<button class="watch-btn" onclick="event.stopPropagation(); window.open('${streamUrl}', '_blank', 'noopener,noreferrer')" title="Regarder en direct">
+      ? `<button class="watch-btn" onclick="event.stopPropagation(); openPlayer('${streamUrl}', '${channel.replace(/'/g, "\\'")}', '${logo}', '')" title="Regarder en direct">
            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
            Direct
          </button>`
@@ -706,15 +718,12 @@ function render() {
 }
 
 // ===== CHARGEMENT =====
-// ===== CHARGEMENT =====
-// ===== CHARGEMENT =====
 async function load() {
   try {
     const r = await fetch('data/schedule.json?t=' + Date.now());
     if (!r.ok) throw new Error();
     DATA = await r.json();
     
-    // Charger channel2.json depuis ton Gist GitHub
     try {
       const gistUrl = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channel2.json';
       const ch = await fetch(gistUrl + '?t=' + Date.now());
