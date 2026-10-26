@@ -706,6 +706,7 @@ function render() {
 }
 
 // ===== CHARGEMENT =====
+// ===== CHARGEMENT =====
 async function load() {
   try {
     const r = await fetch('data/schedule.json?t=' + Date.now());
@@ -713,13 +714,15 @@ async function load() {
     DATA = await r.json();
     
     try {
-      const ch = await fetch('data/channels.json?t=' + Date.now());
+      // Chargement depuis le Gist GitHub
+      const gistUrl = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channels.json';
+      const ch = await fetch(gistUrl + '?t=' + Date.now());
       if (ch.ok) {
         CHANNELS_DATA = await ch.json();
-        console.log(`✅ Logos et URLs chargés depuis channels.json : ${CHANNELS_DATA.length} chaînes`);
+        console.log(`✅ Logos et URLs chargés depuis GitHub Gist : ${CHANNELS_DATA.length} chaînes`);
       }
     } catch(e) {
-      console.warn('ℹ️ channels.json non trouvé (les boutons Direct ne s\'afficheront pas)');
+      console.warn('ℹ️ Impossible de charger le Gist (les boutons Direct ne s\'afficheront pas)', e);
     }
     
     render();
