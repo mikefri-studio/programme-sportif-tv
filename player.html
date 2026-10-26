@@ -124,7 +124,20 @@
     background: #fff;
     border-radius: 10px;
     padding: 6px;
+    flex-shrink: 0;
   }
+
+  /* ✅ NOUVEAU : ligne "programme en cours" */
+  .now-playing {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+  }
+  .now-playing .np-live { color: #f87171; font-weight: 700; }
+  .now-playing .np-next { color: rgba(255,255,255,0.85); font-weight: 700; }
 
   .live-indicator {
     display: inline-flex;
@@ -137,6 +150,7 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    flex-shrink: 0;
   }
 
   @keyframes pulseDot {
@@ -234,10 +248,11 @@
 
 <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
   
+  <!-- ✅ Badge chaîne AVEC le programme en cours -->
   <div class="mb-4 flex flex-wrap items-center gap-3">
     <div id="channel-info" class="channel-badge flex-1 min-w-0">
       <div class="spinner" style="width:32px;height:32px;border-width:2px;"></div>
-      <div>
+      <div class="flex-1 min-w-0">
         <div class="text-sm text-white/60">Chargement...</div>
       </div>
     </div>
@@ -290,7 +305,7 @@
         <ul class="space-y-1 text-xs">
           <li>• Appuie sur <strong>F</strong> pour le plein écran</li>
           <li>• Si le flux ne se charge pas, clique sur <strong>Recharger</strong></li>
-          <li>• Le lecteur s'ouvre dans un environnement sécurisé</li>
+          <li>• Le programme en cours s'affiche sous le nom de la chaîne</li>
         </ul>
       </div>
     </div>
@@ -310,6 +325,70 @@ const channelLogo = params.get('logo') || '';
 const sport = params.get('sport') || '';
 const autoplay = params.get('autoplay') === '1';
 
+// ✅ Durées typiques pour savoir quel programme est "en ce moment"
+const SPORT_DURATION_MIN = {
+  'Football': 115, 'Rugby': 110, 'Basket-ball': 110, 'Handball': 110,
+  'Tennis': 200, 'Cyclisme': 300, 'Formule 1': 120, 'Moto': 120, 'Multisports': 150,
+};
+
+function parseMatchTime(dateStr, timeStr) {
+  const m = String(timeStr).match(/(\d{1,2})h(\d{2})/);
+  if (!m) return null;
+  const parts = String(dateStr).split('-');
+  if (parts.length !== 3) return null;
+  const y = +parts[0], mo = +parts[1], d = +parts[2];
+  if (isNaN(y) || isNaN(mo) || isNaN(d)) return null;
+  return new Date(y, mo - 1, d, +m[1], +m[2]);
+}
+
+function escapeHtml(s) {
+  const div = document.createElement('div');
+  div.textContent = s == null ? '' : String(s);
+  return div.innerHTML;
+}
+
+function findChannelKey(channels, name) {
+  const n = name.toLowerCase().trim();
+  return Object.keys(channels).find(k => k.toLowerCase().trim() === n)
+      || Object.keys(channels).find(k => {
+           const kn = k.toLowerCase().trim();
+           return kn.includes(n) || n.includes(kn);
+         });
+}
+
+// ✅ NOUVEAU : affiche ce qu'on regarde (programme en cours ou à suivre)
+function updateNowPlaying() {
+  const el = document.getElementById('now-playing');
+  if (!el) return;
+  fetch('data/schedule.json?t=' + Date.now())
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('schedule indisponible')))
+    .then(data => {
+      const key = findChannelKey(data.channels || {}, channelName);
+      if (!key) { el.textContent = 'Programme non disponible'; return; }
+
+      const now = Date.now();
+      let current = null, next = null, nextStart = Infinity;
+
+      for (const m of (data.channels[key].matches || [])) {
+        const t = parseMatchTime(m.date, m.time);
+        if (!t) continue;
+        const start = t.getTime();
+        const end = start + (SPORT_DURATION_MIN[m.sport] || 120) * 60000;
+        if (start <= now && now < end) current = m;
+        if (start > now && start < nextStart) { next = m; nextStart = start; }
+      }
+
+      if (current) {
+        el.innerHTML = `<span class="np-live">● EN CE MOMENT :</span> ${escapeHtml(current.match)}${current.competition ? ' · ' + escapeHtml(current.competition) : ''}`;
+      } else if (next) {
+        el.innerHTML = `<span class="np-next">⏭ À SUIVRE ${escapeHtml(next.time)} :</span> ${escapeHtml(next.match)}${next.competition ? ' · ' + escapeHtml(next.competition) : ''}`;
+      } else {
+        el.textContent = 'Programme non disponible';
+      }
+    })
+    .catch(() => { el.textContent = 'Programme non disponible'; });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!streamUrl) {
     showError('Aucun flux vidéo spécifié');
@@ -318,19 +397,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateChannelInfo();
   loadPlayer();
+  updateNowPlaying();
+  setInterval(updateNowPlaying, 60 * 1000); // ✅ rafraîchit le programme toutes les 60 s
 });
 
 function updateChannelInfo() {
   const infoDiv = document.getElementById('channel-info');
   const logoHtml = channelLogo 
     ? `<img src="${channelLogo}" class="channel-logo" onerror="this.style.display='none'">`
-    : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-black">${channelName.charAt(0)}</div>`;
+    : `<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-black flex-shrink-0">${escapeHtml(channelName.charAt(0))}</div>`;
   
   infoDiv.innerHTML = `
     ${logoHtml}
     <div class="flex-1 min-w-0">
-      <div class="font-bold text-white truncate">${channelName}</div>
-      ${sport ? `<div class="text-xs text-white/60">${sport}</div>` : ''}
+      <div class="font-bold text-white truncate">${escapeHtml(channelName)}</div>
+      <div id="now-playing" class="now-playing">Recherche du programme...</div>
     </div>
   `;
   
@@ -341,7 +422,6 @@ function loadPlayer() {
   const iframe = document.getElementById('video-player');
   const loading = document.getElementById('loading');
   
-  // Ajout du paramètre autoplay si demandé
   let finalUrl = streamUrl;
   if (autoplay) {
     try {
@@ -425,8 +505,8 @@ function showError(msg) {
   container.innerHTML = `
     <div class="error-box absolute inset-0 flex items-center justify-center p-8">
       <div>
-        <div class="text-5xl mb-4"></div>
-        <h3 class="text-lg font-bold text-white mb-2">${msg}</h3>
+        <div class="text-5xl mb-4">📡</div>
+        <h3 class="text-lg font-bold text-white mb-2">${escapeHtml(msg)}</h3>
         <p class="text-sm text-white/60 mb-4">Vérifiez l'URL ou retournez à l'accueil</p>
         <a href="/" class="inline-block px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition">
           Retour à l'accueil
