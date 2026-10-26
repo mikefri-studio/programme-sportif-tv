@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-NB_JOURS_TVSPORTS = 7
+NB_JOURS_TVSPORTS = 1   # ⚠️ tv-sports.fr ne fournit que le jour courant en HTML statique
 NB_JOURS_TOTAL = 7
 
 URLS_TVSPORTS = [
@@ -23,13 +23,22 @@ HEADERS = {
 }
 TIME_RE = re.compile(r"^\d{1,2}h\d{2}$")
 
-# 🎨 LOGOS DES CHAÎNES (source : github.com/tv-logo/tv-logos)
+# 🎨 LOGOS DES CHAÎNES
 CHANNEL_LOGOS = {
     "Canal+": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-fr.png",
     "Canal+ Sport": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-sport-fr.png",
     "Canal+ Sport 360": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-sport-360-fr.png",
     "Canal+ Foot": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-foot-fr.png",
     "Canal+ Live": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-live-fr.png",
+    # ✅ NOUVEAU : Chaînes Canal+ Live numérotées (sinon tout est fusionné dans "Canal+ Live")
+    "Canal+ Live 1": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_1.webp",
+    "Canal+ Live 2": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_2.webp",
+    "Canal+ Live 3": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_3.webp",
+    "Canal+ Live 4": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_4.webp",
+    "Canal+ Live 5": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_5.webp",
+    "Canal+ Live 6": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_6.webp",
+    "Canal+ Live 7": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_7.webp",
+    "Canal+ Live 8": "https://raw.githubusercontent.com/mikefri/Teslatv01/main/logo/Canal+_Live_8.webp",
     "Canal+ Première League": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-premiere-league-fr.png",
     "beIN SPORTS": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png",
     "beIN SPORTS 1": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-1-fr.png",
@@ -133,6 +142,8 @@ def detect_competition(text):
 
 def detect_channels(text):
     found = [ch for ch in KNOWN_CHANNELS if ch in text]
+    # ✅ Garde uniquement la chaîne la plus précise :
+    # si "Canal+ Live 6" est trouvé, on retire "Canal+ Live" et "Canal+"
     return [ch for ch in found
             if not any(o != ch and o.startswith(ch) and len(o) > len(ch) for o in found)]
 
@@ -215,20 +226,20 @@ def parse_tvsports_html(html, date_iso):
 
 
 def scrape_tvsports():
+    """✅ CORRIGÉ : on parse chaque page UNE SEULE fois avec la date du jour.
+    Avant, la boucle sur 7 jours re-parsait le même HTML 7 fois → chaque match
+    était dupliqué sur 7 dates (d'où les '429 programmes')."""
     programs = []
     today = datetime.now().strftime("%Y-%m-%d")
-    print(f"  📅 Scraping tv-sports.fr sur {NB_JOURS_TVSPORTS} jours...")
+    print(f"  📅 Scraping tv-sports.fr (programme du jour)...")
     for url in URLS_TVSPORTS:
         html = scraperapi_fetch(url)
         if not html:
             continue
-        for offset in range(NB_JOURS_TVSPORTS):
-            d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
-            found = parse_tvsports_html(html, d)
-            programs += found
-        print(f"     + programmes depuis {url}")
-    total = len([p for p in programs if p["date"] >= today])
-    print(f"     ✅ Total tv-sports.fr : {total} programmes")
+        found = parse_tvsports_html(html, today)
+        programs += found
+        print(f"     + {len(found)} programmes depuis {url}")
+    print(f"     ✅ Total tv-sports.fr : {len(programs)} programmes")
     return programs
 
 
@@ -237,34 +248,28 @@ def scrape_pro_d2_scores():
     url = "https://tv-sports.fr/rugby/pro-d2/scores"
     scores = []
     today = datetime.now().strftime("%Y-%m-%d")
-    
+
     try:
         html = scraperapi_fetch(url)
         if not html:
             print("  ❌ Impossible de scraper les scores Pro D2")
             return []
-        
+
         soup = BeautifulSoup(html, "html.parser")
-        
-        # Cherche les cartes de matchs (structure flexible pour capturer les blocs)
         match_cards = soup.find_all(['div', 'article'], class_=lambda x: x and any(kw in x.lower() for kw in ['match', 'game', 'score', 'event']))
-        
         print(f"  📊 Analyse de {len(match_cards)} éléments pour les scores Pro D2...")
-        
+
         for card in match_cards:
             try:
-                # Extraire les équipes et logos
                 teams = []
                 logos = []
-                
-                # Cherche les éléments contenant les noms d'équipes
+
                 team_elems = card.find_all(['div', 'span', 'a'], class_=lambda x: x and 'team' in x.lower())
                 for team in team_elems[:2]:
                     name = team.get_text(strip=True)
                     if name and len(name) > 2:
                         teams.append(name)
-                
-                # Cherche les logos d'équipes
+
                 logo_elems = card.find_all('img')
                 for img in logo_elems[:2]:
                     src = img.get('src', '') or img.get('data-src', '')
@@ -274,23 +279,19 @@ def scrape_pro_d2_scores():
                         elif src.startswith('/'):
                             src = 'https://tv-sports.fr' + src
                         logos.append(src)
-                
-                # Extraire le score
+
                 score_elem = card.find(['div', 'span'], class_=lambda x: x and 'score' in x.lower())
                 score_text = score_elem.get_text(strip=True) if score_elem else ""
-                
-                # Extraire le statut (en direct, terminé, etc.)
+
                 status_elem = card.find(['div', 'span'], class_=lambda x: x and ('status' in x.lower() or 'live' in x.lower() or 'time' in x.lower()))
                 status = status_elem.get_text(strip=True).lower() if status_elem else ""
                 is_live = "direct" in status or "live" in status or "1ère" in status or "2ème" in status or "mi-temps" in status
-                
-                # Extraire l'heure si disponible
+
                 time_elem = card.find(['div', 'span', 'time'], class_=lambda x: x and 'time' in x.lower())
                 time_str = time_elem.get_text(strip=True) if time_elem else ""
                 if not time_str or not re.match(r"\d{1,2}h\d{2}", time_str):
                     time_str = "TBD"
-                
-                # Si on a au moins 2 équipes, on crée l'entrée
+
                 if len(teams) >= 2:
                     scores.append({
                         "time": time_str,
@@ -298,7 +299,7 @@ def scrape_pro_d2_scores():
                         "competition": "Pro D2",
                         "match": f"{teams[0]} – {teams[1]}",
                         "is_live": is_live,
-                        "channels": ["Canal+ Sport"],  # Pro D2 diffusée sur Canal+ Sport
+                        "channels": ["Canal+ Sport"],
                         "date": today,
                         "home_team": teams[0],
                         "away_team": teams[1],
@@ -306,12 +307,12 @@ def scrape_pro_d2_scores():
                         "away_logo": logos[1] if len(logos) > 1 else "",
                         "score": score_text,
                     })
-            except Exception as e:
+            except Exception:
                 continue
-        
+
         print(f"  ✅ {len(scores)} scores Pro D2 extraits avec logos")
         return scores
-        
+
     except Exception as e:
         print(f"  ❌ Erreur scraping scores Pro D2: {e}")
         return []
@@ -357,7 +358,6 @@ def fetch_thesportsdb(date_iso):
 def group_by_channel(programs):
     by_channel = {}
     for p in programs:
-        # On garde les clés standards + les clés spécifiques aux scores (logos équipes, score)
         entry = {
             "time": p.get("time", "TBD"),
             "sport": p.get("sport", "Multisports"),
@@ -369,7 +369,7 @@ def group_by_channel(programs):
         for key in ["home_team", "away_team", "home_logo", "away_logo", "score"]:
             if key in p:
                 entry[key] = p[key]
-                
+
         for ch in p["channels"]:
             by_channel.setdefault(ch, [])
             if entry not in by_channel[ch]:
@@ -386,16 +386,13 @@ def main():
     print(f"🚀 Construction du programme sportif sur {NB_JOURS_TOTAL} jours...")
     print("=" * 60)
 
-    # 1. tv-sports.fr sur 7 jours via ScraperAPI
     print("\n📡 Phase 1 : tv-sports.fr (via ScraperAPI)")
     programs = scrape_tvsports()
-    
-    # 2. Scores Pro D2 en direct et résultats avec logos
+
     print("\n📊 Phase 2 : Scores Pro D2 (logos + résultats)")
     pro_d2_scores = scrape_pro_d2_scores()
     programs.extend(pro_d2_scores)
 
-    # 3. Complément TheSportsDB pour les jours sans données
     print("\n📡 Phase 3 : TheSportsDB (complément)")
     for offset in range(NB_JOURS_TOTAL):
         d = (datetime.now() + timedelta(days=offset)).strftime("%Y-%m-%d")
@@ -426,7 +423,7 @@ def main():
     uniq = [m for m in uniq if m.get("date") and m["date"] >= today_iso]
 
     channels = group_by_channel(uniq)
-    
+
     # 🎨 Ajouter les logos aux chaînes
     channels_with_logos = {}
     for ch, matches in channels.items():
@@ -434,7 +431,7 @@ def main():
             "logo": CHANNEL_LOGOS.get(ch, ""),
             "matches": matches,
         }
-    
+
     total = sum(len(v["matches"]) for v in channels_with_logos.values())
     dates = sorted({m["date"] for v in channels_with_logos.values() for m in v["matches"]})
 
@@ -456,6 +453,7 @@ def main():
     print(f"✅ Terminé : {total} programmes / {len(channels_with_logos)} chaînes / {len(dates)} dates")
     print(f"   Sources : {source}")
     print(f"   Dates : {', '.join(dates)}")
+    print(f"   Chaînes : {', '.join(sorted(channels_with_logos.keys()))}")
     print(f"💾 data/schedule.json")
 
 
