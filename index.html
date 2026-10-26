@@ -707,22 +707,25 @@ function render() {
 
 // ===== CHARGEMENT =====
 // ===== CHARGEMENT =====
+// ===== CHARGEMENT =====
 async function load() {
   try {
     const r = await fetch('data/schedule.json?t=' + Date.now());
     if (!r.ok) throw new Error();
     DATA = await r.json();
     
+    // Charger channel2.json depuis ton Gist GitHub
     try {
-      // Chargement depuis le Gist GitHub
-      const gistUrl = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channels.json';
+      const gistUrl = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channel2.json';
       const ch = await fetch(gistUrl + '?t=' + Date.now());
       if (ch.ok) {
         CHANNELS_DATA = await ch.json();
         console.log(`✅ Logos et URLs chargés depuis GitHub Gist : ${CHANNELS_DATA.length} chaînes`);
+      } else {
+        throw new Error('Gist non accessible');
       }
     } catch(e) {
-      console.warn('ℹ️ Impossible de charger le Gist (les boutons Direct ne s\'afficheront pas)', e);
+      console.warn('⚠️ Impossible de charger channel2.json depuis le Gist:', e);
     }
     
     render();
