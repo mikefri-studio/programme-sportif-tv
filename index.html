@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+ <base href="/programme-sportif-tv/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -9,8 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="SportTV">
 <meta name="description" content="Programme sportif TV en direct et à venir, chaîne par chaîne">
 <title>SportTV · Programme sportif par chaîne</title>
-<link rel="apple-touch-icon" href="/icon-192.png">
-<link rel="icon" type="image/png" href="/icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -839,7 +840,7 @@ document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+   navigator.serviceWorker.register('./sw.js')
       .then(reg => console.log('Service Worker enregistré', reg))
       .catch(err => console.log('Erreur Service Worker', err));
   });
