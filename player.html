@@ -10,30 +10,22 @@
 <link rel="icon" type="image/png" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 <style>
   * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
   
-  body {
-    background: #0a0a0f;
-    color: #fff;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  body { background: #0a0a0f; color: #fff; min-height: 100vh; overflow-x: hidden; }
 
   .bg-glow {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
     background: radial-gradient(ellipse at 50% 0%, rgba(239,68,68,0.15) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
   .player-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
+    position: sticky; top: 0; z-index: 50;
     background: rgba(10, 10, 15, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -41,76 +33,52 @@
   }
 
   .back-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     padding: 8px 14px;
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .2s ease;
-    text-decoration: none;
+    border-radius: 10px; color: #fff;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all .2s ease; text-decoration: none;
   }
-  .back-btn:hover {
-    background: rgba(255,255,255,0.15);
-    transform: translateX(-2px);
-  }
+  .back-btn:hover { background: rgba(255,255,255,0.15); transform: translateX(-2px); }
 
   .player-wrapper {
-    position: relative;
-    width: 100%;
-    background: #000;
-    border-radius: 16px;
-    overflow: hidden;
+    position: relative; width: 100%;
+    background: #000; border-radius: 16px; overflow: hidden;
     box-shadow: 0 25px 60px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
   }
 
   .player-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    background: #000;
+    position: relative; width: 100%;
+    padding-bottom: 56.25%; background: #000;
   }
 
-  .player-container iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
+  .player-container iframe,
+  .player-container video {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; border: 0;
   }
+
+  .player-container video { background: #000; outline: none; }
 
   .control-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-    transition: all .2s ease;
+    border-radius: 10px; color: #fff;
+    cursor: pointer; transition: all .2s ease;
   }
   .control-btn:hover {
     background: rgba(239,68,68,0.2);
     border-color: rgba(239,68,68,0.4);
     transform: scale(1.05);
   }
-  .control-btn.active {
-    background: #ef4444;
-    border-color: #ef4444;
-  }
+  .control-btn.active { background: #ef4444; border-color: #ef4444; }
 
   .channel-badge {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     padding: 12px 16px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
@@ -118,39 +86,23 @@
   }
 
   .channel-logo {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 10px;
-    padding: 6px;
-    flex-shrink: 0;
+    width: 48px; height: 48px; object-fit: contain;
+    background: #fff; border-radius: 10px; padding: 6px; flex-shrink: 0;
   }
 
-  /* ✅ NOUVEAU : ligne "programme en cours" */
   .now-playing {
-    font-size: 12px;
-    color: rgba(255,255,255,0.65);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 12px; color: rgba(255,255,255,0.65);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     margin-top: 2px;
   }
   .now-playing .np-live { color: #f87171; font-weight: 700; }
   .now-playing .np-next { color: rgba(255,255,255,0.85); font-weight: 700; }
 
   .live-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    background: #ef4444;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; background: #ef4444;
+    border-radius: 6px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase; flex-shrink: 0;
   }
 
   @keyframes pulseDot {
@@ -158,44 +110,31 @@
     50% { opacity: 0.4; transform: scale(0.75); }
   }
   .live-dot {
-    width: 6px;
-    height: 6px;
-    background: #fff;
+    width: 6px; height: 6px; background: #fff;
     border-radius: 50%;
     animation: pulseDot 1.2s ease-in-out infinite;
   }
 
   .loading-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     background: #000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    z-index: 10;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; z-index: 10;
   }
 
   .spinner {
-    width: 48px;
-    height: 48px;
+    width: 48px; height: 48px;
     border: 3px solid rgba(255,255,255,0.1);
-    border-top-color: #ef4444;
-    border-radius: 50%;
+    border-top-color: #ef4444; border-radius: 50%;
     animation: spin 1s linear infinite;
   }
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .error-box {
     background: rgba(239,68,68,0.1);
     border: 1px solid rgba(239,68,68,0.3);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
+    border-radius: 12px; padding: 20px; text-align: center;
   }
 
   ::-webkit-scrollbar { width: 8px; }
@@ -248,7 +187,6 @@
 
 <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
   
-  <!-- ✅ Badge chaîne AVEC le programme en cours -->
   <div class="mb-4 flex flex-wrap items-center gap-3">
     <div id="channel-info" class="channel-badge flex-1 min-w-0">
       <div class="spinner" style="width:32px;height:32px;border-width:2px;"></div>
@@ -268,7 +206,10 @@
         <div class="spinner"></div>
         <div class="text-sm text-white/60">Chargement du flux...</div>
       </div>
-      <iframe id="video-player" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+      <!-- iframe pour pages web classiques -->
+      <iframe id="video-iframe" style="display:none;" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+      <!-- video pour flux HLS .m3u8 -->
+      <video id="video-player" style="display:none;" controls autoplay playsinline></video>
     </div>
   </div>
 
@@ -279,6 +220,15 @@
         <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
       </svg>
       <span class="text-sm font-semibold">Recharger</span>
+    </button>
+    
+    <button onclick="toggleMute()" class="control-btn" id="mute-btn" style="width:auto;padding:0 16px;gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="23" y1="9" x2="17" y2="15"></line>
+        <line x1="17" y1="9" x2="23" y2="15"></line>
+      </svg>
+      <span class="text-sm font-semibold" id="mute-label">Activer le son</span>
     </button>
     
     <button onclick="reportIssue()" class="control-btn" style="width:auto;padding:0 16px;gap:8px;">
@@ -303,10 +253,10 @@
       <div class="text-sm text-white/70">
         <p class="font-semibold text-white mb-1">💡 Astuces</p>
         <ul class="space-y-1 text-xs">
-     <li>• Pour activer le son, cliquez sur <strong>Unmute</strong> dans le lecteur (plusieurs fois si nécessaire)</li>
           <li>• Appuie sur <strong>F</strong> pour le plein écran</li>
-          <li>• Si le flux ne se charge pas, clique sur <strong>Recharger</strong></li>
+          <li>• Pour activer le son, cliquez sur <strong>Activer le son</strong> dans le lecteur (plusieurs fois si nécessaire)</li>
           <li>• Le programme en cours s'affiche sous le nom de la chaîne</li>
+          <li>• Les flux <code>.m3u8</code> (France 2, 3, Equidia) sont lus nativement via HLS</li>
         </ul>
       </div>
     </div>
@@ -326,11 +276,20 @@ const channelLogo = params.get('logo') || '';
 const sport = params.get('sport') || '';
 const autoplay = params.get('autoplay') === '1';
 
-// ✅ Durées typiques pour savoir quel programme est "en ce moment"
 const SPORT_DURATION_MIN = {
   'Football': 115, 'Rugby': 110, 'Basket-ball': 110, 'Handball': 110,
   'Tennis': 200, 'Cyclisme': 300, 'Formule 1': 120, 'Moto': 120, 'Multisports': 150,
 };
+
+let hls = null;
+let isMuted = true;
+
+function normalizeName(str) {
+  return (str || '').toLowerCase().trim()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/['’‘´`]/g, "'")
+    .replace(/\s+/g, ' ');
+}
 
 function parseMatchTime(dateStr, timeStr) {
   const m = String(timeStr).match(/(\d{1,2})h(\d{2})/);
@@ -348,16 +307,23 @@ function escapeHtml(s) {
   return div.innerHTML;
 }
 
-function findChannelKey(channels, name) {
-  const n = name.toLowerCase().trim();
-  return Object.keys(channels).find(k => k.toLowerCase().trim() === n)
-      || Object.keys(channels).find(k => {
-           const kn = k.toLowerCase().trim();
-           return kn.includes(n) || n.includes(kn);
-         });
+function isHlsStream(url) {
+  return /\.m3u8(\?.*)?$/i.test(url);
 }
 
-// ✅ NOUVEAU : affiche ce qu'on regarde (programme en cours ou à suivre)
+function findChannelKey(channels, name) {
+  const n = normalizeName(name);
+  const keys = Object.keys(channels);
+  const exact = keys.find(k => normalizeName(k) === n);
+  if (exact) return exact;
+  const candidates = keys.filter(k => {
+    const kn = normalizeName(k);
+    return kn.includes(n) || n.includes(kn);
+  });
+  candidates.sort((a, b) => b.length - a.length);
+  return candidates[0] || null;
+}
+
 function updateNowPlaying() {
   const el = document.getElementById('now-playing');
   if (!el) return;
@@ -399,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateChannelInfo();
   loadPlayer();
   updateNowPlaying();
-  setInterval(updateNowPlaying, 60 * 1000); // ✅ rafraîchit le programme toutes les 60 s
+  setInterval(updateNowPlaying, 60 * 1000);
 });
 
 function updateChannelInfo() {
@@ -420,41 +386,107 @@ function updateChannelInfo() {
 }
 
 function loadPlayer() {
-  const iframe = document.getElementById('video-player');
+  const iframe = document.getElementById('video-iframe');
+  const video = document.getElementById('video-player');
   const loading = document.getElementById('loading');
   
-  let finalUrl = streamUrl;
-  if (autoplay) {
-    try {
-      const urlObj = new URL(streamUrl);
-      urlObj.searchParams.set('autoplay', '1');
-      finalUrl = urlObj.toString();
-    } catch(e) {
-      finalUrl = streamUrl + (streamUrl.includes('?') ? '&' : '?') + 'autoplay=1';
+  if (isHlsStream(streamUrl)) {
+    // ✅ MODE HLS : flux .m3u8 (France 2, France 3, Equidia)
+    iframe.style.display = 'none';
+    video.style.display = 'block';
+    video.muted = true; // les navigateurs bloquent l'autoplay avec son
+    
+    if (Hls.isSupported()) {
+      hls = new Hls({ 
+        enableWorker: true,
+        lowLatencyMode: true
+      });
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(e => console.log('Autoplay bloqué, lecture manuelle requise'));
+        loading.style.display = 'none';
+      });
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('HLS Error:', data);
+        if (data.fatal) {
+          loading.innerHTML = `
+            <div class="text-center">
+              <div class="text-4xl mb-2">⚠️</div>
+              <div class="text-sm text-white/70">Erreur de flux HLS</div>
+              <div class="text-xs text-white/50 mt-2">${data.details}</div>
+            </div>
+          `;
+        }
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari natif
+      video.src = streamUrl;
+      video.addEventListener('loadedmetadata', () => {
+        video.play().catch(e => console.log('Autoplay bloqué'));
+        loading.style.display = 'none';
+      });
+    } else {
+      loading.innerHTML = `
+        <div class="text-center">
+          <div class="text-4xl mb-2">❌</div>
+          <div class="text-sm text-white/70">Votre navigateur ne supporte pas HLS</div>
+        </div>
+      `;
     }
+  } else {
+    // ✅ MODE IFRAME : pages web classiques (Canal+, beIN, etc.)
+    video.style.display = 'none';
+    iframe.style.display = 'block';
+    
+    let finalUrl = streamUrl;
+    if (autoplay) {
+      try {
+        const urlObj = new URL(streamUrl);
+        urlObj.searchParams.set('autoplay', '1');
+        finalUrl = urlObj.toString();
+      } catch(e) {
+        finalUrl = streamUrl + (streamUrl.includes('?') ? '&' : '?') + 'autoplay=1';
+      }
+    }
+    
+    iframe.src = finalUrl;
+    iframe.onload = () => setTimeout(() => loading.style.display = 'none', 500);
+    setTimeout(() => loading.style.display = 'none', 5000);
   }
-  
-  iframe.src = finalUrl;
-  
-  iframe.onload = () => {
-    setTimeout(() => {
-      loading.style.display = 'none';
-    }, 500);
-  };
-  
-  setTimeout(() => {
-    loading.style.display = 'none';
-  }, 5000);
 }
 
 function reloadPlayer() {
-  const iframe = document.getElementById('video-player');
+  const iframe = document.getElementById('video-iframe');
+  const video = document.getElementById('video-player');
   const loading = document.getElementById('loading');
   loading.style.display = 'flex';
+  loading.innerHTML = `<div class="spinner"></div><div class="text-sm text-white/60">Chargement du flux...</div>`;
+  
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
   iframe.src = 'about:blank';
-  setTimeout(() => {
-    loadPlayer();
-  }, 300);
+  video.src = '';
+  
+  setTimeout(() => loadPlayer(), 300);
+}
+
+function toggleMute() {
+  const video = document.getElementById('video-player');
+  const iframe = document.getElementById('video-iframe');
+  const label = document.getElementById('mute-label');
+  
+  if (isHlsStream(streamUrl)) {
+    isMuted = !isMuted;
+    video.muted = isMuted;
+    label.textContent = isMuted ? 'Activer le son' : 'Couper le son';
+    if (!isMuted) video.play().catch(() => {});
+  } else {
+    // Pour les iframe, on ne peut pas contrôler le son : on ouvre l'URL externe
+    window.open(streamUrl, '_blank', 'noopener,noreferrer');
+  }
 }
 
 function goBack() {
@@ -483,17 +515,12 @@ function toggleFullscreen() {
 
 document.addEventListener('fullscreenchange', () => {
   const btn = document.getElementById('fs-btn');
-  if (document.fullscreenElement) {
-    btn.classList.add('active');
-  } else {
-    btn.classList.remove('active');
-  }
+  if (document.fullscreenElement) btn.classList.add('active');
+  else btn.classList.remove('active');
 });
 
 function openExternal() {
-  if (streamUrl) {
-    window.open(streamUrl, '_blank', 'noopener,noreferrer');
-  }
+  if (streamUrl) window.open(streamUrl, '_blank', 'noopener,noreferrer');
 }
 
 function reportIssue() {
@@ -521,9 +548,8 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'f' || e.key === 'F') {
     if (document.activeElement.tagName !== 'INPUT') toggleFullscreen();
   }
-  if (e.key === 'Escape' && document.fullscreenElement) {
-    document.exitFullscreen();
-  }
+  if (e.key === 'm' || e.key === 'M') toggleMute();
+  if (e.key === 'Escape' && document.fullscreenElement) document.exitFullscreen();
 });
 </script>
 </body>
