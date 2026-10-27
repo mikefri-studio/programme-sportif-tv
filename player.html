@@ -549,7 +549,7 @@
 </main>
 
 <footer class="relative z-10 border-t border-white/10 py-4 mt-8 text-center text-xs text-white/40">
-  Sport TV 2H · Lecteur intégré · <a href="/" class="underline hover:text-white/70">Retour à l'accueil</a>
+  Sport TV 2H · Lecteur intégré · <a href="/programme-sportif-tv/" class="underline hover:text-white/70">Retour à l'accueil</a>
 </footer>
 
 <script>
@@ -920,25 +920,13 @@ function reloadPlayer() {
   loadPlayer();
 }
 
-function toggleMute() {
-  const video = document.getElementById('video-player');
-  const label = document.getElementById('mute-label');
-  
-  if (isHlsStream(streamUrl)) {
-    isMuted = !isMuted;
-    video.muted = isMuted;
-    label.textContent = isMuted ? 'Activer le son' : 'Couper le son';
-    if (!isMuted) video.play().catch(() => {});
-  } else {
-    window.open(streamUrl, '_blank', 'noopener,noreferrer');
-  }
-}
+
 
 function goBack() {
   if (document.referrer && document.referrer.includes(window.location.hostname)) {
     window.history.back();
   } else {
-    window.location.href = '/';
+    window.location.href = '/programme-sportif-tv/';
   }
 }
 
