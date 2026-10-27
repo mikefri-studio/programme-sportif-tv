@@ -32,7 +32,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
 
-  .back-btn, .toggle-sidebar-btn {
+  .back-btn {
     display: flex; align-items: center; gap: 8px;
     padding: 8px 14px;
     background: rgba(255,255,255,0.08);
@@ -41,8 +41,7 @@
     font-size: 14px; font-weight: 600;
     cursor: pointer; transition: all .2s ease; text-decoration: none;
   }
-  .back-btn:hover, .toggle-sidebar-btn:hover { background: rgba(255,255,255,0.15); }
-  .back-btn:hover { transform: translateX(-2px); }
+  .back-btn:hover { background: rgba(255,255,255,0.15); transform: translateX(-2px); }
 
   .player-wrapper {
     position: relative; width: 100%;
@@ -138,7 +137,7 @@
     border-radius: 12px; padding: 20px; text-align: center;
   }
 
-  /* ===== SIDEBAR CHAÎNES ===== */
+  /* ===== SIDEBAR GAUCHE ===== */
   .sidebar {
     width: 320px;
     flex-shrink: 0;
@@ -152,6 +151,7 @@
     max-height: calc(100vh - 100px);
     position: sticky;
     top: 90px;
+    order: -1; /* ✅ Force la sidebar à gauche dans le flex */
   }
 
   .sidebar-header {
@@ -310,21 +310,21 @@
     font-size: 13px;
   }
 
-  /* ===== Mobile : sidebar devient un drawer ===== */
+  /* ===== Mobile : drawer à GAUCHE ===== */
   @media (max-width: 1023px) {
     .sidebar {
       position: fixed;
       top: 0;
-      right: 0;
+      left: 0; /* ✅ À gauche au lieu de droite */
       bottom: 0;
       width: 320px;
       max-width: 85vw;
       max-height: 100vh;
-      border-radius: 16px 0 0 16px;
+      border-radius: 0 16px 16px 0; /* ✅ Coins arrondis à droite */
       z-index: 60;
-      transform: translateX(100%);
+      transform: translateX(-100%); /* ✅ Masqué vers la gauche */
       transition: transform .3s ease;
-      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+      box-shadow: 20px 0 60px rgba(0,0,0,0.5); /* ✅ Ombre à droite */
     }
     .sidebar.open {
       transform: translateX(0);
@@ -409,6 +409,48 @@
 <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
   <div class="flex gap-6 items-start">
     
+    <!-- ===== SIDEBAR CHAÎNES (À GAUCHE) ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <div class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
+              <polyline points="17 2 12 7 7 2"/>
+            </svg>
+            <span class="font-bold text-sm">Toutes les chaînes</span>
+          </div>
+          <button class="lg:hidden p-1.5 hover:bg-white/10 rounded-lg" onclick="toggleSidebar()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="sidebar-search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="channel-search" placeholder="Rechercher...">
+        </div>
+
+        <div class="sidebar-categories" id="sidebar-categories"></div>
+      </div>
+
+      <div class="sidebar-list" id="sidebar-list">
+        <div class="sidebar-empty">
+          <div class="spinner mx-auto mb-3" style="width:24px;height:24px;border-width:2px;"></div>
+          Chargement des chaînes...
+        </div>
+      </div>
+
+      <div class="sidebar-footer" id="sidebar-footer">
+        —
+      </div>
+    </aside>
+
     <!-- ===== COLONNE PLAYER ===== -->
     <div class="flex-1 min-w-0">
       
@@ -489,57 +531,15 @@
             <p class="font-semibold text-white mb-1">💡 Astuces</p>
             <ul class="space-y-1 text-xs">
               <li>• Appuie sur <strong>F</strong> pour le plein écran</li>
-              <li>• Pour activer le son, cliquez sur <strong>Activer le son</strong> (plusieurs fois si nécessaire)</li>
-              <li>• Le programme en cours s'affiche sous le nom de la chaîne</li>
-              <li>• Clique sur une chaîne dans le panneau de droite pour zapper</li>
+              <li>• Pour activer le son, cliquez sur <strong>Activer le son</strong></li>
+              <li>• Clique sur une chaîne à gauche pour zapper instantanément</li>
+              <li>• Touche <strong>C</strong> pour ouvrir/fermer la liste des chaînes</li>
             </ul>
           </div>
         </div>
       </div>
 
     </div>
-
-    <!-- ===== SIDEBAR CHAÎNES ===== -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-title">
-          <div class="flex items-center gap-2">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/>
-              <polyline points="17 2 12 7 7 2"/>
-            </svg>
-            <span class="font-bold text-sm">Toutes les chaînes</span>
-          </div>
-          <button class="lg:hidden p-1.5 hover:bg-white/10 rounded-lg" onclick="toggleSidebar()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
-
-        <div class="sidebar-search">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input type="text" id="channel-search" placeholder="Rechercher...">
-        </div>
-
-        <div class="sidebar-categories" id="sidebar-categories"></div>
-      </div>
-
-      <div class="sidebar-list" id="sidebar-list">
-        <div class="sidebar-empty">
-          <div class="spinner mx-auto mb-3" style="width:24px;height:24px;border-width:2px;"></div>
-          Chargement des chaînes...
-        </div>
-      </div>
-
-      <div class="sidebar-footer" id="sidebar-footer">
-        —
-      </div>
-    </aside>
 
   </div>
 </main>
@@ -640,14 +640,12 @@ function updateNowPlaying() {
     .catch(() => { el.textContent = 'Programme non disponible'; });
 }
 
-// ===== CHARGEMENT LISTE CHAÎNES =====
 async function loadChannelList() {
   try {
     const r = await fetch(CHANNELS_URL + '?t=' + Date.now());
     if (!r.ok) throw new Error('Fichier non accessible');
     let list = await r.json();
     
-    // Dédupliquer par nom normalisé
     const seen = new Set();
     ALL_CHANNELS = list.filter(c => {
       const key = normalizeName(c.name);
@@ -659,7 +657,6 @@ async function loadChannelList() {
     renderSidebarCategories();
     renderSidebarList();
     
-    // Si pas de chaîne dans l'URL mais une liste disponible, prendre la première
     if (!streamUrl && ALL_CHANNELS.length > 0) {
       switchChannel(ALL_CHANNELS[0], false);
     }
@@ -742,20 +739,17 @@ function onChannelClick(id) {
   if (!ch) return;
   switchChannel(ch, true);
   
-  // Ferme la sidebar sur mobile après sélection
   if (window.innerWidth < 1024) {
     toggleSidebar();
   }
 }
 
 function switchChannel(ch, pushHistory) {
-  // Met à jour les variables globales
   streamUrl = ch.url;
   channelName = ch.name;
   channelLogo = ch.logo || '';
   sport = ch.category || '';
   
-  // Met à jour l'URL du navigateur
   const newUrl = new URL(window.location);
   newUrl.searchParams.set('url', ch.url);
   newUrl.searchParams.set('channel', ch.name);
@@ -768,19 +762,16 @@ function switchChannel(ch, pushHistory) {
     window.history.replaceState({ channelId: ch.id }, '', newUrl);
   }
   
-  // Met à jour l'UI
   updateChannelInfo();
   loadPlayer();
   updateNowPlaying();
   renderSidebarList();
   
-  // Scroll vers le haut sur mobile
   if (window.innerWidth < 1024) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
-// Gère le bouton retour du navigateur
 window.addEventListener('popstate', (e) => {
   if (e.state && e.state.channelId) {
     const ch = ALL_CHANNELS.find(c => c.id === e.state.channelId);
@@ -792,8 +783,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadChannelList();
   
   if (!streamUrl) {
-    // On attend que la liste soit chargée, switchChannel sera appelé automatiquement
-    // Si rien ne vient après 3s, on affiche l'erreur
     setTimeout(() => {
       if (!streamUrl) showError('Aucun flux vidéo spécifié');
     }, 3000);
@@ -969,13 +958,11 @@ function toggleSidebar() {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 }
 
-// Recherche dans la sidebar
 document.getElementById('channel-search').addEventListener('input', (e) => {
   sidebarState.search = e.target.value;
   renderSidebarList();
 });
 
-// Raccourcis clavier
 document.addEventListener('keydown', (e) => {
   if (document.activeElement.tagName === 'INPUT') return;
   if (e.key === 'f' || e.key === 'F') toggleFullscreen();
