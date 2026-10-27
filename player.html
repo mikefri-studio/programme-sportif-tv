@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0a0a0f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>SportTV · Lecteur en direct</title>
+<title>Sport TV 2H · Lecteur en direct</title>
 <link rel="icon" type="image/png" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -151,7 +151,7 @@
     max-height: calc(100vh - 100px);
     position: sticky;
     top: 90px;
-    order: -1; /* ✅ Force la sidebar à gauche dans le flex */
+    order: -1;
   }
 
   .sidebar-header {
@@ -169,9 +169,24 @@
     justify-content: space-between;
   }
 
-  .sidebar-search {
-    position: relative;
+  .sidebar-collapse-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all .15s ease;
   }
+  .sidebar-collapse-btn:hover {
+    background: rgba(239,68,68,0.25);
+    color: #fff;
+  }
+
+  .sidebar-search { position: relative; }
   .sidebar-search input {
     width: 100%;
     background: rgba(255,255,255,0.05);
@@ -190,99 +205,62 @@
   .sidebar-search input::placeholder { color: rgba(255,255,255,0.4); }
   .sidebar-search svg {
     position: absolute;
-    left: 10px;
-    top: 50%;
+    left: 10px; top: 50%;
     transform: translateY(-50%);
     color: rgba(255,255,255,0.4);
   }
 
-  .sidebar-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+  .sidebar-categories { display: flex; flex-wrap: wrap; gap: 6px; }
   .cat-pill {
     padding: 4px 10px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: rgba(255,255,255,0.6);
     cursor: pointer;
     transition: all .15s ease;
   }
   .cat-pill:hover { background: rgba(255,255,255,0.1); color: #fff; }
-  .cat-pill.active {
-    background: #ef4444;
-    border-color: #ef4444;
-    color: #fff;
-  }
+  .cat-pill.active { background: #ef4444; border-color: #ef4444; color: #fff; }
 
-  .sidebar-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px;
-  }
+  .sidebar-list { flex: 1; overflow-y: auto; padding: 8px; }
 
   .channel-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 10px;
     padding: 8px 10px;
     border-radius: 10px;
     cursor: pointer;
     transition: all .15s ease;
     margin-bottom: 2px;
-    text-decoration: none;
     color: #fff;
   }
-  .channel-item:hover {
-    background: rgba(255,255,255,0.08);
-  }
+  .channel-item:hover { background: rgba(255,255,255,0.08); }
   .channel-item.active {
     background: rgba(239,68,68,0.2);
     border: 1px solid rgba(239,68,68,0.4);
   }
-  .channel-item.active .channel-item-name {
-    color: #fff;
-    font-weight: 700;
-  }
+  .channel-item.active .channel-item-name { color: #fff; font-weight: 700; }
 
   .channel-item-logo {
-    width: 36px;
-    height: 36px;
-    background: #fff;
-    border-radius: 8px;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    object-fit: contain;
+    width: 36px; height: 36px;
+    background: #fff; border-radius: 8px; padding: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; object-fit: contain;
   }
   .channel-item-logo-fallback {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     background: linear-gradient(135deg, #ef4444, #b91c1c);
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 900;
-    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 900; font-size: 14px;
     flex-shrink: 0;
   }
 
   .channel-item-name {
-    flex: 1;
-    min-width: 0;
-    font-size: 13px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    flex: 1; min-width: 0;
+    font-size: 13px; font-weight: 600;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     color: rgba(255,255,255,0.85);
   }
 
@@ -310,39 +288,70 @@
     font-size: 13px;
   }
 
-  /* ===== Mobile : drawer à GAUCHE ===== */
+  /* ===== ✅ DESKTOP : sidebar masquable avec animation ===== */
+  @media (min-width: 1024px) {
+    .sidebar {
+      transition: margin-left .35s ease, opacity .25s ease;
+    }
+    body.sidebar-collapsed .sidebar {
+      margin-left: -344px; /* 320px + gap 24px */
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sidebar-collapse-btn { display: flex; }
+
+    /* Poignée au bord gauche pour rouvrir */
+    .edge-handle {
+      position: fixed;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 76px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: none;
+      border-radius: 0 12px 12px 0;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: all .2s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .edge-handle:hover {
+      background: rgba(239,68,68,0.3);
+      color: #fff;
+      width: 32px;
+    }
+    body.sidebar-collapsed .edge-handle { display: flex; }
+  }
+
+  /* ===== Mobile : drawer à gauche ===== */
   @media (max-width: 1023px) {
     .sidebar {
       position: fixed;
-      top: 0;
-      left: 0; /* ✅ À gauche au lieu de droite */
-      bottom: 0;
+      top: 0; left: 0; bottom: 0;
       width: 320px;
       max-width: 85vw;
       max-height: 100vh;
-      border-radius: 0 16px 16px 0; /* ✅ Coins arrondis à droite */
+      border-radius: 0 16px 16px 0;
       z-index: 60;
-      transform: translateX(-100%); /* ✅ Masqué vers la gauche */
+      transform: translateX(-100%);
       transition: transform .3s ease;
-      box-shadow: 20px 0 60px rgba(0,0,0,0.5); /* ✅ Ombre à droite */
+      box-shadow: 20px 0 60px rgba(0,0,0,0.5);
     }
-    .sidebar.open {
-      transform: translateX(0);
-    }
+    .sidebar.open { transform: translateX(0); }
     .sidebar-backdrop {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: rgba(0,0,0,0.6);
       backdrop-filter: blur(4px);
       z-index: 55;
-      opacity: 0;
-      pointer-events: none;
+      opacity: 0; pointer-events: none;
       transition: opacity .3s ease;
     }
-    .sidebar-backdrop.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .sidebar-backdrop.show { opacity: 1; pointer-events: auto; }
   }
 
   ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -371,20 +380,16 @@
       </button>
       
       <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-black text-xs">TV</div>
-        <span class="text-lg font-black tracking-tight">SPORTS</span>
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-black text-[9px] leading-none text-center">TV<br>2H</div>
+        <span class="text-lg font-black tracking-tight">SPORT TV <span class="text-red-500">2H</span></span>
       </div>
     </div>
 
     <div class="flex items-center gap-2">
       <button class="control-btn lg:hidden" onclick="toggleSidebar()" title="Liste des chaînes">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="8" y1="6" x2="21" y2="6"/>
-          <line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/>
-          <line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
+          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
         </svg>
       </button>
       <button class="control-btn" onclick="toggleFullscreen()" title="Plein écran (F)" id="fs-btn">
@@ -395,8 +400,7 @@
       <button class="control-btn" onclick="openExternal()" title="Ouvrir dans un nouvel onglet">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
+          <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
         </svg>
       </button>
     </div>
@@ -406,10 +410,17 @@
 <!-- Backdrop mobile -->
 <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
 
+<!-- ✅ Poignée au bord gauche (visible quand la sidebar est masquée sur desktop) -->
+<button class="edge-handle" onclick="toggleSidebar()" title="Afficher les chaînes (C)">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <polyline points="9 18 15 12 9 6"/>
+  </svg>
+</button>
+
 <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
   <div class="flex gap-6 items-start">
     
-    <!-- ===== SIDEBAR CHAÎNES (À GAUCHE) ===== -->
+    <!-- ===== SIDEBAR CHAÎNES (GAUCHE, MASQUABLE) ===== -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <div class="sidebar-title">
@@ -420,18 +431,25 @@
             </svg>
             <span class="font-bold text-sm">Toutes les chaînes</span>
           </div>
-          <button class="lg:hidden p-1.5 hover:bg-white/10 rounded-lg" onclick="toggleSidebar()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
+          <div class="flex items-center gap-1">
+            <!-- ✅ Bouton masquer (desktop) -->
+            <button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="Masquer la liste (C)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <!-- Bouton fermer (mobile) -->
+            <button class="lg:hidden p-1.5 hover:bg-white/10 rounded-lg" onclick="toggleSidebar()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div class="sidebar-search">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
           <input type="text" id="channel-search" placeholder="Rechercher...">
         </div>
@@ -446,9 +464,7 @@
         </div>
       </div>
 
-      <div class="sidebar-footer" id="sidebar-footer">
-        —
-      </div>
+      <div class="sidebar-footer" id="sidebar-footer">—</div>
     </aside>
 
     <!-- ===== COLONNE PLAYER ===== -->
@@ -490,20 +506,16 @@
         <button onclick="toggleMute()" class="control-btn" id="mute-btn" style="width:auto;padding:0 16px;gap:8px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
+            <line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>
           </svg>
           <span class="text-sm font-semibold" id="mute-label">Activer le son</span>
         </button>
 
-        <button onclick="toggleSidebar()" class="control-btn hidden lg:flex" style="width:auto;padding:0 16px;gap:8px;">
+        <!-- ✅ Bouton afficher/masquer les chaînes (desktop) -->
+        <button onclick="toggleSidebar()" class="control-btn hidden lg:flex" id="sidebar-toggle-btn" style="width:auto;padding:0 16px;gap:8px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="8" y1="6" x2="21" y2="6"/>
-            <line x1="8" y1="12" x2="21" y2="12"/>
-            <line x1="8" y1="18" x2="21" y2="18"/>
-            <line x1="3" y1="6" x2="3.01" y2="6"/>
-            <line x1="3" y1="12" x2="3.01" y2="12"/>
-            <line x1="3" y1="18" x2="3.01" y2="18"/>
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <line x1="9" y1="3" x2="9" y2="21"/>
           </svg>
           <span class="text-sm font-semibold">Chaînes</span>
         </button>
@@ -511,8 +523,7 @@
         <button onclick="reportIssue()" class="control-btn" style="width:auto;padding:0 16px;gap:8px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
+            <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
           <span class="text-sm font-semibold">Signaler</span>
         </button>
@@ -523,17 +534,16 @@
           <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center flex-shrink-0">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="16" x2="12" y2="12"/>
-              <line x1="12" y1="8" x2="12.01" y2="8"/>
+              <line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
             </svg>
           </div>
           <div class="text-sm text-white/70">
             <p class="font-semibold text-white mb-1">💡 Astuces</p>
             <ul class="space-y-1 text-xs">
+              <li>• Touche <strong>C</strong> ou bouton ◀ pour <strong>masquer/afficher</strong> la liste des chaînes</li>
               <li>• Appuie sur <strong>F</strong> pour le plein écran</li>
               <li>• Pour activer le son, cliquez sur <strong>Activer le son</strong></li>
-              <li>• Clique sur une chaîne à gauche pour zapper instantanément</li>
-              <li>• Touche <strong>C</strong> pour ouvrir/fermer la liste des chaînes</li>
+              <li>• Clique sur une chaîne pour zapper instantanément</li>
             </ul>
           </div>
         </div>
@@ -545,7 +555,7 @@
 </main>
 
 <footer class="relative z-10 border-t border-white/10 py-4 mt-8 text-center text-xs text-white/40">
-  SportTV · Lecteur intégré · <a href="/" class="underline hover:text-white/70">Retour à l'accueil</a>
+  Sport TV 2H · Lecteur intégré · <a href="/" class="underline hover:text-white/70">Retour à l'accueil</a>
 </footer>
 
 <script>
@@ -568,6 +578,43 @@ let isMuted = true;
 let ALL_CHANNELS = [];
 let sidebarState = { search: '', category: 'all' };
 
+// ===== ✅ GESTION SIDEBAR MASQUABLE =====
+function isMobile() { return window.innerWidth < 1024; }
+
+function toggleSidebar() {
+  if (isMobile()) {
+    // Mode tiroir mobile
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const isOpen = sidebar.classList.toggle('open');
+    backdrop.classList.toggle('show', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  } else {
+    // Mode repli desktop (mémorisé)
+    const collapsed = document.body.classList.toggle('sidebar-collapsed');
+    try { localStorage.setItem('st2h_sidebar', collapsed ? 'closed' : 'open'); } catch(e) {}
+  }
+}
+
+// Restaure la préférence au chargement
+(function initSidebar() {
+  try {
+    if (!isMobile() && localStorage.getItem('st2h_sidebar') === 'closed') {
+      document.body.classList.add('sidebar-collapsed');
+    }
+  } catch(e) {}
+})();
+
+// Nettoie le tiroir mobile si on repasse en desktop
+window.addEventListener('resize', () => {
+  if (!isMobile()) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-backdrop').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+});
+
+// ===== UTILITAIRES =====
 function normalizeName(str) {
   return (str || '').toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -640,6 +687,7 @@ function updateNowPlaying() {
     .catch(() => { el.textContent = 'Programme non disponible'; });
 }
 
+// ===== LISTE DES CHAÎNES =====
 async function loadChannelList() {
   try {
     const r = await fetch(CHANNELS_URL + '?t=' + Date.now());
@@ -738,10 +786,7 @@ function onChannelClick(id) {
   const ch = ALL_CHANNELS.find(c => c.id === id);
   if (!ch) return;
   switchChannel(ch, true);
-  
-  if (window.innerWidth < 1024) {
-    toggleSidebar();
-  }
+  if (isMobile()) toggleSidebar();
 }
 
 function switchChannel(ch, pushHistory) {
@@ -756,20 +801,15 @@ function switchChannel(ch, pushHistory) {
   newUrl.searchParams.set('logo', ch.logo || '');
   newUrl.searchParams.set('autoplay', '1');
   
-  if (pushHistory) {
-    window.history.pushState({ channelId: ch.id }, '', newUrl);
-  } else {
-    window.history.replaceState({ channelId: ch.id }, '', newUrl);
-  }
+  if (pushHistory) window.history.pushState({ channelId: ch.id }, '', newUrl);
+  else window.history.replaceState({ channelId: ch.id }, '', newUrl);
   
   updateChannelInfo();
   loadPlayer();
   updateNowPlaying();
   renderSidebarList();
   
-  if (window.innerWidth < 1024) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  if (isMobile()) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 window.addEventListener('popstate', (e) => {
@@ -809,7 +849,7 @@ function updateChannelInfo() {
     </div>
   `;
   
-  document.title = `${channelName} · SportTV en direct`;
+  document.title = `${channelName} · Sport TV 2H`;
 }
 
 function loadPlayer() {
@@ -950,14 +990,6 @@ function showError(msg) {
   `;
 }
 
-function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const backdrop = document.getElementById('sidebar-backdrop');
-  const isOpen = sidebar.classList.toggle('open');
-  backdrop.classList.toggle('show', isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-}
-
 document.getElementById('channel-search').addEventListener('input', (e) => {
   sidebarState.search = e.target.value;
   renderSidebarList();
@@ -970,10 +1002,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'c' || e.key === 'C') toggleSidebar();
   if (e.key === 'Escape') {
     if (document.fullscreenElement) document.exitFullscreen();
-    else {
-      const sidebar = document.getElementById('sidebar');
-      if (sidebar.classList.contains('open')) toggleSidebar();
-    }
+    else if (isMobile() && document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
   }
 });
 </script>
