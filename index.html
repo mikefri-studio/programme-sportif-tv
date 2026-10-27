@@ -236,6 +236,13 @@
           <span class="text-xs font-bold text-red-500">2H</span>
         </div>
       </div>
+      <!-- ✅ BOUTON PLAYER -->
+      <a href="./player.html" class="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg transition text-sm font-semibold text-slate-700">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        Player
+      </a>
     </div>
 
     <nav class="hidden lg:flex items-center gap-2">
@@ -283,7 +290,7 @@
   <section class="mb-6">
     <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-col lg:flex-row gap-3 lg:items-center">
       <div class="relative flex-1 min-w-[220px]">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></span>
         <input id="search" type="text" placeholder="Rechercher un match, une compétition, une chaîne…"
                class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:bg-white transition placeholder:text-slate-400">
       </div>
@@ -291,7 +298,7 @@
         <select id="date-select" class="select-ctrl w-full lg:w-auto">
           <option value="all">Toutes les dates</option>
         </select>
-        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">▾</span>
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></span>
       </div>
       <div class="relative">
         <select id="channel-select" class="select-ctrl w-full lg:w-auto">
@@ -324,7 +331,7 @@
 </div>
 
 <div id="install-banner" class="install-banner">
-  <span class="text-sm font-semibold">📲 Installer l'application</span>
+  <span class="text-sm font-semibold"> Installer l'application</span>
   <button id="install-btn" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full transition">Installer</button>
   <button id="dismiss-install" class="text-slate-400 hover:text-white ml-2">✕</button>
 </div>
@@ -335,18 +342,17 @@
 
 <script>
 const SPORT_EMOJI = {
-  'Football':'⚽','Rugby':'🏉','Tennis':'🎾','Cyclisme':'🚴','Basket-ball':'🏀',
+  'Football':'⚽','Rugby':'🏉','Tennis':'','Cyclisme':'🚴','Basket-ball':'🏀',
   'Formule 1':'🏎️','Handball':'🤾','Moto':'🏍️','Multisports':'🏅'
 };
 const emoji = s => SPORT_EMOJI[s] || '';
 
-// ✅ NOUVEAU : Durées typiques des émissions (en minutes) pour savoir quand un direct est TERMINÉ
 const SPORT_DURATION_MIN = {
-  'Football': 115,      // match + mi-temps
+  'Football': 115,
   'Rugby': 110,
   'Basket-ball': 110,
   'Handball': 110,
-  'Tennis': 200,        // session pouvant aller jusqu'à ~3h20
+  'Tennis': 200,
   'Cyclisme': 300,
   'Formule 1': 120,
   'Moto': 120,
@@ -356,9 +362,10 @@ const DEFAULT_DURATION_MIN = 120;
 
 let DATA = null;
 let CHANNELS_DATA = null;
-let LIVE_INDEX = null; // ✅ index des horaires par chaîne/date pour calculer la fin d'un direct
+let LIVE_INDEX = null;
 const state = { search:'', sport:'all', liveOnly:false, date:'all', channel:'all' };
 
+// ✅ FONCTION POUR TROUVER LE LOGO DEPUIS CHANNEL2.JSON
 function findLogoFromChannels(channelName) {
   if (!CHANNELS_DATA) return '';
   const normalizedChannel = channelName.toLowerCase().trim();
@@ -385,6 +392,7 @@ function getChannelLogo(channelName) {
   return findLogoFromChannels(channelName);
 }
 
+// ✅ OUVERTURE DU PLAYER DANS LE MÊME ONGLET
 function openPlayer(url, channel, logo, sport) {
   const params = new URLSearchParams({
     url: url,
@@ -393,7 +401,7 @@ function openPlayer(url, channel, logo, sport) {
     sport: sport || '',
     autoplay: '1'
   });
-  window.open(`player.html?${params.toString()}`, '_blank', 'noopener,noreferrer');
+  window.location.href = `player.html?${params.toString()}`;
 }
 
 function parseMatchTime(dateStr, timeStr) {
@@ -416,7 +424,6 @@ function isMatchPast(match) {
   return matchDate < new Date();
 }
 
-// ✅ NOUVEAU : construit l'index des horaires (par chaîne et par date)
 function buildLiveIndex() {
   LIVE_INDEX = {};
   for (const [channel, data] of Object.entries(DATA?.channels || {})) {
@@ -431,7 +438,6 @@ function buildLiveIndex() {
   }
 }
 
-// ✅ NOUVEAU : heure de fin estimée = min(programme suivant sur la chaîne, durée typique du sport)
 function getMatchEnd(match) {
   const start = parseMatchTime(match.date, match.time);
   if (!start) return null;
@@ -446,19 +452,17 @@ function getMatchEnd(match) {
   return end;
 }
 
-// ✅ CORRIGÉ : un direct = commencé ET pas encore terminé (fin estimée)
 function isCurrentlyLive(match) {
   if (!match.is_live) return false;
   const start = parseMatchTime(match.date, match.time);
   if (!start) return false;
   const now = Date.now();
   const startMs = start.getTime();
-  if (now < startMs) return false;          // pas encore commencé
+  if (now < startMs) return false;
   const end = getMatchEnd(match);
-  return end !== null && now < end;          // terminé → plus "direct"
+  return end !== null && now < end;
 }
 
-// ✅ NOUVEAU : minutes écoulées depuis le début du direct
 function liveElapsedMin(match) {
   const start = parseMatchTime(match.date, match.time);
   if (!start) return null;
@@ -502,7 +506,7 @@ function renderSelectors() {
   dateSelect.value = state.date;
 
   const channelSelect = document.getElementById('channel-select');
-  channelSelect.innerHTML = '<option value="all">📡 Toutes les chaînes</option>' +
+  channelSelect.innerHTML = '<option value="all"> Toutes les chaînes</option>' +
     Object.keys(DATA?.channels || {}).sort().map(c => `<option value="${c}">📡 ${c}</option>`).join('');
   channelSelect.value = state.channel;
 }
@@ -512,7 +516,6 @@ function renderLive() {
   const live = allMatches()
     .filter(m => isCurrentlyLive(m) && !seen.has(m.match) && seen.add(m.match))
     .sort((a, b) => {
-      // ✅ Trie du plus récemment commencé au plus ancien
       const ta = parseMatchTime(a.date, a.time)?.getTime() || 0;
       const tb = parseMatchTime(b.date, b.time)?.getTime() || 0;
       return tb - ta;
@@ -617,7 +620,7 @@ function openModal(match, channel) {
     ${scoreHtml}
     ${teamsHtml}
     <div class="modal-info-row">
-      <div class="modal-info-icon">🕒</div>
+      <div class="modal-info-icon"></div>
       <div>
         <div class="modal-info-label">Horaire</div>
         <div class="modal-info-value">${match.time} · ${formatDate(match.date)}</div>
@@ -776,7 +779,7 @@ function renderChannels() {
 }
 
 function render() {
-  buildLiveIndex(); // ✅ reconstruit l'index des horaires avant tout rendu
+  buildLiveIndex();
   renderSelectors(); renderLive(); renderChannels();
   const d = new Date(DATA.updated_at);
   document.getElementById('update-text').textContent =
@@ -799,7 +802,7 @@ async function load() {
         throw new Error('Gist non accessible');
       }
     } catch(e) {
-      console.warn('️ Impossible de charger channel2.json depuis le Gist:', e);
+      console.warn('⚠️ Impossible de charger channel2.json depuis le Gist:', e);
     }
 
     render();
@@ -880,7 +883,6 @@ window.addEventListener('appinstalled', () => {
 load();
 setInterval(load, 10 * 60 * 1000);
 
-// ✅ NOUVEAU : rafraîchit le statut "direct" toutes les 60 secondes (sans recharger les données)
 setInterval(() => {
   if (DATA) { renderLive(); }
 }, 60 * 1000);
