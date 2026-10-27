@@ -1,6 +1,6 @@
 {
   "name": "SportTV 2H",
-  "short_name": "SportTV",
+  "short_name": "SportTV 2H",
   "description": "Le programme sportif TV en direct et à venir, chaîne par chaîne.",
   "start_url": "./",
   "display": "standalone",
