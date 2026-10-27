@@ -1,11 +1,15 @@
-const CACHE_NAME = 'sporttv-v1';
+const CACHE_NAME = 'sporttv-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './player.html',
   './manifest.json',
   './data/schedule.json',
-  './icon-192.png',
-  './icon-512.png'
+  './web-app-manifest-192x192.png',
+  './web-app-manifest-512x512.png',
+  './apple-touch-icon.png',
+  './favicon.ico',
+  './favicon.svg'
 ];
 
 // Installation : mise en cache des fichiers essentiels
