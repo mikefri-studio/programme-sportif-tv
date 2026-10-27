@@ -1,9 +1,11 @@
 const CACHE_NAME = 'sporttv-v1';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/data/schedule.json'
+  './',
+  './index.html',
+  './manifest.json',
+  './data/schedule.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 // Installation : mise en cache des fichiers essentiels
@@ -11,8 +13,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
-      })
-    );
+    })
+  );
 });
 
 // Activation : nettoyage des anciens caches
