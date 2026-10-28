@@ -933,7 +933,9 @@ function openExternal() {
 }
 
 function openReportModal() {
-  window.open("https://docs.google.com/forms/d/e/1FAIpQLSeU6rnnsN005pbvhjA5Zj3vGNEYRRe3b7vQ7FKZh37uP13igA/viewform", "_blank");
+  const ENTRY_ID = "entry.1404862932"; // ⚠️ remplace par TON identifiant copié
+  const base = "https://docs.google.com/forms/d/e/1FAIpQLSeU6rnnsN005pbvhjA5Zj3vGNEYRRe3b7vQ7FKZh37uP13igA/viewform";
+  window.open(base + "?" + ENTRY_ID + "=" + encodeURIComponent(channelName), "_blank");
 }
 
 function showError(msg) {
