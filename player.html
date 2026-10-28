@@ -294,13 +294,12 @@
       transition: margin-left .35s ease, opacity .25s ease;
     }
     body.sidebar-collapsed .sidebar {
-      margin-left: -344px; /* 320px + gap 24px */
+      margin-left: -344px;
       opacity: 0;
       pointer-events: none;
     }
     .sidebar-collapse-btn { display: flex; }
 
-    /* Poignée au bord gauche pour rouvrir */
     .edge-handle {
       position: fixed;
       left: 0; top: 50%;
@@ -363,6 +362,196 @@
     .player-container { border-radius: 0; }
     .player-wrapper { border-radius: 0; box-shadow: none; }
   }
+
+  /* ===== MODAL SIGNALEMENT ===== */
+  .report-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .report-modal-overlay.active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .report-modal-content {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 28px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 440px;
+    color: white;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .report-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .report-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .report-modal-close {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+
+  .report-modal-close:hover {
+    background: rgba(239,68,68,0.3);
+  }
+
+  .report-modal-description {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .report-form-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 14px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    transition: all 0.15s ease;
+  }
+
+  .report-form-input:focus {
+    outline: none;
+    border-color: rgba(239,68,68,0.5);
+    background: rgba(0,0,0,0.4);
+  }
+
+  .report-form-input::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+
+  .report-form-textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 14px;
+    margin-bottom: 20px;
+    resize: vertical;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: all 0.15s ease;
+  }
+
+  .report-form-textarea:focus {
+    outline: none;
+    border-color: rgba(239,68,68,0.5);
+    background: rgba(0,0,0,0.4);
+  }
+
+  .report-form-textarea::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+
+  .report-form-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+
+  .report-btn-cancel {
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+
+  .report-btn-cancel:hover {
+    background: rgba(255,255,255,0.15);
+  }
+
+  .report-btn-submit {
+    padding: 10px 20px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.15s ease;
+  }
+
+  .report-btn-submit:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239,68,68,0.4);
+  }
+
+  .report-btn-submit:disabled {
+    background: #475569;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .report-info-box {
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .report-info-box strong {
+    color: #60a5fa;
+  }
 </style>
 </head>
 <body>
@@ -376,7 +565,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
-        <a href="/programme-sportif-tv/" class="underline hover:text-white/70">Retour à l'accueil</a>
+        <span class="hidden sm:inline">Retour</span>
       </button>
       
       <div class="flex items-center gap-2">
@@ -410,7 +599,7 @@
 <!-- Backdrop mobile -->
 <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
 
-<!-- ✅ Poignée au bord gauche (visible quand la sidebar est masquée sur desktop) -->
+<!-- Poignée au bord gauche -->
 <button class="edge-handle" onclick="toggleSidebar()" title="Afficher les chaînes (C)">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
     <polyline points="9 18 15 12 9 6"/>
@@ -420,7 +609,7 @@
 <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
   <div class="flex gap-6 items-start">
     
-    <!-- ===== SIDEBAR CHAÎNES (GAUCHE, MASQUABLE) ===== -->
+    <!-- SIDEBAR CHAÎNES -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <div class="sidebar-title">
@@ -432,13 +621,11 @@
             <span class="font-bold text-sm">Toutes les chaînes</span>
           </div>
           <div class="flex items-center gap-1">
-            <!-- ✅ Bouton masquer (desktop) -->
             <button class="sidebar-collapse-btn" onclick="toggleSidebar()" title="Masquer la liste (C)">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <polyline points="15 18 9 12 15 6"/>
               </svg>
             </button>
-            <!-- Bouton fermer (mobile) -->
             <button class="lg:hidden p-1.5 hover:bg-white/10 rounded-lg" onclick="toggleSidebar()">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -467,7 +654,7 @@
       <div class="sidebar-footer" id="sidebar-footer">—</div>
     </aside>
 
-    <!-- ===== COLONNE PLAYER ===== -->
+    <!-- COLONNE PLAYER -->
     <div class="flex-1 min-w-0">
       
       <div class="mb-4 flex flex-wrap items-center gap-3">
@@ -502,10 +689,7 @@
           </svg>
           <span class="text-sm font-semibold">Recharger</span>
         </button>
-        
 
-
-        <!-- ✅ Bouton afficher/masquer les chaînes (desktop) -->
         <button onclick="toggleSidebar()" class="control-btn hidden lg:flex" id="sidebar-toggle-btn" style="width:auto;padding:0 16px;gap:8px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
@@ -514,13 +698,13 @@
           <span class="text-sm font-semibold">Chaînes</span>
         </button>
         
-<button onclick="openReportModal()" class="control-btn" style="width:auto;padding:0 16px;gap:8px;">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <circle cx="12" cy="12" r="10"/>
-    <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-  </svg>
-  <span class="text-sm font-semibold">Signaler</span>
-</button>
+        <button onclick="openReportModal()" class="control-btn" style="width:auto;padding:0 16px;gap:8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span class="text-sm font-semibold">Signaler</span>
+        </button>
       </div>
 
       <div class="mt-6 p-4 bg-white/5 border border-white/10 rounded-xl">
@@ -535,8 +719,8 @@
             <p class="font-semibold text-white mb-1">💡 Astuces</p>
             <ul class="space-y-1 text-xs">
               <li>• Touche <strong>C</strong> ou bouton ◀ pour <strong>masquer/afficher</strong> la liste des chaînes</li>
-              
-              <li>• Pour activer le son, cliquez sur <strong>Clique sur Unmute</strong></li>
+              <li>• Appuie sur <strong>F</strong> pour le plein écran</li>
+              <li>• Pour activer le son, cliquez sur <strong>Unmute</strong></li>
               <li>• Clique sur une chaîne pour zapper instantanément</li>
             </ul>
           </div>
@@ -551,6 +735,54 @@
 <footer class="relative z-10 border-t border-white/10 py-4 mt-8 text-center text-xs text-white/40">
   Sport TV 2H · Lecteur intégré · <a href="/programme-sportif-tv/" class="underline hover:text-white/70">Retour à l'accueil</a>
 </footer>
+
+<!-- ===== MODAL DE SIGNALEMENT ===== -->
+<div id="report-modal" class="report-modal-overlay">
+  <div class="report-modal-content">
+    <div class="report-modal-header">
+      <div class="report-modal-title">
+        <span>🚨</span>
+        Signaler un problème
+      </div>
+      <button onclick="closeReportModal()" class="report-modal-close">✕</button>
+    </div>
+    
+    <p class="report-modal-description">
+      Décrivez le problème rencontré sur cette chaîne. Nous vous répondrons rapidement.
+    </p>
+    
+    <form action="https://formsubmit.co/mikefri.app@gmail.com" method="POST" id="report-form" onsubmit="handleSubmit(event)">
+      <!-- Configuration FormSubmit -->
+      <input type="hidden" name="_subject" value="🚨 Nouveau signalement SportTV 2H">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://mikefri-studio.github.io/programme-sportif-tv/player.html">
+      
+      <!-- Données automatiques -->
+      <input type="hidden" name="Chaîne" id="report-channel">
+      <input type="hidden" name="URL_du_flux" id="report-url">
+      <input type="hidden" name="Sport" id="report-sport">
+      
+      <!-- Info box -->
+      <div class="report-info-box">
+        <strong>📺 Chaîne :</strong> <span id="display-channel">—</span><br>
+        <strong>🏷️ Sport :</strong> <span id="display-sport">—</span>
+      </div>
+      
+      <!-- Email optionnel -->
+      <input type="email" name="Votre_email" placeholder="Votre email (optionnel, pour vous recontacter)" class="report-form-input">
+      
+      <!-- Message -->
+      <textarea name="Description_du_probleme" required placeholder="Décrivez le problème (ex: flux coupé, mauvais match, erreur 404, son coupé...)" class="report-form-textarea"></textarea>
+      
+      <!-- Boutons -->
+      <div class="report-form-buttons">
+        <button type="button" onclick="closeReportModal()" class="report-btn-cancel">Annuler</button>
+        <button type="submit" class="report-btn-submit" id="submit-btn">Envoyer</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
 const CHANNELS_URL = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channel2.json';
@@ -572,25 +804,22 @@ let isMuted = true;
 let ALL_CHANNELS = [];
 let sidebarState = { search: '', category: 'all' };
 
-// ===== ✅ GESTION SIDEBAR MASQUABLE =====
+// ===== GESTION SIDEBAR MASQUABLE =====
 function isMobile() { return window.innerWidth < 1024; }
 
 function toggleSidebar() {
   if (isMobile()) {
-    // Mode tiroir mobile
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('sidebar-backdrop');
     const isOpen = sidebar.classList.toggle('open');
     backdrop.classList.toggle('show', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   } else {
-    // Mode repli desktop (mémorisé)
     const collapsed = document.body.classList.toggle('sidebar-collapsed');
     try { localStorage.setItem('st2h_sidebar', collapsed ? 'closed' : 'open'); } catch(e) {}
   }
 }
 
-// Restaure la préférence au chargement
 (function initSidebar() {
   try {
     if (!isMobile() && localStorage.getItem('st2h_sidebar') === 'closed') {
@@ -599,7 +828,6 @@ function toggleSidebar() {
   } catch(e) {}
 })();
 
-// Nettoie le tiroir mobile si on repasse en desktop
 window.addEventListener('resize', () => {
   if (!isMobile()) {
     document.getElementById('sidebar').classList.remove('open');
@@ -612,7 +840,7 @@ window.addEventListener('resize', () => {
 function normalizeName(str) {
   return (str || '').toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[''‘´`]/g, "'")
+    .replace(/[''´`]/g, "'")
     .replace(/\s+/g, ' ');
 }
 
@@ -920,8 +1148,6 @@ function reloadPlayer() {
   loadPlayer();
 }
 
-
-
 function goBack() {
   if (document.referrer && document.referrer.includes(window.location.hostname)) {
     window.history.back();
@@ -954,10 +1180,47 @@ function openExternal() {
   if (streamUrl) window.open(streamUrl, '_blank', 'noopener,noreferrer');
 }
 
-function reportIssue() {
-  const message = encodeURIComponent(`Problème avec le flux : ${channelName}\nURL: ${streamUrl}`);
-  window.open(`https://github.com/mikefri/Teslatv01/issues/new?title=Problème+flux+${encodeURIComponent(channelName)}&body=${message}`, '_blank');
+// ===== MODAL SIGNALEMENT =====
+function openReportModal() {
+  // Remplir les champs cachés
+  document.getElementById('report-channel').value = channelName || 'Inconnue';
+  document.getElementById('report-url').value = streamUrl || 'Inconnue';
+  document.getElementById('report-sport').value = sport || 'Non renseigné';
+  
+  // Afficher les infos
+  document.getElementById('display-channel').textContent = channelName || 'Inconnue';
+  document.getElementById('display-sport').textContent = sport || 'Non renseigné';
+  
+  // Afficher le modal
+  document.getElementById('report-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  
+  // Focus sur le textarea
+  setTimeout(() => {
+    document.querySelector('textarea[name="Description_du_probleme"]').focus();
+  }, 100);
 }
+
+function closeReportModal() {
+  document.getElementById('report-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function handleSubmit(event) {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours...';
+  
+  // Laisser le formulaire se soumettre normalement
+  // FormSubmit redirigera vers la page de confirmation
+}
+
+// Fermer le modal si on clique en dehors
+document.getElementById('report-modal').addEventListener('click', (e) => {
+  if (e.target.id === 'report-modal') {
+    closeReportModal();
+  }
+});
 
 function showError(msg) {
   const container = document.getElementById('player-container');
@@ -978,54 +1241,21 @@ document.getElementById('channel-search').addEventListener('input', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (document.activeElement.tagName === 'INPUT') return;
+  // Ne pas déclencher les raccourcis si on est dans un input
+  if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+  
   if (e.key === 'f' || e.key === 'F') toggleFullscreen();
-  if (e.key === 'm' || e.key === 'M') toggleMute();
   if (e.key === 'c' || e.key === 'C') toggleSidebar();
   if (e.key === 'Escape') {
-    if (document.fullscreenElement) document.exitFullscreen();
-    else if (isMobile() && document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
-  }
-});
-
- function openReportModal() {
-  document.getElementById('report-channel').value = channelName || 'Inconnue';
-  document.getElementById('report-url').value = streamUrl || 'Inconnue';
-  document.getElementById('report-modal').style.display = 'flex';
-}
-
-// Fermer le modal si on clique en dehors
-document.getElementById('report-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'report-modal') {
-    document.getElementById('report-modal').style.display = 'none';
+    if (document.getElementById('report-modal').classList.contains('active')) {
+      closeReportModal();
+    } else if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else if (isMobile() && document.getElementById('sidebar').classList.contains('open')) {
+      toggleSidebar();
+    }
   }
 });
 </script>
- <!-- Modal de signalement -->
-<div id="report-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
-  <div style="background:#1e293b; padding:24px; border-radius:16px; width:90%; max-width:400px; color:white;">
-    <h3 class="text-lg font-bold mb-4">Signaler un problème</h3>
-    <form action="https://formsubmit.co/mikefri.app@gmail.com" method="POST">
-      <!-- Configuration FormSubmit -->
-      <input type="hidden" name="_subject" value="Nouveau signalement SportTV">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://mikefri-studio.github.io/programme-sportif-tv/player.html">
-      
-      <!-- Données automatiques -->
-      <input type="hidden" name="Chaîne" id="report-channel">
-      <input type="hidden" name="URL_Flux" id="report-url">
-      
-      <textarea name="Message" required placeholder="Décrivez le problème..." 
-        style="width:100%; height:100px; padding:12px; border-radius:8px; border:1px solid #475569; background:#0f172a; color:white; margin-bottom:16px; resize:none;"></textarea>
-      
-      <div style="display:flex; gap:12px; justify-content:flex-end;">
-        <button type="button" onclick="document.getElementById('report-modal').style.display='none'" 
-          style="padding:8px 16px; background:#475569; color:white; border:none; border-radius:8px; cursor:pointer;">Annuler</button>
-.        <button type="submit" 
-          style="padding:8px 16px; background:#ef4444; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Envoyer</button>
-      </div>
-    </form>
-  </div>
-</div>
 </body>
 </html>
