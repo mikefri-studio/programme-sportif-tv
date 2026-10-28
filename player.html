@@ -359,6 +359,131 @@
     .player-container { border-radius: 0; }
     .player-wrapper { border-radius: 0; box-shadow: none; }
   }
+
+  /* ===== MODAL SIGNALEMENT (IFRAME) ===== */
+  .report-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .report-modal-overlay.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .report-modal-content {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    color: white;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+    animation: slideUp 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .report-modal-header {
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+
+  .report-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .report-modal-close {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+
+  .report-modal-close:hover {
+    background: rgba(239,68,68,0.3);
+    transform: scale(1.05);
+  }
+
+  .report-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    background: #fff;
+  }
+
+  .report-modal-body iframe {
+    width: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .report-modal-footer {
+    padding: 12px 20px;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .report-info-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .report-info-text strong {
+    color: #60a5fa;
+  }
+
+  .report-external-link {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.15s ease;
+  }
+
+  .report-external-link:hover {
+    color: white;
+  }
 </style>
 </head>
 <body>
@@ -539,8 +664,51 @@
   Sport TV 2H · Lecteur intégré · <a href="/programme-sportif-tv/" class="underline hover:text-white/70">Retour à l'accueil</a>
 </footer>
 
+<!-- ===== MODAL SIGNALEMENT (IFRAME GOOGLE FORM) ===== -->
+<div id="report-modal" class="report-modal-overlay" onclick="if(event.target===this)closeReportModal()">
+  <div class="report-modal-content">
+    <div class="report-modal-header">
+      <div class="report-modal-title">
+        <span>🚨</span>
+        <span>Signaler un problème</span>
+      </div>
+      <button onclick="closeReportModal()" class="report-modal-close" title="Fermer (Échap)">✕</button>
+    </div>
+    
+    <div class="report-modal-body">
+      <iframe 
+        id="report-iframe" 
+        src="about:blank"
+        height="641"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">
+        Chargement…
+      </iframe>
+    </div>
+    
+    <div class="report-modal-footer">
+      <div class="report-info-text">
+        <strong>📺 Chaîne actuelle :</strong> <span id="display-channel">—</span>
+      </div>
+      <a href="#" id="external-form-link" target="_blank" rel="noopener noreferrer" class="report-external-link">
+        Ouvrir dans un nouvel onglet
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
 <script>
 const CHANNELS_URL = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channel2.json';
+
+// ⚠️ REMPLACE par ton identifiant Google Forms (trouvé dans "Obtenir un lien pré-rempli")
+const GOOGLE_FORM_ENTRY_ID = "entry.1234567890";
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeU6rnnsN005pbvhjA5Zj3vGNEYRRe3b7vQ7FKZh37uP13igA/viewform";
+const GOOGLE_FORM_EMBED_URL = GOOGLE_FORM_URL + "?embedded=true";
 
 const params = new URLSearchParams(window.location.search);
 let streamUrl = params.get('url');
@@ -932,10 +1100,35 @@ function openExternal() {
   if (streamUrl) window.open(streamUrl, '_blank', 'noopener,noreferrer');
 }
 
+// ===== MODAL SIGNALEMENT =====
 function openReportModal() {
-  const ENTRY_ID = "entry.1404862932"; // ⚠️ remplace par TON identifiant copié
-  const base = "https://docs.google.com/forms/d/e/1FAIpQLSeU6rnnsN005pbvhjA5Zj3vGNEYRRe3b7vQ7FKZh37uP13igA/viewform";
-  window.open(base + "?" + ENTRY_ID + "=" + encodeURIComponent(channelName), "_blank");
+  const iframe = document.getElementById('report-iframe');
+  const channelDisplay = document.getElementById('display-channel');
+  const externalLink = document.getElementById('external-form-link');
+  
+  // Afficher la chaîne en cours
+  channelDisplay.textContent = channelName || 'Inconnue';
+  
+  // Créer le lien externe avec pré-remplissage de la chaîne
+  if (GOOGLE_FORM_ENTRY_ID && GOOGLE_FORM_ENTRY_ID !== "entry.1234567890") {
+    const externalUrl = GOOGLE_FORM_URL + "?" + GOOGLE_FORM_ENTRY_ID + "=" + encodeURIComponent(channelName);
+    externalLink.href = externalUrl;
+  } else {
+    externalLink.href = GOOGLE_FORM_URL;
+  }
+  
+  // Charger l'iframe
+  iframe.src = GOOGLE_FORM_EMBED_URL;
+  
+  // Afficher le modal
+  document.getElementById('report-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReportModal() {
+  document.getElementById('report-modal').classList.remove('active');
+  document.getElementById('report-iframe').src = 'about:blank';
+  document.body.style.overflow = '';
 }
 
 function showError(msg) {
@@ -962,7 +1155,9 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'f' || e.key === 'F') toggleFullscreen();
   if (e.key === 'c' || e.key === 'C') toggleSidebar();
   if (e.key === 'Escape') {
-    if (document.fullscreenElement) {
+    if (document.getElementById('report-modal').classList.contains('active')) {
+      closeReportModal();
+    } else if (document.fullscreenElement) {
       document.exitFullscreen();
     } else if (isMobile() && document.getElementById('sidebar').classList.contains('open')) {
       toggleSidebar();
