@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sporttv-v3';
+const CACHE_NAME = 'sporttv-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
