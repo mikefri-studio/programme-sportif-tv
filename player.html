@@ -987,12 +987,25 @@ document.addEventListener('keydown', (e) => {
     else if (isMobile() && document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
   }
 });
+
+ function openReportModal() {
+  document.getElementById('report-channel').value = channelName || 'Inconnue';
+  document.getElementById('report-url').value = streamUrl || 'Inconnue';
+  document.getElementById('report-modal').style.display = 'flex';
+}
+
+// Fermer le modal si on clique en dehors
+document.getElementById('report-modal').addEventListener('click', (e) => {
+  if (e.target.id === 'report-modal') {
+    document.getElementById('report-modal').style.display = 'none';
+  }
+});
 </script>
  <!-- Modal de signalement -->
 <div id="report-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
   <div style="background:#1e293b; padding:24px; border-radius:16px; width:90%; max-width:400px; color:white;">
     <h3 class="text-lg font-bold mb-4">Signaler un problème</h3>
-    <form action="https://formsubmit.co/VOTRE_EMAIL@GMAIL.COM" method="POST">
+    <form action="https://formsubmit.co/mikefri.app@gmail.com" method="POST">
       <!-- Configuration FormSubmit -->
       <input type="hidden" name="_subject" value="Nouveau signalement SportTV">
       <input type="hidden" name="_captcha" value="false">
