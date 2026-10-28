@@ -137,7 +137,6 @@
     border-radius: 12px; padding: 20px; text-align: center;
   }
 
-  /* ===== SIDEBAR GAUCHE ===== */
   .sidebar {
     width: 320px;
     flex-shrink: 0;
@@ -288,7 +287,6 @@
     font-size: 13px;
   }
 
-  /* ===== ✅ DESKTOP : sidebar masquable avec animation ===== */
   @media (min-width: 1024px) {
     .sidebar {
       transition: margin-left .35s ease, opacity .25s ease;
@@ -327,7 +325,6 @@
     body.sidebar-collapsed .edge-handle { display: flex; }
   }
 
-  /* ===== Mobile : drawer à gauche ===== */
   @media (max-width: 1023px) {
     .sidebar {
       position: fixed;
@@ -361,196 +358,6 @@
   @media (max-width: 640px) {
     .player-container { border-radius: 0; }
     .player-wrapper { border-radius: 0; box-shadow: none; }
-  }
-
-  /* ===== MODAL SIGNALEMENT ===== */
-  .report-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    animation: fadeIn 0.2s ease;
-  }
-
-  .report-modal-overlay.active {
-    display: flex;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .report-modal-content {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    padding: 28px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 440px;
-    color: white;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
-    animation: slideUp 0.3s ease;
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  .report-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .report-modal-title {
-    font-size: 20px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .report-modal-close {
-    background: rgba(255,255,255,0.1);
-    border: none;
-    color: white;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
-  }
-
-  .report-modal-close:hover {
-    background: rgba(239,68,68,0.3);
-  }
-
-  .report-modal-description {
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-
-  .report-form-input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(0,0,0,0.3);
-    color: white;
-    font-size: 14px;
-    margin-bottom: 12px;
-    box-sizing: border-box;
-    transition: all 0.15s ease;
-  }
-
-  .report-form-input:focus {
-    outline: none;
-    border-color: rgba(239,68,68,0.5);
-    background: rgba(0,0,0,0.4);
-  }
-
-  .report-form-input::placeholder {
-    color: rgba(255,255,255,0.4);
-  }
-
-  .report-form-textarea {
-    width: 100%;
-    height: 120px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(0,0,0,0.3);
-    color: white;
-    font-size: 14px;
-    margin-bottom: 20px;
-    resize: vertical;
-    font-family: inherit;
-    box-sizing: border-box;
-    transition: all 0.15s ease;
-  }
-
-  .report-form-textarea:focus {
-    outline: none;
-    border-color: rgba(239,68,68,0.5);
-    background: rgba(0,0,0,0.4);
-  }
-
-  .report-form-textarea::placeholder {
-    color: rgba(255,255,255,0.4);
-  }
-
-  .report-form-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-  }
-
-  .report-btn-cancel {
-    padding: 10px 20px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.15s ease;
-  }
-
-  .report-btn-cancel:hover {
-    background: rgba(255,255,255,0.15);
-  }
-
-  .report-btn-submit {
-    padding: 10px 20px;
-    background: #ef4444;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 700;
-    transition: all 0.15s ease;
-  }
-
-  .report-btn-submit:hover {
-    background: #dc2626;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(239,68,68,0.4);
-  }
-
-  .report-btn-submit:disabled {
-    background: #475569;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .report-info-box {
-    background: rgba(59,130,246,0.1);
-    border: 1px solid rgba(59,130,246,0.3);
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 16px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.8);
-  }
-
-  .report-info-box strong {
-    color: #60a5fa;
   }
 </style>
 </head>
@@ -596,10 +403,8 @@
   </div>
 </header>
 
-<!-- Backdrop mobile -->
 <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
 
-<!-- Poignée au bord gauche -->
 <button class="edge-handle" onclick="toggleSidebar()" title="Afficher les chaînes (C)">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
     <polyline points="9 18 15 12 9 6"/>
@@ -609,7 +414,6 @@
 <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6">
   <div class="flex gap-6 items-start">
     
-    <!-- SIDEBAR CHAÎNES -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <div class="sidebar-title">
@@ -654,7 +458,6 @@
       <div class="sidebar-footer" id="sidebar-footer">—</div>
     </aside>
 
-    <!-- COLONNE PLAYER -->
     <div class="flex-1 min-w-0">
       
       <div class="mb-4 flex flex-wrap items-center gap-3">
@@ -736,54 +539,6 @@
   Sport TV 2H · Lecteur intégré · <a href="/programme-sportif-tv/" class="underline hover:text-white/70">Retour à l'accueil</a>
 </footer>
 
-<!-- ===== MODAL DE SIGNALEMENT ===== -->
-<div id="report-modal" class="report-modal-overlay">
-  <div class="report-modal-content">
-    <div class="report-modal-header">
-      <div class="report-modal-title">
-        <span>🚨</span>
-        Signaler un problème
-      </div>
-      <button onclick="closeReportModal()" class="report-modal-close">✕</button>
-    </div>
-    
-    <p class="report-modal-description">
-      Décrivez le problème rencontré sur cette chaîne. Nous vous répondrons rapidement.
-    </p>
-    
-    <form action="https://formsubmit.co/mikefri.app@gmail.com" method="POST" id="report-form" onsubmit="handleSubmit(event)">
-      <!-- Configuration FormSubmit -->
-      <input type="hidden" name="_subject" value="🚨 Nouveau signalement SportTV 2H">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" value="https://mikefri-studio.github.io/programme-sportif-tv/player.html">
-      
-      <!-- Données automatiques -->
-      <input type="hidden" name="Chaîne" id="report-channel">
-      <input type="hidden" name="URL_du_flux" id="report-url">
-      <input type="hidden" name="Sport" id="report-sport">
-      
-      <!-- Info box -->
-      <div class="report-info-box">
-        <strong>📺 Chaîne :</strong> <span id="display-channel">—</span><br>
-        <strong>🏷️ Sport :</strong> <span id="display-sport">—</span>
-      </div>
-      
-      <!-- Email optionnel -->
-      <input type="email" name="Votre_email" placeholder="Votre email (optionnel, pour vous recontacter)" class="report-form-input">
-      
-      <!-- Message -->
-      <textarea name="Description_du_probleme" required placeholder="Décrivez le problème (ex: flux coupé, mauvais match, erreur 404, son coupé...)" class="report-form-textarea"></textarea>
-      
-      <!-- Boutons -->
-      <div class="report-form-buttons">
-        <button type="button" onclick="closeReportModal()" class="report-btn-cancel">Annuler</button>
-        <button type="submit" class="report-btn-submit" id="submit-btn">Envoyer</button>
-      </div>
-    </form>
-  </div>
-</div>
-
 <script>
 const CHANNELS_URL = 'https://gist.githubusercontent.com/mikefri/5f10333ea977f5851f0506827fb1243b/raw/channel2.json';
 
@@ -804,7 +559,6 @@ let isMuted = true;
 let ALL_CHANNELS = [];
 let sidebarState = { search: '', category: 'all' };
 
-// ===== GESTION SIDEBAR MASQUABLE =====
 function isMobile() { return window.innerWidth < 1024; }
 
 function toggleSidebar() {
@@ -836,7 +590,6 @@ window.addEventListener('resize', () => {
   }
 });
 
-// ===== UTILITAIRES =====
 function normalizeName(str) {
   return (str || '').toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -909,7 +662,6 @@ function updateNowPlaying() {
     .catch(() => { el.textContent = 'Programme non disponible'; });
 }
 
-// ===== LISTE DES CHAÎNES =====
 async function loadChannelList() {
   try {
     const r = await fetch(CHANNELS_URL + '?t=' + Date.now());
@@ -1180,47 +932,9 @@ function openExternal() {
   if (streamUrl) window.open(streamUrl, '_blank', 'noopener,noreferrer');
 }
 
-// ===== MODAL SIGNALEMENT =====
 function openReportModal() {
-  // Remplir les champs cachés
-  document.getElementById('report-channel').value = channelName || 'Inconnue';
-  document.getElementById('report-url').value = streamUrl || 'Inconnue';
-  document.getElementById('report-sport').value = sport || 'Non renseigné';
-  
-  // Afficher les infos
-  document.getElementById('display-channel').textContent = channelName || 'Inconnue';
-  document.getElementById('display-sport').textContent = sport || 'Non renseigné';
-  
-  // Afficher le modal
-  document.getElementById('report-modal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-  
-  // Focus sur le textarea
-  setTimeout(() => {
-    document.querySelector('textarea[name="Description_du_probleme"]').focus();
-  }, 100);
+  window.open("https://docs.google.com/forms/d/e/1FAIpQLSeU6rnnsN005pbvhjA5Zj3vGNEYRRe3b7vQ7FKZh37uP13igA/viewform", "_blank");
 }
-
-function closeReportModal() {
-  document.getElementById('report-modal').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function handleSubmit(event) {
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = 'Envoi en cours...';
-  
-  // Laisser le formulaire se soumettre normalement
-  // FormSubmit redirigera vers la page de confirmation
-}
-
-// Fermer le modal si on clique en dehors
-document.getElementById('report-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'report-modal') {
-    closeReportModal();
-  }
-});
 
 function showError(msg) {
   const container = document.getElementById('player-container');
@@ -1241,15 +955,12 @@ document.getElementById('channel-search').addEventListener('input', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  // Ne pas déclencher les raccourcis si on est dans un input
   if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
   
   if (e.key === 'f' || e.key === 'F') toggleFullscreen();
   if (e.key === 'c' || e.key === 'C') toggleSidebar();
   if (e.key === 'Escape') {
-    if (document.getElementById('report-modal').classList.contains('active')) {
-      closeReportModal();
-    } else if (document.fullscreenElement) {
+    if (document.fullscreenElement) {
       document.exitFullscreen();
     } else if (isMobile() && document.getElementById('sidebar').classList.contains('open')) {
       toggleSidebar();
