@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-10-29T14:51:48.730184",
+  "updated_at": "2026-10-29T22:15:52.232955",
   "source": "tv-sports.fr",
-  "total_matches": 2984,
+  "total_matches": 2982,
   "total_channels": 34,
   "channels": {
     "RMC Sport 1": {
@@ -9635,7 +9635,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "09h34",
+          "time": "09h35",
           "sport": "Football",
           "competition": "Premier League",
           "match": "Manchester United – Bournemouth",
@@ -9671,7 +9671,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "15h27",
+          "time": "15h28",
           "sport": "Football",
           "competition": "",
           "match": "Fractionné Football",
@@ -9698,7 +9698,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "19h13",
+          "time": "19h14",
           "sport": "Football",
           "competition": "",
           "match": "Late Football Club",
@@ -11008,7 +11008,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "15h30",
+          "time": "15h00",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Vienne 2026",
@@ -11017,7 +11017,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "17h30",
+          "time": "17h27",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Vienne 2026",
@@ -11026,7 +11026,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "18h00",
+          "time": "17h57",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Bâle 2026",
@@ -11035,7 +11035,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "20h00",
+          "time": "19h57",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Bâle 2026",
@@ -11044,7 +11044,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "22h00",
+          "time": "21h57",
           "sport": "Multisports",
           "competition": "",
           "match": "Open de Shenzhen",
@@ -11053,7 +11053,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "00h00",
+          "time": "00h01",
           "sport": "Multisports",
           "competition": "",
           "match": "Finale relais mixte",
@@ -11062,7 +11062,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "01h00",
+          "time": "00h47",
           "sport": "Multisports",
           "competition": "",
           "match": "Relais dames et messieurs",
@@ -11071,7 +11071,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "02h00",
+          "time": "01h53",
           "sport": "Multisports",
           "competition": "",
           "match": "Open de Shenzhen",
@@ -19481,7 +19481,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "09h31",
+          "time": "09h35",
           "sport": "Multisports",
           "competition": "",
           "match": "Zapsport 360",
@@ -19490,7 +19490,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "09h36",
+          "time": "09h38",
           "sport": "Football",
           "competition": "",
           "match": "Histoire de Champions",
@@ -19499,7 +19499,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "11h29",
+          "time": "11h32",
           "sport": "Football",
           "competition": "",
           "match": "05/06/2027 En route pour Madrid",
@@ -19508,7 +19508,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "15h35",
+          "time": "15h36",
           "sport": "Multisports",
           "competition": "",
           "match": "Zapsport 360",
@@ -19526,7 +19526,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "17h48",
+          "time": "17h53",
           "sport": "Multisports",
           "competition": "",
           "match": "Zapsport 360",
@@ -19544,7 +19544,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "20h30",
+          "time": "20h31",
           "sport": "Formule 1",
           "competition": "Formule 1",
           "match": "Formula One, le mag",
@@ -19553,7 +19553,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "21h00",
+          "time": "21h02",
           "sport": "Multisports",
           "competition": "",
           "match": "Rallye Club",
@@ -19562,7 +19562,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "21h26",
+          "time": "21h35",
           "sport": "Multisports",
           "competition": "",
           "match": "Rallye ERC, Rallye du Portugal 2026",
@@ -19571,16 +19571,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "23h27",
-          "sport": "Multisports",
-          "competition": "",
-          "match": "Zapsport 360",
-          "is_live": false,
-          "date": "2026-10-29",
-          "source": "tv-sports.fr"
-        },
-        {
-          "time": "23h29",
+          "time": "23h37",
           "sport": "Multisports",
           "competition": "",
           "match": "Grand Prix de Genève",
@@ -19635,15 +19626,6 @@
         },
         {
           "time": "04h40",
-          "sport": "Multisports",
-          "competition": "",
-          "match": "Zapsport 360",
-          "is_live": false,
-          "date": "2026-10-30",
-          "source": "tv-sports.fr"
-        },
-        {
-          "time": "04h42",
           "sport": "Formule 1",
           "competition": "Formule 1",
           "match": "On Board F1",
@@ -21439,7 +21421,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "12h32",
+          "time": "12h30",
           "sport": "Multisports",
           "competition": "",
           "match": "Open de Shenzhen",
@@ -21448,7 +21430,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "14h00",
+          "time": "13h57",
           "sport": "Multisports",
           "competition": "",
           "match": "Allemagne – Ecosse",
@@ -21457,7 +21439,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "16h00",
+          "time": "15h50",
           "sport": "Multisports",
           "competition": "",
           "match": "Allemagne – Pays-Bas",
@@ -21466,7 +21448,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "17h58",
+          "time": "17h49",
           "sport": "Multisports",
           "competition": "",
           "match": "Relais mixte",
@@ -21475,7 +21457,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "18h58",
+          "time": "18h48",
           "sport": "Multisports",
           "competition": "",
           "match": "Relais dames et messieurs",
@@ -21484,7 +21466,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "20h00",
+          "time": "19h51",
           "sport": "Multisports",
           "competition": "",
           "match": "Open de Shenzhen",
@@ -21493,7 +21475,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "21h00",
+          "time": "20h49",
           "sport": "Multisports",
           "competition": "",
           "match": "Equitation Coupe du monde de saut d'obstacles 2026",
@@ -21502,7 +21484,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "22h00",
+          "time": "21h52",
           "sport": "Multisports",
           "competition": "",
           "match": "Allemagne – Ecosse",
@@ -21511,16 +21493,16 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "00h00",
+          "time": "23h50",
           "sport": "Multisports",
           "competition": "",
           "match": "Open de Shenzhen",
           "is_live": false,
-          "date": "2026-10-30",
+          "date": "2026-10-29",
           "source": "tv-sports.fr"
         },
         {
-          "time": "01h30",
+          "time": "01h23",
           "sport": "Multisports",
           "competition": "",
           "match": "6 Heures d'Austin",
