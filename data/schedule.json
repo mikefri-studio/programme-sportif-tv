@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-10-30T14:44:28.104012",
+  "updated_at": "2026-10-30T21:51:10.743528",
   "source": "tv-sports.fr",
-  "total_matches": 3127,
+  "total_matches": 3128,
   "total_channels": 34,
   "channels": {
     "MGG TV": {
@@ -2992,15 +2992,6 @@
           "sport": "Football",
           "competition": "Premier League",
           "match": "Football Premier League 2026-2027",
-          "is_live": false,
-          "date": "2026-10-31",
-          "source": "tv-sports.fr"
-        },
-        {
-          "time": "07h24",
-          "sport": "Football",
-          "competition": "",
-          "match": "05/06/2027 En route pour Madrid",
           "is_live": false,
           "date": "2026-10-31",
           "source": "tv-sports.fr"
@@ -9495,7 +9486,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "15h30",
+          "time": "15h47",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Vienne 2026",
@@ -9504,7 +9495,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "17h30",
+          "time": "17h47",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Vienne 2026",
@@ -9513,7 +9504,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "18h00",
+          "time": "18h17",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Bâle 2026",
@@ -9522,7 +9513,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "20h00",
+          "time": "20h17",
           "sport": "Tennis",
           "competition": "ATP",
           "match": "Tennis Tournoi ATP de Bâle 2026",
@@ -9531,7 +9522,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "22h00",
+          "time": "22h17",
           "sport": "Multisports",
           "competition": "",
           "match": "Muju Trail. Les meilleurs moments",
@@ -9540,7 +9531,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "22h30",
+          "time": "22h47",
           "sport": "Multisports",
           "competition": "",
           "match": "Open d'Irlande du Nord",
@@ -9549,7 +9540,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "00h00",
+          "time": "00h17",
           "sport": "Multisports",
           "competition": "",
           "match": "Finale messieurs",
@@ -9558,7 +9549,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "01h00",
+          "time": "01h10",
           "sport": "Multisports",
           "competition": "",
           "match": "Finale dames",
@@ -15892,6 +15883,24 @@
           "source": "tv-sports.fr"
         },
         {
+          "time": "02h20",
+          "sport": "Multisports",
+          "competition": "",
+          "match": "Pelote basque Championnats du monde 2026",
+          "is_live": false,
+          "date": "2026-10-31",
+          "source": "tv-sports.fr"
+        },
+        {
+          "time": "04h55",
+          "sport": "Multisports",
+          "competition": "",
+          "match": "Automobilisme Drift Masters 2026",
+          "is_live": false,
+          "date": "2026-10-31",
+          "source": "tv-sports.fr"
+        },
+        {
           "time": "08h30",
           "sport": "Multisports",
           "competition": "",
@@ -22096,7 +22105,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "11h33",
+          "time": "11h42",
           "sport": "Multisports",
           "competition": "",
           "match": "Tour de Lombardie",
@@ -22105,7 +22114,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "12h33",
+          "time": "12h29",
           "sport": "Multisports",
           "competition": "",
           "match": "Open d'Irlande du Nord",
@@ -22114,7 +22123,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "14h03",
+          "time": "13h57",
           "sport": "Multisports",
           "competition": "",
           "match": "Tchéquie – Suède",
@@ -22123,7 +22132,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "16h03",
+          "time": "15h53",
           "sport": "Multisports",
           "competition": "",
           "match": "République tchèque – Allemagne",
@@ -22132,7 +22141,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "17h03",
+          "time": "16h51",
           "sport": "Multisports",
           "competition": "",
           "match": "Relais dames et messieurs",
@@ -22141,7 +22150,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "17h46",
+          "time": "17h34",
           "sport": "Multisports",
           "competition": "",
           "match": "Finale relais mixte",
@@ -22150,7 +22159,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "18h33",
+          "time": "18h20",
           "sport": "Multisports",
           "competition": "",
           "match": "Italie – Allemagne",
@@ -22159,7 +22168,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "20h30",
+          "time": "20h20",
           "sport": "Multisports",
           "competition": "",
           "match": "République tchèque – Allemagne",
@@ -22168,7 +22177,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "22h00",
+          "time": "21h48",
           "sport": "Multisports",
           "competition": "",
           "match": "Tour de Lombardie",
@@ -22177,12 +22186,12 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "00h00",
+          "time": "23h48",
           "sport": "Multisports",
           "competition": "",
           "match": "Open d'Irlande du Nord",
           "is_live": false,
-          "date": "2026-10-31",
+          "date": "2026-10-30",
           "source": "tv-sports.fr"
         },
         {
@@ -23433,7 +23442,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "09h11",
+          "time": "09h12",
           "sport": "Multisports",
           "competition": "",
           "match": "Sail GP : Racing on the Edge",
@@ -23442,7 +23451,7 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "09h37",
+          "time": "09h41",
           "sport": "Multisports",
           "competition": "",
           "match": "Rallye ERC, Rallye du Portugal 2026",
@@ -23451,16 +23460,16 @@
           "source": "tv-sports.fr"
         },
         {
-          "time": "10h04",
+          "time": "10h09",
           "sport": "Formule 1",
           "competition": "Formule 1",
-          "match": "On Board F1",
+          "match": "Fractionné F1",
           "is_live": false,
           "date": "2026-10-30",
           "source": "tv-sports.fr"
         },
         {
-          "time": "10h36",
+          "time": "10h34",
           "sport": "Moto",
           "competition": "",
           "match": "Grand Prix de Malaisie — Essais des Moto GP",
